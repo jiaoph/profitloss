@@ -36,7 +36,7 @@ export default {
       width: 100%;
       padding-top: 16px;
       >.tab{
-        width: 404px;
+        width: 416px;
         padding-left: 40px;
       }
       >.barChart{

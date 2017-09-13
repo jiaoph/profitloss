@@ -5,7 +5,9 @@
       <div class="tab fl clear">
         <Tabs></Tabs>
       </div>
-      <div class="barChart fr"></div>
+      <div class="barChart fr">
+        <Chart></Chart>
+      </div>
     </div>
   </div>
 </template>
@@ -13,12 +15,14 @@
 <script>
 import Crumbs from './Crumbs.vue'
 import Tabs from './Tabs.vue'
+import Chart from './Chart.vue'
 
 export default {
   name: 'contentWrap',
   components: {
     Crumbs,
-    Tabs
+    Tabs,
+    Chart
   }
 }
 </script>
@@ -40,9 +44,8 @@ export default {
         padding-left: 40px;
       }
       >.barChart{
-        width: 506px;
-        height: 30px;
-        background-color:red;
+        width: 510px;
+        padding-right: 100px;
       }
     }
 }

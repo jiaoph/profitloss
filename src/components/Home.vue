@@ -24,10 +24,10 @@
       <h2 class="subtitle">主营业成本</h2>
       <div class="content clearfix">
         <div class="pie fl">
-          <!--<PieChart></PieChart>-->
+          <PieChartCosts></PieChartCosts>
         </div>
         <div class="tableIncome fl">
-          <!--<TableIncome></TableIncome>-->
+          <TableCosts></TableCosts>
         </div>
       </div>
     </div>
@@ -40,6 +40,8 @@ import Tabs from './Tabs.vue'
 import BarChart from './BarChart.vue'
 import PieChart from './PieChart.vue'
 import TableIncome from './TableIncome.vue'
+import PieChartCosts from './PieChartCosts.vue'
+import TableCosts from './TableCosts.vue'
 
 export default {
   name: 'contentWrap',
@@ -48,7 +50,9 @@ export default {
     Tabs,
     BarChart,
     PieChart,
-    TableIncome
+    TableIncome,
+    PieChartCosts,
+    TableCosts
   }
 }
 </script>

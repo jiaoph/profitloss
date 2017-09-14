@@ -6,8 +6,15 @@
         <Tabs></Tabs>
       </div>
       <div class="barChart fr">
-        <Chart></Chart>
+        <BarChart></BarChart>
       </div>
+    </div>
+    <div class="OpeIncome clearfix">
+      <h2 class="subtitle">主营业收入</h2>
+      <div class="pie fl">
+        <PieChart></PieChart>
+      </div>
+      <div class="tableIncome fl"></div>
     </div>
   </div>
 </template>
@@ -15,14 +22,16 @@
 <script>
 import Crumbs from './Crumbs.vue'
 import Tabs from './Tabs.vue'
-import Chart from './Chart.vue'
+import BarChart from './BarChart.vue'
+import PieChart from './PieChart.vue'
 
 export default {
   name: 'contentWrap',
   components: {
     Crumbs,
     Tabs,
-    Chart
+    BarChart,
+    PieChart
   }
 }
 </script>
@@ -46,6 +55,18 @@ export default {
       >.barChart{
         width: 510px;
         padding-right: 100px;
+      }
+    }
+    >.OpeIncome{
+      width: 100%;
+      padding:40px 0 0 40px;
+      >.subtitle{
+        font-size: 20px;
+        font-weight: normal;
+      }
+      >.pie{
+        margin-left: 40px;
+        padding: 20px;
       }
     }
 }

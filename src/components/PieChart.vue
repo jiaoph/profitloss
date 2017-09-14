@@ -17,7 +17,7 @@ export default {
         trigger: 'item',
         formatter: "{a} <br/>{b}: {c} ({d}%)"
       },
-      color:['#CAD879','#97C681','#4A9973','#FBB661','#DEE598'],
+      color:['#97C681','#CAD879','#FBB661','#DEE598','#4A9973'],
       legend: {
         orient: 'vertical',
         x: 'left',
@@ -28,7 +28,7 @@ export default {
           name: '主营业收入',
           type: 'pie',
           radius: ['50%', '90%'],
-          center: ['50%', '50%'],
+          // center: ['50%', '50%'],
           avoidLabelOverlap: false,
           label: {
             normal: {
@@ -65,9 +65,9 @@ export default {
 
 <style scoped>
 .pieWrap {
-  width: 350px;
+  width: 330px;
   height: 300px;
-  padding-top:70px;
+  /*padding-top:70px;*/
 }
 </style>
 

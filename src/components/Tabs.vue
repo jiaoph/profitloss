@@ -2,10 +2,10 @@
   <div id="tabWrap">
     <div class="intab">
       <ul class="tab_head clearfix">
-        <li>
+        <li class="active">
           <span>营业利润表</span>
         </li>
-        <li class="active">
+        <li>
           <span>现金流量表</span>
         </li>
         <li>

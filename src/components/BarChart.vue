@@ -10,7 +10,7 @@ var echarts = require('echarts/lib/echarts');
 require('echarts/lib/chart/bar');
 // 引入提示框和标题组件
 require('echarts/lib/component/tooltip');
-require('echarts/lib/component/legend');
+// require('echarts/lib/component/legend'); 
 
 export default {
     mounted() {

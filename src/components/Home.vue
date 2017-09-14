@@ -9,7 +9,7 @@
         <BarChart></BarChart>
       </div>
     </div>
-    <div class="OpeIncome">
+    <div class="opeIncome">
       <h2 class="subtitle">主营业收入</h2>
       <div class="content clearfix">
         <div class="pie fl">
@@ -17,6 +17,17 @@
         </div>
         <div class="tableIncome fl">
           <TableIncome></TableIncome>
+        </div>
+      </div>
+    </div>
+    <div class="opeIncome opeCosts">
+      <h2 class="subtitle">主营业成本</h2>
+      <div class="content clearfix">
+        <div class="pie fl">
+          <!--<PieChart></PieChart>-->
+        </div>
+        <div class="tableIncome fl">
+          <!--<TableIncome></TableIncome>-->
         </div>
       </div>
     </div>
@@ -63,9 +74,10 @@ export default {
       padding-right: 100px;
     }
   }
-  >.OpeIncome {
+  >.opeIncome {
     width: 100%;
-    padding: 40px 0 0 40px;
+    padding: 40px 0 70px 40px;
+    border-bottom: 1px solid #dddddd;
     .boxSizing();
     >.subtitle {
       font-size: 20px;

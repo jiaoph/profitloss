@@ -25,7 +25,4 @@ export default {
 
 <style>
 @import "./assets/less/reset.css";
-#app{
-  padding-bottom: 40px;
-}
 </style>

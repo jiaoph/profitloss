@@ -5,7 +5,7 @@
         <tbody>
           <tr>
             <td align="center">
-              <p>甲方佣金</p>
+              <p>项目运营成本</p>
               <span>8%</span>
             </td>
             <td class="clearfix">
@@ -14,7 +14,7 @@
                   <div class="circleSolid"></div>
                 </div>
               </div>
-              <span class="fl">佣金收入</span>
+              <span class="fl">案场费用</span>
             </td>
             <td>
               <span>1234545</span>
@@ -22,7 +22,7 @@
           </tr>
           <tr>
             <td align="center">
-              <p>甲方佣金</p>
+              <p>项目运营成本</p>
               <span>8%</span>
             </td>
             <td class="clearfix">
@@ -31,7 +31,7 @@
                   <div class="circleSolid"></div>
                 </div>
               </div>
-              <span class="fl">溢价</span>
+              <span class="fl">联动费用</span>
             </td>
             <td>
               <span>1234545</span>
@@ -39,8 +39,20 @@
           </tr>
           <tr>
             <td align="center">
-              <p>甲方佣金</p>
+              <p>项目运营成本</p>
               <span>8%</span>
+            </td>
+            <td>
+              <span>总计</span>
+            </td>
+            <td class="textWaring">
+              <p>1234545</p>
+            </td>
+          </tr>
+          <tr>
+            <td align="center">
+              <p>渠道成本</p>
+              <span>2%</span>
             </td>
             <td class="clearfix">
               <div class="circle circle3 fl">
@@ -48,40 +60,28 @@
                   <div class="circleSolid"></div>
                 </div>
               </div>
-              <span class="fl">甲方奖励</span>
+              <span class="fl">渠道佣金</span>
             </td>
             <td>
-              <span>1234545</span>
+              <span>2324</span>
             </td>
           </tr>
           <tr>
             <td align="center">
-              <p>甲方佣金</p>
+              <p>渠道成本</p>
+              <span>2%</span>
+            </td>
+            <td>
+              <span>总计</span>
+            </td>
+            <td class="textWaring">
+              <p>1234545</p>
+            </td>
+          </tr>
+          <tr>
+            <td align="center">
+              <p>区域成本</p>
               <span>8%</span>
-            </td>
-            <td>
-              <span>甲方扣款</span>
-            </td>
-            <td>
-              <span>-1234545</span>
-            </td>
-          </tr>
-          <tr>
-            <td align="center">
-              <p>甲方佣金</p>
-              <span>8%</span>
-            </td>
-            <td>
-              <p>总计</p>
-            </td>
-            <td>
-              <span>1234545</span>
-            </td>
-          </tr>
-          <tr>
-            <td align="center">
-              <p>团购</p>
-              <span>3%</span>
             </td>
             <td class="clearfix">
               <div class="circle circle4 fl">
@@ -89,7 +89,7 @@
                   <div class="circleSolid"></div>
                 </div>
               </div>
-              <span class="fl">已收团购</span>
+              <span class="fl">开发费用</span>
             </td>
             <td>
               <span>1234545</span>
@@ -97,8 +97,8 @@
           </tr>
           <tr>
             <td align="center">
-              <p>团购</p>
-              <span>3%</span>
+              <p>区域成本</p>
+              <span>8%</span>
             </td>
             <td class="clearfix">
               <div class="circle circle5 fl">
@@ -106,7 +106,7 @@
                   <div class="circleSolid"></div>
                 </div>
               </div>
-              <span class="fl">应收团购</span>
+              <span class="fl">管理费用</span>
             </td>
             <td>
               <span>1234545</span>
@@ -114,14 +114,72 @@
           </tr>
           <tr>
             <td align="center">
-              <p>团购</p>
-              <span>3%</span>
+              <p>区域成本</p>
+              <span>8%</span>
             </td>
             <td>
-              <p>总计</p>
+              <span>总计</span>
+            </td>
+            <td class="textWaring">
+              <p>1234545</p>
+            </td>
+          </tr>
+          <tr>
+            <td align="center">
+              <p>总部分摊</p>
+              <span>8%</span>
+            </td>
+            <td class="clearfix">
+              <div class="circle circle6 fl">
+                <div class="incircle">
+                  <div class="circleSolid"></div>
+                </div>
+              </div>
+              <span class="fl">管理费用</span>
             </td>
             <td>
               <span>1234545</span>
+            </td>
+          </tr>
+          <tr>
+            <td align="center">
+              <p>总部分摊</p>
+              <span>8%</span>
+            </td>
+            <td>
+              <span>总计</span>
+            </td>
+            <td class="textWaring">
+              <p>1234545</p>
+            </td>
+          </tr>
+          <tr>
+            <td align="center">
+              <p>财务费用</p>
+              <span>8%</span>
+            </td>
+            <td class="clearfix">
+              <div class="circle circle7 fl">
+                <div class="incircle">
+                  <div class="circleSolid"></div>
+                </div>
+              </div>
+              <span class="fl">财务费用</span>
+            </td>
+            <td>
+              <span>1234545</span>
+            </td>
+          </tr>
+          <tr>
+            <td align="center">
+              <p>财务费用</p>
+              <span>8%</span>
+            </td>
+            <td>
+              <span>总计</span>
+            </td>
+            <td class="textWaring">
+              <p>1234545</p>
             </td>
           </tr>
         </tbody>
@@ -211,7 +269,7 @@ export default {
           position: relative;
         }
         >td:nth-child(1) {
-          font-size: 18px;
+          font-size: 16px;
           max-width: 28px;
           >p{
             line-height: 18px;
@@ -244,18 +302,25 @@ export default {
 }
 
 .circle{
-  .public_circle();
+  .public_circle(#9ECCE8);
 }
 .circle2{
-  .public_circle(#97C681);
+  .public_circle(#489ED3);
 }
 .circle3{
-  .public_circle(#4A9973);
+  .public_circle(#6AB7CC);
 }
 .circle4{
-  .public_circle(#FBB661);
+  .public_circle(#32A5A2);
 }
 .circle5{
-  .public_circle(#DEE598);
+  .public_circle(#AAE5D9);
 }
+.circle6{
+  .public_circle(#9DACD4);
+}
+.circle7{
+  .public_circle(#5665C1);
+}
+
 </style>

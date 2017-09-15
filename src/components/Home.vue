@@ -31,6 +31,12 @@
         </div>
       </div>
     </div>
+    <div class="opeIncome projectMan">
+      <h2 class="subtitle">项目经营情况</h2>
+        <div class="inprojectMan">
+          <ProjectMan></ProjectMan>
+        </div>
+    </div>
   </div>
 </template>
 
@@ -42,6 +48,7 @@ import PieChart from './PieChart.vue'
 import TableIncome from './TableIncome.vue'
 import PieChartCosts from './PieChartCosts.vue'
 import TableCosts from './TableCosts.vue'
+import ProjectMan from './ProjectMan.vue'
 
 export default {
   name: 'contentWrap',
@@ -52,7 +59,8 @@ export default {
     PieChart,
     TableIncome,
     PieChartCosts,
-    TableCosts
+    TableCosts,
+    ProjectMan
   }
 }
 </script>
@@ -98,6 +106,14 @@ export default {
         padding-top: 110px;
       }
     }
+    >.inprojectMan{
+      width: 100%;
+      padding: 60px 50px 0 0;
+      .boxSizing();
+    }
+  }
+  >.opeIncome:last-child{
+    border-bottom: 0;
   }
 }
 </style>

@@ -25,7 +25,7 @@ export default {
       },
       series: [
         {
-          name: '主营业收入',
+          name: '主营业务收入',
           type: 'pie',
           radius: ['50%', '90%'],
           // center: ['50%', '50%'],

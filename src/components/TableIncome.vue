@@ -74,7 +74,7 @@
             <td>
               <p>总计</p>
             </td>
-            <td>
+            <td class="textWaring">
               <span>1234545</span>
             </td>
           </tr>
@@ -120,7 +120,7 @@
             <td>
               <p>总计</p>
             </td>
-            <td>
+            <td class="textWaring">
               <span>1234545</span>
             </td>
           </tr>

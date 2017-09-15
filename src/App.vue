@@ -23,6 +23,7 @@ export default {
 }
 </script>
 
-<style>
+<style rel="stylesheet/less" lang="less">
 @import "./assets/less/reset.css";
+@import "./assets/less/reset_elementui.less";
 </style>

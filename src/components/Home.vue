@@ -23,7 +23,7 @@
     <div class="opeIncome opeCosts">
       <h2 class="subtitle">主营业成本</h2>
       <div class="content clearfix">
-        <div class="pie fl">
+        <div class="pie pieCosts fl">
           <PieChartCosts></PieChartCosts>
         </div>
         <div class="tableIncome fl">
@@ -93,6 +93,9 @@ export default {
       >.pie {
         padding-top: 40px;
         margin-right:46px;
+      }
+      >.pieCosts{
+        padding-top: 110px;
       }
     }
   }

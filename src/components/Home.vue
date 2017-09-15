@@ -63,7 +63,7 @@ export default {
 .content {
   width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 20px 40px 20px;
   background-color: #fff;
   .boxSizing();
   >.mainBusiness {

@@ -17,7 +17,7 @@
         <el-table-column align="center" prop="accountsGroupon" label="应收团购">
         </el-table-column>
       </el-table-column>
-      <el-table-column align="center" lable="主营业务成本">
+      <el-table-column align="center" label="主营业务成本">
         <el-table-column align="center" prop="totalCost" label="总计">
         </el-table-column>
         <el-table-column align="center" prop="acExpense" label="案场费用">
@@ -39,7 +39,7 @@
 export default {
   data() {
     return{
-      
+
     }
   }
 }

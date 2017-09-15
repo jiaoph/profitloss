@@ -1,8 +1,8 @@
 <template>
   <div id="project" class="projectTable">
     <el-table :data="tableData2" border style="width: 100%">
-      <el-table-column type="expand" scope="props">
-        <template scope="props">
+      <el-table-column type="expand" width="30">
+        <template>
           <h1>hello</h1>
           <!--<el-table-column>
             <el-table-column align="center" width="120">

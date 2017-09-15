@@ -108,7 +108,7 @@ export default {
     }
     >.inprojectMan{
       width: 100%;
-      padding: 60px 50px 0 0;
+      padding: 60px 32px 0 0;
       .boxSizing();
     }
   }

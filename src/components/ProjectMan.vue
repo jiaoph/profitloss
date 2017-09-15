@@ -1,6 +1,52 @@
 <template>
   <div id="project" class="projectTable">
-    <el-table  border style="width: 100%">
+    <el-table :data="tableData2" border style="width: 100%">
+      <el-table-column type="expand" scope="props">
+        <template scope="props">
+          <h1>hello</h1>
+          <!--<el-table-column>
+            <el-table-column align="center" width="120">
+              <span>{{props.row.area}}</span>
+            </el-table-column>
+            <el-table-column align="center" width="120">
+              <span>{{props.row.totalIncome}}</span>
+            </el-table-column>
+            <el-table-column align="center" width="120">
+              <span>{{props.row.commisionIncome}}</span>
+            </el-table-column>
+            <el-table-column align="center" width="120">
+              <span>{{props.row.premium}}</span>
+            </el-table-column>
+            <el-table-column align="center" width="120">
+              <span>{{props.row.award}}</span>
+            </el-table-column>
+            <el-table-column align="center" width="120">
+              <span>{{props.row.receivedGroupon}}</span>
+            </el-table-column>
+            <el-table-column align="center" width="120">
+              <span>{{props.row.accountsGroupon}}</span>
+            </el-table-column>
+            <el-table-column align="center" width="120">
+              <span>{{props.row.totalCost}}</span>
+            </el-table-column>
+            <el-table-column align="center" width="120">
+              <span>{{props.row.acExpense}}</span>
+            </el-table-column>
+            <el-table-column align="center" width="120">
+              <span>{{props.row.ldExpense}}</span>
+            </el-table-column>
+            <el-table-column align="center" width="120">
+              <span>{{props.row.channelCom}}</span>
+            </el-table-column>
+            <el-table-column align="center" width="120">
+              <span>{{props.row.apportion}}</span>
+            </el-table-column>
+            <el-table-column align="center" width="120">
+              <span>{{props.row.allcount}}</span>
+            </el-table-column>
+          </el-table-column>-->
+        </template>
+      </el-table-column>
       <el-table-column prop="area" align="center" label="区域" width="120">
       </el-table-column>
       <el-table-column align="center" label="主营业务收入">
@@ -38,8 +84,39 @@
 <script>
 export default {
   data() {
-    return{
-
+    return {
+      tableData2: [
+        {
+          area: '第一事业部',
+          totalIncome: 30000,
+          commisionIncome: 23,
+          premium: 239,
+          award: 987,
+          receivedGroupon: 67,
+          accountsGroupon: 591,
+          totalCost: 670,
+          acExpense: 45,
+          ldExpense: 190,
+          channelCom: 98705,
+          apportion: 7554,
+          allcount: 12314
+        },
+        {
+          area: '第二事业部',
+          totalIncome: 30000,
+          commisionIncome: 23,
+          premium: 239,
+          award: 987,
+          receivedGroupon: 67,
+          accountsGroupon: 591,
+          totalCost: 670,
+          acExpense: 45,
+          ldExpense: 190,
+          channelCom: 98705,
+          apportion: 7554,
+          allcount: 12314
+        }
+      ]
     }
   }
 }
@@ -47,7 +124,7 @@ export default {
 
 <style scoped lang="less">
 // @import url('../assets/less/public');
-.projectTable{
+.projectTable {
   width: 100%;
 }
 </style>

@@ -12,6 +12,7 @@
     "axios": "^0.16.2",
     "echarts": "^3.7.1",
     "element-ui": "^1.4.4",
+    "qs": "^6.5.1",
     "vue": "^2.3.3"
   },
   "devDependencies": {

@@ -27,10 +27,22 @@
   overflow-x: hidden;
 }
 
+.table-expand .el-table__body-wrapper{
+  overflow-x: visible;
+}
+
 .table-expand .el-table__body-wrapper::-webkit-scrollbar{
   display: none;
 }
 
 .table-expand tr{
     background-color: #FCF1E5;
+    td{
+      border-color:  #F5C691;
+    }
+}
+.table-expand tr:last-child{
+  td{
+    border-bottom: 2px solid #F5C691;
+  }
 }

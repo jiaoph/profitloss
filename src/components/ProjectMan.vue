@@ -3,7 +3,7 @@
     <el-table :data="tableData2" border style="width: 100%" @expand="handle">
       <el-table-column type="expand" width="30">
         <template scope="scope">
-            <el-table :data="in_tableData2" :show-header="false" border style="width: 100%" class="table-expand">
+            <el-table :data="in_tableData2" border :show-header="false" style="width: 100%" class="table-expand">
               <el-table-column prop="in_area" align="center" width="120" :show-overflow-tooltip="true"></el-table-column>
               <el-table-column prop="in_totalIncome" align="center" :show-overflow-tooltip="true"></el-table-column>
               <el-table-column prop="in_commisionIncome" align="center" :show-overflow-tooltip="true"></el-table-column>
@@ -62,7 +62,7 @@ export default {
         {
           area: '第一事业部第一事业部333',
           totalIncome: 300000000,
-          commisionIncome: 23,
+          commisionIncome: 2324234234234,
           premium: 239,
           award: 987,
           receivedGroupon: 67,
@@ -139,5 +139,6 @@ export default {
 }
 .table-expand {
   background-color: #FCF1E5;
+  border-color:  #F5C691;
 }
 </style>

@@ -105,6 +105,21 @@ export default {
           in_channelCom: 98705,
           in_apportion: 7554,
           in_allcount: 12314
+        },
+        {
+          in_area: '第一事业部第一事业部',
+          in_totalIncome: 300000000,
+          in_commisionIncome: 23,
+          in_premium: 239,
+          in_award: 987,
+          in_receivedGroupon: 67,
+          in_accountsGroupon: 591,
+          in_totalCost: 670,
+          in_acExpense: 45,
+          in_ldExpense: 190,
+          in_channelCom: 98705,
+          in_apportion: 7554,
+          in_allcount: 12314
         }
       ]
     }
@@ -122,9 +137,7 @@ export default {
 .projectTable {
   width: 100%;
 }
-
 .table-expand {
   background-color: #FCF1E5;
-  overflow: hidden;
 }
 </style>

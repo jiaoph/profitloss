@@ -125,9 +125,23 @@ export default {
     }
   },
   methods: {
+    getData(){
+      this.$http.post('/efangfin/outgoing/table.do',{
+        xtype:0,
+        xname:0,
+        xtime:0
+      }).then(data=>{
+        console.log(data)
+      }).catch(error=>{
+        console.log(error)
+      })
+    },
     handle(row, expanded) {
       console.log(row, expanded)
-    }
+    },
+  },
+  mounted(){
+    this.getData();
   }
 }
 </script>

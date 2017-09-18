@@ -16,7 +16,7 @@
               <el-table-column prop="in_ldExpense" align="center" :show-overflow-tooltip="true"></el-table-column>
               <el-table-column prop="in_channelCom" align="center" :show-overflow-tooltip="true"></el-table-column>
               <el-table-column prop="in_apportion" align="center" :show-overflow-tooltip="true"></el-table-column>
-              <el-table-column prop="in_allcount" align="center" :show-overflow-tooltip="true"></el-table-column>
+              <el-table-column prop="in_allcount" align="center" :show-overflow-tooltip="true" class-name="special"></el-table-column>
             </el-table>
         </template>
       </el-table-column>
@@ -104,7 +104,7 @@ export default {
           in_ldExpense: 190,
           in_channelCom: 98705,
           in_apportion: 7554,
-          in_allcount: 12314
+          in_allcount: 123090149999
         },
         {
           in_area: '第一事业部第一事业部',

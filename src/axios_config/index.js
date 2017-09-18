@@ -47,10 +47,10 @@ Axios.interceptors.request.use(
       //  饿了么的消息弹窗组件,类似toast
       showClose: true,
       message: error,
-      type: "error.data.error.message"
+      type: "error"
     });
     loadingInstance.close()
-    return Promise.reject(error.data.error.message);
+    return Promise.reject(error);
   }
 );
 
@@ -58,26 +58,22 @@ Axios.interceptors.response.use(
   res => {
     // console.log(res)
     loadingInstance.close()
-    //对响应数据做些事
-    // if (res.data && !res.data.success) {
-    //   Message({
-    //     //  饿了么的消息弹窗组件,类似toast
-    //     showClose: true,
-    //     message: res.data.error.message.message
-    //       ? res.data.error.message.message
-    //       : res.data.error.message,
-    //     type: "error"
-    //   });
-    //   return Promise.reject(res.data.error.message);
-    // }
+    if (res.status != 200) {
+      alert(res.statusText);
+      return Promise.reject(res);
+    }
     return res;
   },
   error => {
-    console.log(error)
     loadingInstance.close()
+    Message.error({
+      message: '加载失败',
+      type: "error"
+    })
+    
     // 返回 response 里的错误信息
-    let errorInfo =  error.data.error ? error.data.error.message : error.data;
-    return Promise.reject(errorInfo);
+    // let errorInfo =  error.data.error ? error.data.error.message : error.data;
+    return Promise.reject(error);
   }
 );
 

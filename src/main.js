@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import { Breadcrumb, BreadcrumbItem,Table,TableColumn,Tooltip } from 'element-ui'
+import axiosPlugin from './axios_config/index'
 import App from './App.vue'
+
+Vue.use(axiosPlugin);
 
 Vue.component(Breadcrumb.name, Breadcrumb)
 Vue.component(BreadcrumbItem.name, BreadcrumbItem)

@@ -63,7 +63,7 @@ export default {
       in_tableData2: [],
       lastarea: '',
       lastexpanded: '',
-      expands: []
+      expands: [] // 要展开的行，数值的元素是row的key值
     }
   },
   methods: {
@@ -140,11 +140,15 @@ export default {
       }).catch(error => {
         Message({
           showClose: true,
-          message: '项目经营情况异常错误',
+          // message: '项目经营情况异常错误',
+          message: error,
           type: 'error'
         });
         console.log(error)
       })
+    },
+    getRowKeys(row) {
+      return row.area;
     },
     handle(row, expanded) {
       let type = row.type,
@@ -161,6 +165,7 @@ export default {
       if (expanded) {
         switch (type) {
           case "2":
+            this.expands = [];
             break;
           case "1":
             this.lastarea = area;
@@ -176,9 +181,6 @@ export default {
         this.expands = [];
         this.lastexpanded = expanded;
       };
-    },
-    getRowKeys(row) {
-      return row.area;
     }
   },
   mounted() {

@@ -4,7 +4,7 @@ import { Message, Loading } from "element-ui";
 
 
 const Axios = axios.create({
-  baseURL: "http://192.168.1.32:8080",
+  baseURL: "http://192.168.1.65:8080",
   // baseURL: "http://192.168.1.76",
   // baseURL: "http://192.168.1.76",
   timeout: 5000,

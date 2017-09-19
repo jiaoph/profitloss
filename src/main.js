@@ -10,6 +10,7 @@ import { Breadcrumb,
 import axiosPlugin from './axios_config/index'
 import App from './App.vue'
 import filters from './filters/'
+import store from './store/'
 
 Vue.use(axiosPlugin);
 Object.keys(filters).forEach(key => Vue.filter(key, filters[key]))
@@ -24,5 +25,6 @@ Vue.component(Option.name, Option)
 
 new Vue({
   el: '#app',
+  store,
   render: h => h(App)
 })

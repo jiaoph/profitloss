@@ -7,6 +7,16 @@
       </div>
       <div class="barChart fr">
         <BarChart></BarChart>
+        <div class="timeselect">
+          <el-select v-model="value" @change="change" placeholder="请选择" class="resetSelect">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </div>  
       </div>
     </div>
     <div class="opeIncome">
@@ -52,6 +62,29 @@ import ProjectMan from './ProjectMan.vue'
 
 export default {
   name: 'contentWrap',
+  data(){
+    return {
+      options: [{
+          value: '0',
+          label: '全部'
+        }, {
+          value: '1',
+          label: '上月'
+        }, {
+          value: '2',
+          label: '本月'
+        }, {
+          value: '3',
+          label: '本年'
+        }],
+        value: '全部'
+    }
+  },
+  methods:{
+    change(val){
+      console.log(val)
+    }
+  },
   components: {
     Crumbs,
     Tabs,
@@ -84,6 +117,25 @@ export default {
     >.barChart {
       width: 510px;
       padding-right: 100px;
+      position: relative;
+      >.timeselect{
+        width: 76px;
+        height: 24px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        >.resetSelect{
+          .el-input__icon{
+            color:#EC9028;
+          }
+          .el-input__inner{
+            color: #ED9127;
+            font-size: 12px;
+            background-color: #FCF1E5;
+            border-color: #ED9127;
+          }
+        }
+      }
     }
   }
   >.opeIncome {

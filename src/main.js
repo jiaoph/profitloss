@@ -3,7 +3,9 @@ import { Breadcrumb,
   BreadcrumbItem, 
   Table, 
   TableColumn, 
-  Tooltip } from 'element-ui'
+  Tooltip,
+  Select,
+  Option } from 'element-ui'
 
 import axiosPlugin from './axios_config/index'
 import App from './App.vue'
@@ -17,6 +19,8 @@ Vue.component(BreadcrumbItem.name, BreadcrumbItem)
 Vue.component(Table.name, Table)
 Vue.component(TableColumn.name, TableColumn)
 Vue.component(Tooltip.name, Tooltip)
+Vue.component(Select.name, Select)
+Vue.component(Option.name, Option)
 
 new Vue({
   el: '#app',

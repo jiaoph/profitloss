@@ -55,8 +55,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { Message } from "element-ui";
+
 export default {
+  name: 'project',
+  computed: mapGetters([
+    'time_val'
+  ]),
   data() {
     return {
       tableData2: [],
@@ -185,7 +191,7 @@ export default {
   },
   mounted() {
     this.getData("0", "0", "0"); //营运中心默认获取
-
+    console.log(this.time_val)
   }
 }
 </script>

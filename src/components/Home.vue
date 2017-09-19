@@ -82,7 +82,7 @@ export default {
   },
   methods:{
     change(val){
-      console.log(val)
+      this.$store.dispatch('timechange', val);
     }
   },
   components: {

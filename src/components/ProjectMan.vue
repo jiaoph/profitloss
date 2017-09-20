@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     getData(xtype, xname, xtime) {
-      this.$http.post('/efangfin/outgoing/table.do', {
+      this.$http.post('/efangfin/outgoing/table1.do', {
         xtype: xtype,
         xname: xname,
         xtime: xtime
@@ -146,8 +146,8 @@ export default {
       }).catch(error => {
         Message({
           showClose: true,
-          // message: '项目经营情况异常错误',
-          message: error,
+          duration: 1500,
+          message: '项目经营情况异常错误',
           type: 'error'
         });
         console.log(error)

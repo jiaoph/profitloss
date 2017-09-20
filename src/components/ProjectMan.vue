@@ -1,6 +1,6 @@
 <template>
   <div id="project" class="projectTable">
-    <el-table :data="tableData2" height="600" border style="width: 100%" @expand="handle" :row-key="getRowKeys" :expand-row-keys="expands">
+    <el-table :data="tableData2" height="600" border style="width: 100%" @expand="handle" @cell-click="cellClick" :row-key="getRowKeys" :expand-row-keys="expands">
       <el-table-column type="expand" width="30">
         <template scope="scope">
           <el-table :data="in_tableData2" border :show-header="false" style="width: 100%" class="table-expand">
@@ -190,6 +190,12 @@ export default {
         this.expands = [];
         this.lastexpanded = expanded;
       };
+    },
+    cellClick(row, column){
+      let label = column.label;
+      if(label === "区域") {
+        console.log('应该进入事业部主页')
+      }
     }
   },
   mounted() {

@@ -69,12 +69,20 @@ export default {
       in_tableData2: [],
       lastarea: '',
       lastexpanded: '',
-      expands: [] // 要展开的行，数值的元素是row的key值
+      expands: [], // 要展开的行，数值的元素是row的key值
+      time:'0' //默认时间维度
+    }
+  },
+  watch:{ //监听time_val
+    time_val(val, oldval){
+      this.time = val;
+      this.expands = [];
+      this.getData("0", "0", this.time);
     }
   },
   methods: {
     getData(xtype, xname, xtime) {
-      this.$http.post('/efangfin/outgoing/table1.do', {
+      this.$http.post('/efangfin/outgoing/table.do', {
         xtype: xtype,
         xname: xname,
         xtime: xtime
@@ -113,11 +121,6 @@ export default {
                   default:
                     break;
                 }
-                Message({
-                  showClose: true,
-                  message: '数据为空',
-                  type: 'warning'
-                });
               }
               break;
             case 0:
@@ -138,7 +141,7 @@ export default {
         } else {
           Message({
             showClose: true,
-            message: '暂无数据',
+            message: '项目经营情况暂无数据',
             type: 'warning'
           });
           return;
@@ -146,7 +149,7 @@ export default {
       }).catch(error => {
         Message({
           showClose: true,
-          duration: 1500,
+          duration: 1800,
           message: '项目经营情况异常错误',
           type: 'error'
         });
@@ -177,7 +180,7 @@ export default {
             this.lastarea = area;
             this.lastexpanded = expanded;
 
-            this.getData(type, area, "0");
+            this.getData(type, area, this.time);
             this.expands.push(area)
             break;
           case "0":
@@ -190,8 +193,7 @@ export default {
     }
   },
   mounted() {
-    this.getData("0", "0", "0"); //营运中心默认获取
-    console.log(this.time_val)
+    this.getData("0", "0", this.time); //营运中心默认获取
   }
 }
 </script>

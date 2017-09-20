@@ -59,32 +59,10 @@ import TableIncome from './TableIncome.vue'
 import PieChartCosts from './PieChartCosts.vue'
 import TableCosts from './TableCosts.vue'
 import ProjectMan from './ProjectMan.vue'
+import { Message } from "element-ui";
 
 export default {
   name: 'contentWrap',
-  data(){
-    return {
-      options: [{
-          value: '0',
-          label: '全部'
-        }, {
-          value: '1',
-          label: '上月'
-        }, {
-          value: '2',
-          label: '本月'
-        }, {
-          value: '3',
-          label: '本年'
-        }],
-        value: '全部'
-    }
-  },
-  methods:{
-    change(val){
-      this.$store.dispatch('timechange', val);
-    }
-  },
   components: {
     Crumbs,
     Tabs,
@@ -94,6 +72,51 @@ export default {
     PieChartCosts,
     TableCosts,
     ProjectMan
+  },
+  data(){
+    return {
+      options: [{
+        value: '0',
+        label: '全部'
+      }, {
+        value: '1',
+        label: '上月'
+      }, {
+        value: '2',
+        label: '本月'
+      }, {
+        value: '3',
+        label: '本年'
+      }],
+      value: '全部',
+      timeval: '0'
+    }
+  },
+  methods:{
+    getfindAllData(){
+      this.$http.post('/efangfin/financial/findAll.do',{
+        xtype: "0",
+        xname: '',
+        xtime: this.timeval
+      }).then(data=>{
+        console.log(data)
+      }).catch(error=>{
+        Message({
+          showClose: true,
+          duration: 1800,
+          message: '主营业数据获取异常错误',
+          type: 'error'
+        });
+        console.log(error)
+      })
+    },
+    change(val){
+      this.timeval = val;
+      this.$store.dispatch('timechange', val);
+    }
+  },
+  mounted(){
+    this.getfindAllData()
   }
 }
 </script>

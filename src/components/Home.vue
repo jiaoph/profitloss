@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="opeIncome">
-      <h2 class="subtitle">主营业收入</h2>
+      <h2 class="subtitle">主营业务收入</h2>
       <div class="content clearfix">
         <div class="pie fl">
           <PieChart></PieChart>
@@ -31,7 +31,7 @@
       </div>
     </div>
     <div class="opeIncome opeCosts">
-      <h2 class="subtitle">主营业成本</h2>
+      <h2 class="subtitle">主营业务成本</h2>
       <div class="content clearfix">
         <div class="pie pieCosts fl">
           <PieChartCosts></PieChartCosts>

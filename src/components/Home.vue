@@ -47,6 +47,9 @@
           <ProjectMan></ProjectMan>
         </div>
     </div>
+    <div class="opeIncome">
+      <TableExpandsAc></TableExpandsAc>
+    </div>
   </div>
 </template>
 
@@ -59,6 +62,7 @@ import TableIncome from './TableIncome.vue'
 import PieChartCosts from './PieChartCosts.vue'
 import TableCosts from './TableCosts.vue'
 import ProjectMan from './ProjectMan.vue'
+import TableExpandsAc from './TableExpandsAc.vue'
 import { Message } from "element-ui";
 
 export default {
@@ -71,7 +75,8 @@ export default {
     TableIncome,
     PieChartCosts,
     TableCosts,
-    ProjectMan
+    ProjectMan,
+    TableExpandsAc
   },
   data(){
     return {

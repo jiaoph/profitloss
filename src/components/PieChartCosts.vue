@@ -28,14 +28,20 @@ export default {
         {
           name: '主营业务成本',
           type: 'pie',
-          radius: ['50%', '90%'],
+          selectedMode: 'single',
+          radius: ['40%', '90%'],
           // center: ['50%', '50%'],
           avoidLabelOverlap: false,
           label: {
             normal: {
-              show: false,
-              // formatter: '{d}%' 
-              position: 'center'
+              show: true,
+              position: 'inner',
+              formatter: '{d}%',
+              textStyle: {
+                color: '#fff',
+                fontWeight: 'bold',
+                fontSize: 12
+              }
             },
             emphasis: {
               show: true,

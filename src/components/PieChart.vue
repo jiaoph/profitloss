@@ -17,24 +17,30 @@ export default {
         trigger: 'item',
         formatter: "{a} <br/>{b}: {c} ({d}%)"
       },
-      color:['#97C681','#CAD879','#FBB661','#DEE598','#4A9973'],
+      color: ['#97C681', '#CAD879', '#FBB661', '#DEE598', '#4A9973'],
       legend: {
         orient: 'vertical',
         x: 'left',
-        data: ['溢价','佣金收入',  '已收团购', '应收团购','甲方奖励',]
+        data: ['溢价', '佣金收入', '已收团购', '应收团购', '甲方奖励',]
       },
       series: [
         {
           name: '主营业务收入',
           type: 'pie',
-          radius: ['50%', '90%'],
+          selectedMode: 'single',
+          radius: ['40%', '90%'],
           // center: ['50%', '50%'],
           avoidLabelOverlap: false,
           label: {
             normal: {
-              show: false,
-              // formatter: '{d}%' 
-              position: 'center'
+              show: true,
+              position: 'inner',
+              formatter: '{d}%',
+              textStyle: {
+                color: '#fff',
+                fontWeight: 'bold',
+                fontSize: 12
+              }
             },
             emphasis: {
               show: true,

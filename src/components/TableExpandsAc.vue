@@ -45,6 +45,7 @@ export default {
   name: 'anchang',
   data() {
     return {
+      flag: true, //测试flag
       deleteIndexArr:[],
       initjson: [
         {
@@ -112,14 +113,14 @@ export default {
       ],
       regularjson2: [
         {
-          name: '奖金',
+          name: '奖金啊',
           zhaomu: '123',
           renshi: '22344',
           zuzhi: '99999999999999',
           peixun: '12',
           total: '24245',
           expand: false,
-          index: '3'
+          index: '2'
         }
       ]
     }
@@ -128,35 +129,49 @@ export default {
     handleExpand(e) {
       let status = e.currentTarget.getAttribute('data-status'), // 关闭展开状态
         order = Number.parseInt(e.currentTarget.getAttribute('data-order'))+1, // 点击时获取到的数组的order
-        out_index = e.currentTarget.getAttribute('data-index'); // 点击时获取到的层级
-
+        out_index = ''; // 点击时获取到的层级
+        
       switch (status) {
-        case '0': //展开添加数据
-          e.currentTarget.setAttribute('data-status', '1')
+        case '0': // 展开添加数据
+          e.currentTarget.setAttribute('data-status', '1');
+          out_index = Number.parseInt(e.currentTarget.getAttribute('data-index')); 
+          // console.log('out_index-->'+out_index)
           // 发送请求加载数据
-          if(this.regularjson1.length){
-            for(let i = 0,len = this.regularjson1.length; i < len; i++){
-              this.initjson.splice(order++, 0, this.regularjson1[i]);
+          if(this.flag){
+            this.flag = false;
+            if(this.regularjson1.length){
+              for(let i = 0,len = this.regularjson1.length; i < len; i++){
+                this.initjson.splice(order++, 0, this.regularjson1[i]);
+              }
+            }
+          }else{
+            if(this.regularjson2.length){
+              for(let i = 0,len = this.regularjson2.length; i < len; i++){
+                this.initjson.splice(order++, 0, this.regularjson2[i]);
+              }
             }
           }
+
           break;
         case '1': // 该合并
           e.currentTarget.setAttribute('data-status', '0');
-          let inner_index = e.currentTarget.getAttribute('data-index');
-
-          if (inner_index == out_index || inner_index > out_index) {
+          let inner_index = Number.parseInt(e.currentTarget.getAttribute('data-index'));
+          // console.log('inner_index-->'+inner_index)
+          if (inner_index === out_index || inner_index > out_index) {
             this.initjson.forEach((val,i,arr) => {
-              let new_index = val.index;
-              if(inner_index === new_index){
-                // arr.splice(index, 1);
+              let new_index = Number.parseInt(val.index);
+
+              if(inner_index === new_index || inner_index < new_index){
                 this.deleteIndexArr.push(i);
               }
             })
+
             let newArr = Array.prototype.slice.call(this.deleteIndexArr),
-              maxNum = Math.max.apply(null,newArr),
-              minNum = Math.min.apply(null,newArr);
-            console.log(newArr)
-            this.initjson.splice(minNum,newArr.length)
+              // maxNum = Math.max.apply(null,newArr),
+              minNum = Math.min.apply(null,newArr); // 数组最小值
+
+            this.initjson.splice(minNum,newArr.length); // 初始数组删除元素
+            this.deleteIndexArr = []; // 置空
           }
           break;
         default:

@@ -45,7 +45,7 @@ export default {
   name: 'anchang',
   data() {
     return {
-      flag: true, //测试flag
+      flag: true, // 测试flag
       deleteIndexArr:[],
       initjson: [
         {
@@ -132,7 +132,7 @@ export default {
         out_index = ''; // 点击时获取到的层级
         
       switch (status) {
-        case '0': // 展开添加数据
+        case '0': // 该展开添加数据
           e.currentTarget.setAttribute('data-status', '1');
           out_index = Number.parseInt(e.currentTarget.getAttribute('data-index')); 
           // console.log('out_index-->'+out_index)
@@ -157,11 +157,11 @@ export default {
           e.currentTarget.setAttribute('data-status', '0');
           let inner_index = Number.parseInt(e.currentTarget.getAttribute('data-index'));
           // console.log('inner_index-->'+inner_index)
-          if (inner_index === out_index || inner_index > out_index) {
+          if (inner_index === out_index || inner_index > out_index) { // 关闭时的层级和外层的层级对比
             this.initjson.forEach((val,i,arr) => {
               let new_index = Number.parseInt(val.index);
 
-              if(inner_index === new_index || inner_index < new_index){
+              if(inner_index === new_index || inner_index < new_index){ // 关闭的层级和initjson数组元素的层级对比
                 this.deleteIndexArr.push(i);
               }
             })
@@ -171,7 +171,7 @@ export default {
               minNum = Math.min.apply(null,newArr); // 数组最小值
 
             this.initjson.splice(minNum,newArr.length); // 初始数组删除元素
-            this.deleteIndexArr = []; // 置空
+            this.deleteIndexArr = []; // 置空deleteIndexArr
           }
           break;
         default:

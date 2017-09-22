@@ -86,7 +86,7 @@ export default {
           renshi: '22344',
           zuzhi: '99999999999999',
           peixun: '12',
-          total: '24245',
+          total: '2424565775',
           expand: false,
           index: '1'
         },
@@ -96,7 +96,7 @@ export default {
           renshi: '22344',
           zuzhi: '99999999999999',
           peixun: '12',
-          total: '24245',
+          total: '5',
           expand: true,
           index: '1'
         },
@@ -126,6 +126,9 @@ export default {
     }
   },
   methods: {
+    removeClass(el,className){
+      el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+    },
     handleExpand(e) {
       let status = e.currentTarget.getAttribute('data-status'), // 关闭展开状态
         order = Number.parseInt(e.currentTarget.getAttribute('data-order'))+1, // 点击时获取到的数组的order
@@ -135,6 +138,7 @@ export default {
         case '0': // 该展开添加数据
           e.currentTarget.setAttribute('data-status', '1');
           out_index = Number.parseInt(e.currentTarget.getAttribute('data-index')); 
+          e.currentTarget.parentNode.parentNode.className += ' ' + 'specialborder'; // 添加class
           // console.log('out_index-->'+out_index)
           // 发送请求加载数据
           if(this.flag){
@@ -172,6 +176,7 @@ export default {
 
             this.initjson.splice(minNum,newArr.length); // 初始数组删除元素
             this.deleteIndexArr = []; // 置空deleteIndexArr
+            this.removeClass(e.currentTarget.parentNode.parentNode, 'specialborder'); // removeclass
           }
           break;
         default:
@@ -186,7 +191,6 @@ export default {
 .wrapper {
   width: 100%;
   font-size: 12px;
-  border: 1px solid #ddd;
 }
 
 .wrapper ul {
@@ -194,8 +198,17 @@ export default {
   border-right: 1px solid #ddd;
 }
 
+.wrapper ul.specialborder{
+  border-right-color:#F5C38B;
+}
+
+.wrapper ul:first-child{
+  border-left: 1px solid #ddd;
+}
+
 .wrapper .expandWrap {
   background-color: #FCF1E5;
+  border-right: 1px solid #F5C38B;
 }
 
 .wrapper .expand {
@@ -203,10 +216,10 @@ export default {
 }
 
 .lie li {
-  width: 80px;
+  width: 84px;
   height: 54px;
-  padding: 5px;
-  line-height: 44px;
+  padding: 10px;
+  line-height: 34px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   text-align: center;
@@ -216,21 +229,33 @@ export default {
 }
 
 .lie li.thead {
+  border-top: 1px solid #ddd;
   background-color: #f8f8f8;
   position: relative;
 }
 
 .expandWrap li.thead{
+  border-top: 1px solid #F5C38B;
   background-color: #FCF1E5;
 }
 
 .lie li.foot {
-  background-color: #f8f8f8;
   color: #43ADAA;
+  border-bottom: 1px solid #ddd;
+  background-color: #f8f8f8;
+}
+
+.expandWrap li.foot{
+  border-bottom: 1px solid #F5C38B;
+  background-color: #FCF1E5;
 }
 
 .lie li+li {
   border-top: 1px solid #ddd;
+}
+
+.expandWrap li+li {
+  border-top: 1px solid #F5C38B;
 }
 
 .throw-right {
@@ -240,7 +265,7 @@ export default {
   border-bottom: 6px solid transparent;
   position: absolute;
   top: 50%;
-  right: 5px;
+  right: 2px;
   margin-top: -6px;
 }
 
@@ -251,7 +276,7 @@ export default {
   border-bottom: 6px solid transparent;
   position: absolute;
   top: 50%;
-  right: 5px;
+  right: 2px;
   margin-top: -6px;
 }
 </style>

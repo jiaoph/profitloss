@@ -5,25 +5,25 @@
         <template scope="scope">
           <el-table :data="in_tableData2" border :show-header="false" style="width: 100%" class="table-expand">
             <el-table-column prop="area" align="center" width="120" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column prop="in_totalIncome" align="center" :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column prop="totalIncome" align="center" :formatter="formatter_totalIncome" :show-overflow-tooltip="true"></el-table-column>
             <el-table-column prop="commissionEarned" align="center" :show-overflow-tooltip="true"></el-table-column>
             <el-table-column prop="premium" align="center" :show-overflow-tooltip="true"></el-table-column>
             <el-table-column prop="partyReward" align="center" :show-overflow-tooltip="true"></el-table-column>
             <el-table-column prop="receivedGroup" align="center" :show-overflow-tooltip="true"></el-table-column>
             <el-table-column prop="receivableGroup" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column prop="in_totalCost" align="center" :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column prop="totalCost" align="center" :formatter="formatter_totalCost" :show-overflow-tooltip="true"></el-table-column>
             <el-table-column prop="saleExpense" align="center" :show-overflow-tooltip="true"></el-table-column>
             <el-table-column prop="placeExpense" align="center" :show-overflow-tooltip="true"></el-table-column>
             <el-table-column prop="channelCommission" align="center" :show-overflow-tooltip="true"></el-table-column>
             <el-table-column prop="shareExpense" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column prop="in_allcount" align="center" :show-overflow-tooltip="true" class-name="special"></el-table-column>
+            <el-table-column prop="allcount" align="center" :formatter="formatter_allcount" :show-overflow-tooltip="true" class-name="special"></el-table-column>
           </el-table>
         </template>
       </el-table-column>
       <el-table-column prop="area" align="center" label="区域" width="120" :show-overflow-tooltip="true">
       </el-table-column>
       <el-table-column align="center" label="主营业务收入" :show-overflow-tooltip="true">
-        <el-table-column align="center" prop="totalIncome" label="总计" :show-overflow-tooltip="true">
+        <el-table-column align="center" prop="totalIncome" :formatter='formatter_totalIncome' label="总计" :show-overflow-tooltip="true">
         </el-table-column>
         <el-table-column align="center" prop="commissionEarned" label="佣金收入" :show-overflow-tooltip="true">
         </el-table-column>
@@ -37,7 +37,7 @@
         </el-table-column>
       </el-table-column>
       <el-table-column align="center" label="主营业务成本">
-        <el-table-column align="center" prop="totalCost" label="总计" :show-overflow-tooltip="true">
+        <el-table-column align="center" prop="totalCost" :formatter="formatter_totalCost" label="总计" :show-overflow-tooltip="true">
         </el-table-column>
         <el-table-column align="center" prop="saleExpense" label="案场费用" :show-overflow-tooltip="true">
         </el-table-column>
@@ -48,7 +48,7 @@
         <el-table-column align="center" prop="shareExpense" label="分摊" :show-overflow-tooltip="true">
         </el-table-column>
       </el-table-column>
-      <el-table-column align="center" prop="allcount" label="总计" :show-overflow-tooltip="true">
+      <el-table-column align="center" prop="allcount" :formatter="formatter_allcount" label="总计" :show-overflow-tooltip="true">
       </el-table-column>
     </el-table>
   </div>
@@ -196,6 +196,20 @@ export default {
       if(label === "区域") {
         console.log('应该进入事业部主页')
       }
+    },
+    formatter_totalIncome(row){
+      let totalIncome = row.commissionEarned + row.premium + row.partyReward + row.receivedGroup + row.receivableGroup;
+      return totalIncome === 0 ? 0 : totalIncome.toFixed(2);
+    },
+    formatter_totalCost(row){
+      let totalCost = row.saleExpense + row.placeExpense + row.channelCommission + row.shareExpense;
+      return totalCost === 0 ? 0 : totalCost.toFixed(2);
+    },
+    formatter_allcount(row){
+      let totalIncome = row.commissionEarned + row.premium + row.partyReward + row.receivedGroup + row.receivableGroup;
+      let totalCost = row.saleExpense + row.placeExpense + row.channelCommission + row.shareExpense;
+      let allcount = totalIncome - totalCost;
+      return allcount === 0 ? 0 : allcount.toFixed(2);
     }
   },
   mounted() {

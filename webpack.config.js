@@ -46,6 +46,7 @@ module.exports = {
     ]
   },
   resolve: {
+    extensions: ['.js', '.vue', '.json', '.css', '.less'], // 自动补全的扩展名
     alias: {
       'vue$': 'vue/dist/vue.esm.js'
     }

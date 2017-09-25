@@ -4,7 +4,7 @@
       <el-table-column type="expand" width="30">
         <template scope="scope">
           <el-table :data="in_tableData2" border :show-header="false" style="width: 100%" class="table-expand">
-            <el-table-column prop="area" align="center" width="120" :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column prop="area" align="center" width="115" :show-overflow-tooltip="true"></el-table-column>
             <el-table-column prop="totalIncome" align="center" :formatter="formatter_totalIncome" :show-overflow-tooltip="true"></el-table-column>
             <el-table-column prop="commissionEarned" align="center" :show-overflow-tooltip="true"></el-table-column>
             <el-table-column prop="premium" align="center" :show-overflow-tooltip="true"></el-table-column>
@@ -20,7 +20,7 @@
           </el-table>
         </template>
       </el-table-column>
-      <el-table-column prop="area" align="center" label="区域" width="120" :show-overflow-tooltip="true">
+      <el-table-column prop="area" align="center" label="区域" width="115" :show-overflow-tooltip="true">
       </el-table-column>
       <el-table-column align="center" label="主营业务收入" :show-overflow-tooltip="true">
         <el-table-column align="center" prop="totalIncome" :formatter='formatter_totalIncome' label="总计" :show-overflow-tooltip="true">

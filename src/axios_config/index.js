@@ -11,7 +11,7 @@ const Axios = axios.create({
   responseType: "json",
   // withCredentials: true, // 是否允许带cookie这些
   headers: {
-    "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+    "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
   }
 });
 
@@ -56,10 +56,10 @@ Axios.interceptors.response.use( // 响应拦截器
   res => {
     // console.log(res)
     loadingInstance.close()
-    if (res.status != 200) {
-      alert(res.statusText);
-      return Promise.reject(res);
-    }
+    // if (res.status != 200) {
+    //   alert(res.statusText);
+    //   return Promise.reject(res);
+    // }
     return res;
   },
   error => {

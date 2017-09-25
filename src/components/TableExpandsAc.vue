@@ -137,7 +137,9 @@ export default {
       switch (status) {
         case '0': // 该展开添加数据
           e.currentTarget.setAttribute('data-status', '1');
-          out_index = Number.parseInt(e.currentTarget.getAttribute('data-index')); 
+          out_index = Number.parseInt(e.currentTarget.getAttribute('data-index'));
+          this.removeClass(e.currentTarget, 'throw-right');
+          e.currentTarget.className += ' ' + 'throw-left';
           e.currentTarget.parentNode.parentNode.className += ' ' + 'specialborder'; // 添加class
           // console.log('out_index-->'+out_index)
           // 发送请求加载数据
@@ -176,6 +178,8 @@ export default {
 
             this.initjson.splice(minNum,newArr.length); // 初始数组删除元素
             this.deleteIndexArr = []; // 置空deleteIndexArr
+            this.removeClass(e.currentTarget, 'throw-left');
+            e.currentTarget.className += ' ' + 'throw-right';
             this.removeClass(e.currentTarget.parentNode.parentNode, 'specialborder'); // removeclass
           }
           break;

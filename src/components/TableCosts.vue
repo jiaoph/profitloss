@@ -129,7 +129,7 @@
               <p>总部分摊</p>
               <span>8%</span>
             </td>
-            <td class="clearfix">
+            <td class="clearfix pointer" @click.stop.prevent="handle_mangeCost">
               <div class="circle circle6 fl">
                 <div class="incircle">
                   <div class="circleSolid"></div>
@@ -201,6 +201,11 @@
 <script>
 export default {
   name:'tableICosts',
+  methods:{
+    handle_mangeCost(){
+      this.$router.push({path:'/supportDepartCosts'});
+    }
+  },
   mounted() {
     ! function merge(tableId, col) { //自动合并相同单元格
       var tr = document.getElementById(tableId);
@@ -299,6 +304,10 @@ export default {
       }
     }
   }
+}
+
+.pointer{
+  cursor: pointer;
 }
 
 .circle{

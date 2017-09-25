@@ -1,13 +1,16 @@
 <template>
   <div id="app">
     <HeaderVue></HeaderVue>
-    <Home></Home>
+
+    <div>
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
 import HeaderVue from './components/HeaderVue.vue'
-import Home from './components/Home.vue'
+// import Home from './components/Home.vue'
 
 export default {
   name: 'app',
@@ -18,7 +21,7 @@ export default {
   },
   components:{
     HeaderVue,
-    Home
+    // Home
   }
 }
 </script>

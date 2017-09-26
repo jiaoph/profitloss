@@ -18,31 +18,102 @@
         </el-select>
       </div>
     </div>
-    <div class="wrapper clearfix">
-      <ul class="lie" v-for="(val,index) in initjson" :data-index="val.index" :key="index" :class="{expandWrap:val.index !== '0'}">
-        <li class="thead" :title="val.name">
-          <span>{{val.name}}</span>
-          <span v-show="val.expand" @click.stop.prevent="handleExpand($event)" :data-status="0" :data-order="index" :data-index='Number.parseInt(val.index)+1' title="点击展开/收缩" class="throw-right">
+    <div class="wrapper clearfix responsiveBox">
+      <ul class="lie" 
+        v-for="(val,index) in initjson" 
+        :data-index="val.index" 
+        :key="index" 
+        :class="{expandWrap:val.index !== '0'}">
+        <li class="thead" :title="val.gaugeOutfit">
+          <span>{{val.gaugeOutfit}}</span>
+          <span v-show="val.type === 1" 
+            @click.stop.prevent="handleExpand($event)" 
+            :data-status="0" 
+            :data-order="index" 
+            :data-index='Number.parseInt(val.index)+1' 
+            :data-fzixnumber = "val.fzixnumber"
+            title="点击展开/收缩" 
+            class="throw-right">
           </span>
         </li>
-        <li :title="val.zhaomu">
-          <span>{{val.zhaomu}}</span>
+        <li :title="val.depart0">
+          <span>{{val.depart0}}</span>
         </li>
-        <li :title="val.renshi">
-          <span>{{val.renshi}}</span>
+        <li :title="val.depart1">
+          <span>{{val.depart1}}</span>
         </li>
-        <li :title="val.zuzhi">
-          <span>{{val.zuzhi}}</span>
+        <li :title="val.depart2">
+          <span>{{val.depart2}}</span>
         </li>
-        <li :title="val.peixun">
-          <span>{{val.peixun}}</span>
+        <li :title="val.depart3">
+          <span>{{val.depart3}}</span>
+        </li>
+        <li :title="val.depart4">
+          <span>{{val.depart4}}</span>
+        </li>
+        <li :title="val.depart5">
+          <span>{{val.depart5}}</span>
+        </li>
+        <li :title="val.depart6">
+          <span>{{val.depart6}}</span>
+        </li>
+        <li :title="val.depart7">
+          <span>{{val.depart7}}</span>
+        </li>
+        <li :title="val.depart8">
+          <span>{{val.depart8}}</span>
+        </li>
+        <li :title="val.depart9">
+          <span>{{val.depart9}}</span>
+        </li>
+        <li :title="val.depart10">
+          <span>{{val.depart10}}</span>
+        </li>
+        <li :title="val.depart11">
+          <span>{{val.depart11}}</span>
+        </li>
+        <li :title="val.depart12">
+          <span>{{val.depart12}}</span>
+        </li>
+        <li :title="val.depart13">
+          <span>{{val.depart13}}</span>
+        </li>
+        <li :title="val.depart14">
+          <span>{{val.depart14}}</span>
+        </li>
+        <li :title="val.depart15">
+          <span>{{val.depart15}}</span>
+        </li>
+        <li :title="val.depart16">
+          <span>{{val.depart16}}</span>
+        </li>
+        <li :title="val.depart17">
+          <span>{{val.depart17}}</span>
+        </li>
+        <li :title="val.depart18">
+          <span>{{val.depart18}}</span>
+        </li>
+        <li :title="val.depart19">
+          <span>{{val.depart19}}</span>
+        </li>
+        <li :title="val.depart20">
+          <span>{{val.depart20}}</span>
+        </li>
+        <li :title="val.depart21">
+          <span>{{val.depart21}}</span>
+        </li>
+        <li :title="val.depart22">
+          <span>{{val.depart22}}</span>
+        </li>
+        <li :title="val.depart23">
+          <span>{{val.depart23}}</span>
+        </li>
+        <li :title="val.depart24">
+          <span>{{val.depart24}}</span>
         </li>
         <li class="foot" :title="val.total">
           <span>{{val.total}}</span>
         </li>
-      </ul>
-      <ul class="lie expandWrap">
-
       </ul>
     </div>
   </div>
@@ -51,6 +122,7 @@
 <script>
 import Crumbs from './Crumbs'
 import { mapGetters } from 'vuex'
+import { Message } from "element-ui";
 
 export default {
   name: 'anchang',
@@ -76,40 +148,10 @@ export default {
         label: '本年'
       }],
       value: '0', //默认时间维度
-      flag: true, // 测试flag
+      flag: true, // 首次加载flag
       deleteIndexArr: [],
-      initjson: [
-        {
-          name: '部门',
-          zhaomu: '招募部',
-          renshi: '人事部',
-          zuzhi: '组织',
-          peixun: '培训',
-          total: '总计',
-          expand: false,
-          index: '0'
-        },
-        {
-          name: '人力成本',
-          zhaomu: '123',
-          renshi: '22344',
-          zuzhi: '99999999999999',
-          peixun: '12',
-          total: '24245',
-          expand: true,
-          index: '0'
-        },
-        {
-          name: '财务',
-          zhaomu: '123',
-          renshi: '22344',
-          zuzhi: '99999999999999',
-          peixun: '12',
-          total: '24245',
-          expand: false,
-          index: '0'
-        }
-      ],
+      initjson: [], // 表格首次获取数据
+      regularjson: [],
       regularjson1: [
         {
           name: '工资',
@@ -159,25 +201,91 @@ export default {
   methods: {
     change(val){
       this.timeval = val;
-      this.$store.dispatch('timechange', val);
+      this.getData('0', '0', val, '5001.02', '0');
     },
-    getData(xtype,xname,xtime,xnumber,index){
+    getData(){
+      if(arguments.length !== 5) {
+        Message({
+          showClose: true,
+          message: '支持部门成本参数异常错误',
+          type: 'error'
+        });
+        return;
+      }
       this.$http.post('/efangfin/outgoing/twoLevelCost.do',{
-        xtype: xtype,
-        xname: xname,
-        xtime: xtime,
-        xnumber: xnumber,
-        index: index
+        xtype: arguments[0],
+        xname: arguments[1],
+        xtime: arguments[2],
+        xnumber: arguments[3],
+        index: arguments[4]
       }).then(data => {
         console.log(data);
+        let myData = data.data;
+        if (JSON.stringify(myData)) {
+          let status = myData.status;
+          switch (status) {
+            case 1:
+              let inData = myData.data;
+
+              if(this.flag){ // 首次加载
+                if (inData.length) {
+                  this.initjson = inData;
+                } else {
+                  this.initjson = [];
+                  Message({
+                    showClose: true,
+                    message: '支持部门成本数据获取为空',
+                    type: 'warning'
+                  });
+                }
+                this.flag = false;
+              }else{ // 以后加载
+                if(inData.length){
+                  this.regularjson = inData;
+                } else{
+                  this.regularjson = [];
+                }
+              }
+              
+              break;
+            case 0:
+              Message({
+                showClose: true,
+                message: '支持部门成本数据获取错误',
+                type: 'error'
+              });
+              break;
+            default:
+              Message({
+                showClose: true,
+                message: '支持部门成本异常status',
+                type: 'error'
+              });
+              break;
+          }
+        } else {
+          Message({
+            showClose: true,
+            message: '支持部门成本暂无数据',
+            type: 'warning'
+          });
+          return;
+        }
       }).catch(error => {
         Message({
           showClose: true,
-          duration: 1800,
-          message: '支持部门获取数据异常',
+          duration: 2000,
+          message: '支持部门成本数据获取异常',
           type: 'error'
         });
         console.log(error);
+      })
+    },
+    asyncFunction(){ // 异步获取this.regularjson
+      return new Promise((resolve,reject) => {
+        setTimeout(() => {
+          resolve(this.regularjson);
+        },3000)
       })
     },
     removeClass(el, className) {
@@ -195,28 +303,26 @@ export default {
           this.removeClass(e.currentTarget, 'throw-right');
           e.currentTarget.className += ' ' + 'throw-left';
           e.currentTarget.parentNode.parentNode.className += ' ' + 'specialborder'; // 添加class
-          // console.log('out_index-->'+out_index)
-          // 发送请求加载数据
-          if (this.flag) {
-            this.flag = false;
-            if (this.regularjson1.length) {
-              for (let i = 0, len = this.regularjson1.length; i < len; i++) {
-                this.initjson.splice(order++, 0, this.regularjson1[i]);
-              }
-            }
-          } else {
-            if (this.regularjson2.length) {
-              for (let i = 0, len = this.regularjson2.length; i < len; i++) {
-                this.initjson.splice(order++, 0, this.regularjson2[i]);
-              }
-            }
-          }
+          console.log('out_index-->'+out_index)
 
+          // 发送请求加载数据
+          let fzixnumber = e.currentTarget.getAttribute('data-fzixnumber'); //点击时的费用id
+          this.getData('0', '0', this.value, fzixnumber, out_index);
+          
+          this.asyncFunction().then(regularjson => {
+            regularjson.shift(); //删除数组的首个元素，原因：首次表格已加载
+            for (let i = 0, len = regularjson.length; i < len; i++) {
+              this.initjson.splice(order++, 0, regularjson[i]);
+            }
+          }).catch(error => {
+            console.log(error)
+          })
+          
           break;
         case '1': // 该合并
           e.currentTarget.setAttribute('data-status', '0');
           let inner_index = Number.parseInt(e.currentTarget.getAttribute('data-index'));
-          // console.log('inner_index-->'+inner_index)
+          console.log('inner_index-->'+inner_index)
           if (inner_index === out_index || inner_index > out_index) { // 关闭时的层级和外层的层级对比
             this.initjson.forEach((val, i, arr) => {
               let new_index = Number.parseInt(val.index);
@@ -244,11 +350,21 @@ export default {
   },
   mounted(){
     this.value = this.time_val;
+
+    this.getData('0', '0', this.value, '5001.02', '0');
   }
 }
 </script>
 
 <style scoped>
+.responsiveBox{  /*横向滚动*/
+  white-space: nowrap;
+  overflow: hidden;
+  overflow-x: scroll;
+  -webkit-backface-visibility: hidden;
+  -webkit-overflow-scrolling: touch; /* 滚动touch */
+}
+
 .title {
   line-height: 70px;
   position: relative;
@@ -270,18 +386,13 @@ export default {
 }
 
 .wrapper {
-  width: 100%;
+  max-height: 600px;
+  overflow-y: scroll;
   font-size: 12px;
-  white-space: nowrap;
-  overflow: hidden;
-  overflow-x: scroll;
-  -webkit-backface-visibility: hidden;
-  -webkit-perspective: 1000;
-  -webkit-overflow-scrolling: touch;
 }
 
 .wrapper ul {
-  float: left;
+  display: inline-block;
   border-right: 1px solid #ddd;
 }
 

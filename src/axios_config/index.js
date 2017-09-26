@@ -78,7 +78,7 @@ Axios.interceptors.response.use( // 响应拦截器
       // Something happened in setting up the request that triggered an Error
       console.log('Error', error.message);
     }
-    console.log(error.config);
+    // console.log(error.config);
     return Promise.reject(error);
   }
 );

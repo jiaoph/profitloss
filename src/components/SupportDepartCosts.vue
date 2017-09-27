@@ -19,6 +19,7 @@
       </div>
     </div>
     <div class="wrapper clearfix responsiveBox">
+      <div class="tips" v-show="initjson.length === 0">暂无数据</div>
       <ul class="lie" 
         v-for="(val,index) in initjson" 
         :data-index="val.index" 
@@ -111,8 +112,8 @@
         <li :title="val.depart24">
           <span>{{val.depart24}}</span>
         </li>
-        <li class="foot" :title="val.total">
-          <span>{{val.total}}</span>
+        <li class="foot" :title="val.sum">
+          <span>{{val.sum}}</span>
         </li>
       </ul>
     </div>
@@ -151,51 +152,7 @@ export default {
       flag: true, // 首次加载flag
       deleteIndexArr: [],
       initjson: [], // 表格首次获取数据
-      regularjson: [],
-      regularjson1: [
-        {
-          name: '工资',
-          zhaomu: '123',
-          renshi: '22344',
-          zuzhi: '99999999999999',
-          peixun: '12',
-          total: '2424565775',
-          expand: false,
-          index: '1'
-        },
-        {
-          name: '社保公积金',
-          zhaomu: '123',
-          renshi: '22344',
-          zuzhi: '99999999999999',
-          peixun: '12',
-          total: '5',
-          expand: true,
-          index: '1'
-        },
-        {
-          name: '绩效',
-          zhaomu: '123',
-          renshi: '22344',
-          zuzhi: '99999999999999',
-          peixun: '12',
-          total: '24245',
-          expand: false,
-          index: '1'
-        },
-      ],
-      regularjson2: [
-        {
-          name: '奖金啊',
-          zhaomu: '123',
-          renshi: '22344',
-          zuzhi: '99999999999999',
-          peixun: '12',
-          total: '24245',
-          expand: false,
-          index: '2'
-        }
-      ]
+      regularjson: []
     }
   },
   methods: {
@@ -285,7 +242,7 @@ export default {
       return new Promise((resolve,reject) => {
         setTimeout(() => {
           resolve(this.regularjson);
-        },3000)
+        },5500)
       })
     },
     removeClass(el, className) {
@@ -293,17 +250,13 @@ export default {
     },
     handleExpand(e) {
       let status = e.currentTarget.getAttribute('data-status'), // 关闭展开状态
-        order = Number.parseInt(e.currentTarget.getAttribute('data-order')) + 1, // 点击时获取到的数组的order
-        out_index = ''; // 点击时获取到的层级
+        order = Number.parseInt(e.currentTarget.getAttribute('data-order')) + 1, // 点击时获取到的数组的order,插入到initjson用
+        out_index = '', // 点击时获取到的层级
 
       switch (status) {
         case '0': // 该展开添加数据
-          e.currentTarget.setAttribute('data-status', '1');
           out_index = Number.parseInt(e.currentTarget.getAttribute('data-index'));
-          this.removeClass(e.currentTarget, 'throw-right');
-          e.currentTarget.className += ' ' + 'throw-left';
-          e.currentTarget.parentNode.parentNode.className += ' ' + 'specialborder'; // 添加class
-          console.log('out_index-->'+out_index)
+          // console.log('out_index-->'+out_index)
 
           // 发送请求加载数据
           let fzixnumber = e.currentTarget.getAttribute('data-fzixnumber'); //点击时的费用id
@@ -311,37 +264,53 @@ export default {
           
           this.asyncFunction().then(regularjson => {
             regularjson.shift(); //删除数组的首个元素，原因：首次表格已加载
+
             for (let i = 0, len = regularjson.length; i < len; i++) {
               this.initjson.splice(order++, 0, regularjson[i]);
             }
           }).catch(error => {
-            console.log(error)
+            console.log(error);
           })
           
+          e.currentTarget.setAttribute('data-status', '1');
+          this.removeClass(e.currentTarget, 'throw-right');
+          e.currentTarget.className += ' ' + 'throw-left';
+          e.currentTarget.parentNode.parentNode.className += ' ' + 'specialborder'; // 添加class
           break;
-        case '1': // 该合并
-          e.currentTarget.setAttribute('data-status', '0');
-          let inner_index = Number.parseInt(e.currentTarget.getAttribute('data-index'));
-          console.log('inner_index-->'+inner_index)
-          if (inner_index === out_index || inner_index > out_index) { // 关闭时的层级和外层的层级对比
-            this.initjson.forEach((val, i, arr) => {
-              let new_index = Number.parseInt(val.index);
+        case '1': // 合并表格操作
+          let fzixnumberid = e.currentTarget.getAttribute('data-fzixnumber'); // 点击时的费用id
+          this.initjson.forEach((val, i, arr) => {
+            let new_fzixnumber = val.fzixnumber; // this.initjson数组内的费用id
 
-              if (inner_index === new_index || inner_index < new_index) { // 关闭的层级和initjson数组元素的层级对比
-                this.deleteIndexArr.push(i);
-              }
-            })
+            if(new_fzixnumber.includes(fzixnumberid)){ // ★★★费用id字符串对比
+              this.deleteIndexArr.push(i);
+            }
+          })
+
+
+          // let inner_index = Number.parseInt(e.currentTarget.getAttribute('data-index'));
+          // // console.log('inner_index-->'+inner_index)
+          // if (inner_index === out_index || inner_index > out_index) { // 关闭时的层级和外层的层级对比
+
+          //   this.initjson.forEach((val, i, arr) => {
+          //     let new_index = Number.parseInt(val.index);
+              
+          //     if (inner_index === new_index || inner_index < new_index) { // 关闭的层级和initjson数组元素的层级对比
+          //       this.deleteIndexArr.push(i);
+          //     }
+          //   })
 
             let newArr = Array.prototype.slice.call(this.deleteIndexArr),
               // maxNum = Math.max.apply(null,newArr),
               minNum = Math.min.apply(null, newArr); // 数组最小值
-
-            this.initjson.splice(minNum, newArr.length); // 初始数组删除元素
+            
+            this.initjson.splice(minNum+1, newArr.length-1); // 初始数组删除元素
             this.deleteIndexArr = []; // 置空deleteIndexArr
+            e.currentTarget.setAttribute('data-status', '0');
             this.removeClass(e.currentTarget, 'throw-left');
             e.currentTarget.className += ' ' + 'throw-right';
             this.removeClass(e.currentTarget.parentNode.parentNode, 'specialborder'); // removeclass
-          }
+          // }
           break;
         default:
           break;
@@ -351,7 +320,7 @@ export default {
   mounted(){
     this.value = this.time_val;
 
-    this.getData('0', '0', this.value, '5001.02', '0');
+    this.getData('0', '0', this.value, '5001', '0');
   }
 }
 </script>
@@ -386,9 +355,24 @@ export default {
 }
 
 .wrapper {
+  min-height: 200px;
   max-height: 600px;
   overflow-y: scroll;
   font-size: 12px;
+  border-left: 1px solid #ddd;
+  position: relative;
+}
+
+.wrapper .tips{
+  width: 150px;
+  height: 50px;
+  font-size: 20px;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .wrapper ul {

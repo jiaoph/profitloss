@@ -24,7 +24,7 @@
         v-for="(val,index) in initjson" 
         :data-index="val.index" 
         :key="index" 
-        :class="{expandWrap:val.index !== '0'}">
+        :class="{expandWrap:val.index !== '0',expandWrap1:val.index === '2',expandWrap2:val.index === '3',expandWrap3:val.index === '4',expandWrap4:val.index === '5'}">
         <li class="thead" :title="val.gaugeOutfit">
           <span>{{val.gaugeOutfit}}</span>
           <span v-show="val.type === 1" 
@@ -41,79 +41,80 @@
           <span>{{val.depart0}}</span>
         </li>
         <li :title="val.depart1">
-          <span>{{val.depart1}}</span>
+          <span>{{val.depart1 | formateMoney}}</span>
         </li>
         <li :title="val.depart2">
-          <span>{{val.depart2}}</span>
+          <span>{{val.depart2 | formateMoney}}</span>
         </li>
         <li :title="val.depart3">
-          <span>{{val.depart3}}</span>
+          <span>{{val.depart3 | formateMoney}}</span>
         </li>
         <li :title="val.depart4">
-          <span>{{val.depart4}}</span>
+          <span>{{val.depart4 | formateMoney}}</span>
         </li>
         <li :title="val.depart5">
-          <span>{{val.depart5}}</span>
+          <span>{{val.depart5 | formateMoney}}</span>
         </li>
         <li :title="val.depart6">
-          <span>{{val.depart6}}</span>
+          <span>{{val.depart6 | formateMoney}}</span>
         </li>
         <li :title="val.depart7">
-          <span>{{val.depart7}}</span>
+          <span>{{val.depart7 | formateMoney}}</span>
         </li>
         <li :title="val.depart8">
-          <span>{{val.depart8}}</span>
+          <span>{{val.depart8 | formateMoney}}</span>
         </li>
         <li :title="val.depart9">
-          <span>{{val.depart9}}</span>
+          <span>{{val.depart9 | formateMoney}}</span>
         </li>
         <li :title="val.depart10">
-          <span>{{val.depart10}}</span>
+          <span>{{val.depart10 | formateMoney}}</span>
         </li>
         <li :title="val.depart11">
-          <span>{{val.depart11}}</span>
+          <span>{{val.depart11 | formateMoney}}</span>
         </li>
         <li :title="val.depart12">
-          <span>{{val.depart12}}</span>
+          <span>{{val.depart12 | formateMoney}}</span>
         </li>
         <li :title="val.depart13">
-          <span>{{val.depart13}}</span>
+          <span>{{val.depart13 | formateMoney}}</span>
         </li>
         <li :title="val.depart14">
-          <span>{{val.depart14}}</span>
+          <span>{{val.depart14 | formateMoney}}</span>
         </li>
         <li :title="val.depart15">
-          <span>{{val.depart15}}</span>
+          <span>{{val.depart15 | formateMoney}}</span>
         </li>
         <li :title="val.depart16">
-          <span>{{val.depart16}}</span>
+          <span>{{val.depart16 | formateMoney}}</span>
         </li>
         <li :title="val.depart17">
-          <span>{{val.depart17}}</span>
+          <span>{{val.depart17 | formateMoney}}</span>
         </li>
         <li :title="val.depart18">
-          <span>{{val.depart18}}</span>
+          <span>{{val.depart18 | formateMoney}}</span>
         </li>
         <li :title="val.depart19">
-          <span>{{val.depart19}}</span>
+          <span>{{val.depart19 | formateMoney}}</span>
         </li>
         <li :title="val.depart20">
-          <span>{{val.depart20}}</span>
+          <span>{{val.depart20 | formateMoney}}</span>
         </li>
         <li :title="val.depart21">
-          <span>{{val.depart21}}</span>
+          <span>{{val.depart21 | formateMoney}}</span>
         </li>
         <li :title="val.depart22">
-          <span>{{val.depart22}}</span>
+          <span>{{val.depart22 | formateMoney}}</span>
         </li>
         <li :title="val.depart23">
-          <span>{{val.depart23}}</span>
+          <span>{{val.depart23 | formateMoney}}</span>
         </li>
         <li :title="val.depart24">
-          <span>{{val.depart24}}</span>
+          <span>{{val.depart24 | formateMoney}}</span>
         </li>
-        <li class="foot" :title="val.sum">
-          <span>{{val.sum}}</span>
+        <li class="foot" :title="val | getCount | formateMoney">
+          <!--<span>{{val.sum}}</span>-->
+          <span>{{val | getCount | formateMoney}}</span>
         </li>
       </ul>
     </div>
@@ -128,7 +129,7 @@ import { Message } from "element-ui";
 export default {
   name: 'anchang',
   computed: mapGetters([
-    'time_val'
+      'time_val'
   ]),
   components: {
     Crumbs
@@ -157,8 +158,11 @@ export default {
   },
   methods: {
     change(val){
+      this.regularjson = [];
+      this.initjson = [];
+      this.flag = true;
       this.timeval = val;
-      this.getData('0', '0', val, '5001.02', '0');
+      this.getData('0', '0', val, '5001', '0');
     },
     getData(){
       if(arguments.length !== 5) {
@@ -242,7 +246,7 @@ export default {
       return new Promise((resolve,reject) => {
         setTimeout(() => {
           resolve(this.regularjson);
-        },5500)
+        },1500)
       })
     },
     removeClass(el, className) {
@@ -251,7 +255,7 @@ export default {
     handleExpand(e) {
       let status = e.currentTarget.getAttribute('data-status'), // 关闭展开状态
         order = Number.parseInt(e.currentTarget.getAttribute('data-order')) + 1, // 点击时获取到的数组的order,插入到initjson用
-        out_index = '', // 点击时获取到的层级
+        out_index = ''; // 点击时获取到的层级
 
       switch (status) {
         case '0': // 该展开添加数据
@@ -262,31 +266,30 @@ export default {
           let fzixnumber = e.currentTarget.getAttribute('data-fzixnumber'); //点击时的费用id
           this.getData('0', '0', this.value, fzixnumber, out_index);
           
-          this.asyncFunction().then(regularjson => {
+          this.asyncFunction().then((regularjson) => {
             regularjson.shift(); //删除数组的首个元素，原因：首次表格已加载
 
             for (let i = 0, len = regularjson.length; i < len; i++) {
               this.initjson.splice(order++, 0, regularjson[i]);
             }
+          }).then(() => {
+            e.target.setAttribute('data-status', '1');
+            this.removeClass(e.target, 'throw-right');
+            e.target.className += ' ' + 'throw-left';
+            e.target.parentNode.parentNode.className += ' ' + 'specialborder'; // 添加class
           }).catch(error => {
             console.log(error);
           })
-          
-          e.currentTarget.setAttribute('data-status', '1');
-          this.removeClass(e.currentTarget, 'throw-right');
-          e.currentTarget.className += ' ' + 'throw-left';
-          e.currentTarget.parentNode.parentNode.className += ' ' + 'specialborder'; // 添加class
           break;
         case '1': // 合并表格操作
           let fzixnumberid = e.currentTarget.getAttribute('data-fzixnumber'); // 点击时的费用id
-          this.initjson.forEach((val, i, arr) => {
+          this.initjson.forEach((val, i) => {
             let new_fzixnumber = val.fzixnumber; // this.initjson数组内的费用id
 
             if(new_fzixnumber.includes(fzixnumberid)){ // ★★★费用id字符串对比
               this.deleteIndexArr.push(i);
             }
           })
-
 
           // let inner_index = Number.parseInt(e.currentTarget.getAttribute('data-index'));
           // // console.log('inner_index-->'+inner_index)
@@ -325,7 +328,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .responsiveBox{  /*横向滚动*/
   white-space: nowrap;
   overflow: hidden;
@@ -431,6 +434,21 @@ export default {
   border-bottom: 1px solid #F5C38B;
   background-color: #FCF1E5;
 }
+
+.loop(@num) when (@num < 5) {
+  .expandWrap@{num} li.thead{
+    background-color: lighten(#FCF1E5, @num*3%);
+  }
+  .expandWrap@{num} li.foot{
+    background-color: lighten(#FCF1E5, @num*3%);
+  }
+  .wrapper .expandWrap@{num} {
+    background-color: lighten(#FCF1E5, @num*3%);
+  }
+  .loop((@num+1));
+}
+
+.loop(0);
 
 .lie li+li {
   border-top: 1px solid #ddd;

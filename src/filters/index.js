@@ -1,5 +1,7 @@
-const moneyFormat = require('./moneyFormat')
+import {getCount} from './getCount'
+import {formateMoney} from './moneyFormat'
 
-module.exports = {
-  moneyFormat
+export default {
+  getCount,
+  formateMoney
 }

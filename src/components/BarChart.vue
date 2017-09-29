@@ -4,7 +4,7 @@
     <div class="mylegend clearfix">
       <div class="left_legend fl">
         <div class="intop clearfix">
-          <div class="circle_jfyj fl">
+          <div class="circle circle_jfyj fl">
             <div class="incircle">
               <div class="circleSolid"></div>
             </div>
@@ -12,7 +12,7 @@
           <span class="fl">甲方佣金</span>
         </div>
         <div class="inbottom clearfix">
-          <div class="circle_tgf fl">
+          <div class="circle circle_tgf fl">
             <div class="incircle">
               <div class="circleSolid"></div>
             </div>
@@ -23,7 +23,7 @@
       <div class="right_legend fr clearfix">
         <div class="leftContent fl">
           <div class="intop clearfix">
-            <div class="circle_qdyj fl">
+            <div class="circle circle_qdyj fl">
               <div class="incircle">
                 <div class="circleSolid"></div>
               </div>
@@ -31,7 +31,7 @@
             <span class="fl">渠道佣金</span>
           </div>
           <div class="inbottom clearfix">
-            <div class="circle_xmyy fl">
+            <div class="circle circle_xmyy fl">
               <div class="incircle">
                 <div class="circleSolid"></div>
               </div>
@@ -41,7 +41,7 @@
         </div>
         <div class="rightContent fr">
           <div class="intop clearfix">
-            <div class="circle_qyft fl">
+            <div class="circle circle_qyft fl">
               <div class="incircle">
                 <div class="circleSolid"></div>
               </div>
@@ -49,7 +49,7 @@
             <span class="fl">区域分摊</span>
           </div>
           <div class="inbottom clearfix">
-            <div class="circle_zbft fl">
+            <div class="circle circle_zbft fl">
               <div class="incircle">
                 <div class="circleSolid"></div>
               </div>
@@ -259,7 +259,6 @@ export default {
 .barWrap {
   width: 100%;
   padding-top: 50px;
-  border: 1px dashed red;
 }
 
 .inbar {
@@ -294,10 +293,25 @@ export default {
   line-height: 50px;
 }
 
-.mylegend .right_legend .leftContent,
-.mylegend .right_legend .rightContent {
-  width: 50%;
+.mylegend .left_legend .circle{
+  margin: 0 10px 0 40px;
+}
+
+.mylegend .right_legend .leftContent {
+  width: 40%;
   height: 100%;
+}
+
+.mylegend .right_legend .rightContent {
+  width: 60%;
+  height: 100%;
+}
+
+.mylegend .right_legend .leftContent,
+.mylegend .right_legend .rightContent{
+  .circle{
+    margin: 0 10px;
+  }
 }
 
 .circle_tgf {

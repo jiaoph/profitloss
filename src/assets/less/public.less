@@ -19,3 +19,31 @@
  -o-border-radius:@radius;
  border-radius:@radius;
 }
+
+.public_circle(@color: #CAD879){
+  height: 100%;
+  width: 16px;
+  position: relative;
+  >.incircle{
+    width: 16px;
+    height: 16px;
+    .borderRadius(50%);
+    border: 1px solid @color;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -9px;
+    >.circleSolid{
+      width: 14px;
+      height: 14px;
+      background-color: @color;
+      .borderRadius(50%);
+      position: absolute;
+      margin: auto;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+    }
+  }
+}

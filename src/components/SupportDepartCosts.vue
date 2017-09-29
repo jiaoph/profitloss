@@ -362,7 +362,7 @@ export default {
   max-height: 600px;
   overflow-y: scroll;
   font-size: 12px;
-  border-left: 1px solid #ddd;
+  // border-left: 1px solid #ddd;
   position: relative;
 }
 

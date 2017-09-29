@@ -128,6 +128,7 @@ export default {
   >.mainBusiness {
     width: 100%;
     padding-top: 16px;
+    margin-bottom: 30px;
     >.tab {
       width: 416px;
       padding-left: 40px;

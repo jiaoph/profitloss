@@ -19,7 +19,6 @@
       </div>
     </div>
     <div class="wrapper clearfix responsiveBox">
-      <div class="tips" v-show="initjson.length === 0">暂无数据</div>
       <ul class="lie" 
         v-for="(val,index) in initjson" 
         :data-index="val.index" 
@@ -117,6 +116,7 @@
           <span>{{val | getCount | formateMoney}}</span>
         </li>
       </ul>
+      <div class="tips" v-show="initjson.length === 0">暂无数据</div>
     </div>
   </div>
 </template>

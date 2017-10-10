@@ -1,5 +1,6 @@
 import Home from './components/Home'
 import SupportDepartCosts from './components/SupportDepartCosts'
+import Error from './components/Error'
 
 export default [
   {
@@ -16,6 +17,6 @@ export default [
   },
   {
     path: '*',
-    redirect: '/home'
+    component: Error
   }
 ]

@@ -1,8 +1,6 @@
 <template>
   <div class="msgWrap">
-    <div class="inMsgWrap">
-      </p>ERROR: <b>{{ msg }}</b></p>
-    </div>
+    </p>ERROR: <b>{{ msg }}</b></p>
   </div>
 </template>
 
@@ -18,11 +16,11 @@ export default {
 
 <style scoped>
   .msgWrap{
-    width: 100%;
-    /*height: 100%;*/
-    /*position: relative;*/
-  }
-  .inMsgWrap{
+    width: 200px;
+    height: 200px;
+    font-size: 30px;
+    text-align: center;
+    line-height: 200px;
     position: absolute;
     margin: auto;
     left: 0;

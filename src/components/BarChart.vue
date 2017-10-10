@@ -76,7 +76,6 @@ export default {
     // 绘制图表
     myChart.setOption({
       tooltip: {
-        // show: false,
         trigger: 'axis',
         axisPointer: {            // 坐标轴指示器，坐标轴触发有效
           type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
@@ -181,7 +180,7 @@ export default {
               }
             }
           },
-          data: [240, 0, 0, 0, 0, 0]
+          data: [540, 0, 0, 0, 0, 0]
         },
         {
           name: '区域分摊',
@@ -291,6 +290,9 @@ export default {
   width: 100%;
   text-align: center;
   line-height: 50px;
+  span{
+    color: #908983;
+  }
 }
 
 .mylegend .left_legend .circle{

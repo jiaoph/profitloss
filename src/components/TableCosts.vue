@@ -255,7 +255,6 @@ export default {
     })
 
     sync.then(arr => {
-      console.log(arr)
       this.acCount = arr[6].money;
       this.ldCount = arr[7].money;
       this.placeCount = arr[8].money;

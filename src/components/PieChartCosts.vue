@@ -5,68 +5,97 @@
 </template>
 
 <script>
+import { Event } from '../assets/eventBus'
 var echarts = require('echarts/lib/echarts');
 // 引入饼图
 require('echarts/lib/chart/pie');
 
 export default {
-  name:'pieConstsWrap',
-  mounted() {
-    var myChart_pie = echarts.init(document.getElementById('pieConstsWrap'));
-    myChart_pie.setOption({
-      tooltip: {
-        trigger: 'item',
-        formatter: "{a} <br/>{b}: {c} ({d}%)"
-      },
-      color:['#9ECCE8','#489ED3','#6AB7CC','#32A5A2','#AAE5D9','#9DACD4','#5665C1'],
-      legend: {
-        orient: 'vertical',
-        x: 'left',
-        data: ['案场费用','联动费用',  '渠道佣金', '开发费用','管理费用1','管理费用2','财务费用']
-      },
-      series: [
-        {
-          name: '主营业务成本',
-          type: 'pie',
-          selectedMode: 'single',
-          radius: ['40%', '90%'],
-          // center: ['50%', '50%'],
-          avoidLabelOverlap: false,
-          label: {
-            normal: {
-              show: true,
-              position: 'inner',
-              formatter: '{d}%',
-              textStyle: {
-                color: '#fff',
-                fontWeight: 'bold',
-                fontSize: 12
+  data() {
+    return {
+      sucessdata: [0, 0, 0, 0, 0, 0, 0],
+      pieChartCostsData: ''
+    }
+  },
+  name: 'pieConstsWrap',
+  methods: {
+    initPieChartCosts(arr) {
+      var myChart_pie = echarts.init(document.getElementById('pieConstsWrap'));
+      myChart_pie.setOption({
+        tooltip: {
+          trigger: 'item',
+          formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        color: ['#9ECCE8', '#489ED3', '#6AB7CC', '#32A5A2', '#AAE5D9', '#9DACD4', '#5665C1'],
+        legend: {
+          orient: 'vertical',
+          x: 'left',
+          data: ['案场费用', '联动费用', '渠道佣金', '开发费用', '管理费用(区域成本)', '管理费用(总部分摊)', '财务费用']
+        },
+        series: [
+          {
+            name: '主营业务成本',
+            type: 'pie',
+            selectedMode: 'single',
+            radius: ['40%', '90%'],
+            // center: ['50%', '50%'],
+            avoidLabelOverlap: false,
+            label: {
+              normal: {
+                show: true,
+                position: 'inner',
+                formatter: '{d}%',
+                textStyle: {
+                  color: '#fff',
+                  fontWeight: 'bold',
+                  fontSize: 12
+                }
+              },
+              emphasis: {
+                show: true,
+                textStyle: {
+                  fontSize: '18',
+                  fontWeight: 'normal'
+                }
               }
             },
-            emphasis: {
-              show: true,
-              textStyle: {
-                fontSize: '18',
-                fontWeight: 'normal'
+            labelLine: {
+              normal: {
+                show: false
               }
-            }
-          },
-          labelLine: {
-            normal: {
-              show: false
-            }
-          },
-          data: [
-            { value: 310, name: '案场费用' },
-            { value: 335, name: '联动费用' },
-            { value: 190, name: '渠道佣金' },
-            { value: 248, name: '开发费用' },
-            { value: 204, name: '管理费用1' },
-            { value: 114, name: '管理费用2' },
-            { value: 594, name: '财务费用' }
-          ]
-        }
+            },
+            data: arr
+          }
+        ]
+      })
+    }
+  },
+  mounted() {
+    Event.$on('homejson', data => {
+      this.pieChartData = data;
+    })
+
+    const sync = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(this.pieChartData);
+      }, 1500);
+    })
+
+    sync.then(arr => {
+      this.sucessdata = [
+        { value: arr[6].money, name: '案场费用' },
+        { value: arr[7].money, name: '联动费用' },
+        { value: arr[8].money, name: '渠道佣金' },
+        { value: arr[9].money, name: '开发费用' },
+        { value: arr[10].money, name: '管理费用(区域成本)' },
+        { value: arr[0].money, name: '管理费用(总部分摊)' },
+        { value: arr[11].money, name: '财务费用' }
       ]
+      return this.sucessdata;
+    }).then(val => {
+      this.initPieChartCosts(Array.prototype.slice.call(val));
+    }).catch(err => {
+      console.log(err);
     })
   }
 }

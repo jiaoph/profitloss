@@ -141,7 +141,14 @@
 </template>
 
 <script>
+import { Event } from '../assets/eventBus'
+
 export default {
+  data() {
+    return {
+      incomeData: ''
+    }
+  },
   mounted() {
     ! function merge(tableId, col) { //自动合并相同单元格
       var tr = document.getElementById(tableId);
@@ -158,6 +165,22 @@ export default {
         }
       }
     }("datatable", "0")
+
+    Event.$on('homejson', data => {
+      this.incomeData = data;
+    })
+
+    const sync = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(this.incomeData);
+      }, 1500);
+    })
+
+    sync.then(val => {
+      // console.log(val)
+    }).catch(err => {
+      console.log(err);
+    })
   }
 }
 </script>
@@ -184,21 +207,21 @@ export default {
         >td:nth-child(1) {
           font-size: 18px;
           max-width: 28px;
-          >p{
+          >p {
             line-height: 18px;
           }
         }
-        >td:nth-child(2){
+        >td:nth-child(2) {
           max-width: 50px;
-          >span{
+          >span {
             margin-left: 10px;
           }
         }
       }
     }
-    >tfoot{
-      >tr{
-        >td{
+    >tfoot {
+      >tr {
+        >td {
           font-size: 18px;
           font-weight: 700;
           color: #32A5A2;
@@ -206,7 +229,7 @@ export default {
           line-height: 50px;
           border: 1px solid #e6e6e6;
         }
-        >td{
+        >td {
           font-weight: normal;
         }
       }
@@ -214,19 +237,23 @@ export default {
   }
 }
 
-.circle{
+.circle {
   .public_circle();
 }
-.circle2{
+
+.circle2 {
   .public_circle(#97C681);
 }
-.circle3{
+
+.circle3 {
   .public_circle(#4A9973);
 }
-.circle4{
+
+.circle4 {
   .public_circle(#FBB661);
 }
-.circle5{
+
+.circle5 {
   .public_circle(#DEE598);
 }
 </style>

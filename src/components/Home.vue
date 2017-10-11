@@ -9,14 +9,10 @@
         <BarChart></BarChart>
         <div class="timeselect">
           <el-select v-model="value" @change="change" placeholder="请选择" class="resetSelect">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
+            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
-        </div>  
+        </div>
       </div>
     </div>
     <div class="opeIncome">
@@ -43,9 +39,9 @@
     </div>
     <div class="opeIncome projectMan">
       <h2 class="subtitle">项目经营情况</h2>
-        <div class="inprojectMan">
-          <ProjectMan></ProjectMan>
-        </div>
+      <div class="inprojectMan">
+        <ProjectMan></ProjectMan>
+      </div>
     </div>
   </div>
 </template>
@@ -59,7 +55,8 @@ import TableIncome from './TableIncome.vue'
 import PieChartCosts from './PieChartCosts.vue'
 import TableCosts from './TableCosts.vue'
 import ProjectMan from './ProjectMan.vue'
-import { Message } from "element-ui";
+import { Message } from "element-ui"
+import { Event } from '../assets/eventBus'
 
 export default {
   name: 'contentWrap',
@@ -73,7 +70,7 @@ export default {
     TableCosts,
     ProjectMan
   },
-  data(){
+  data() {
     return {
       options: [{
         value: '0',
@@ -89,35 +86,67 @@ export default {
         label: '本年'
       }],
       value: '0', // 默认时间维度
-      timeval: '0'
+      timeval: '0',
+      homeData: ''
     }
   },
-  methods:{
-    getfindAllData(){
+  methods: {
+    getfindAllData() {
       // this.$http.post('/efangfin/financial/findAll.do',{
-      this.$http.post('https://easy-mock.com/mock/59ce1fb7c5c4302238f5706f/www.caiwuyingkui.com/efangfin/financial/findAll.do',{
+      this.$http.post('https://easy-mock.com/mock/59ce1fb7c5c4302238f5706f/www.caiwuyingkui.com/efangfin/financial/findAll.do', {
         xtype: "0",
         xname: '',
         xtime: this.timeval
-      }).then(data=>{
-        console.log(data)
-      }).catch(error=>{
+      }).then(data => {
+        let myData = data.data;
+        if (JSON.stringify(myData)) {
+          let status = myData.status;
+          switch (status) {
+            case 0:
+              Message({
+                showClose: true,
+                message: '主营业务收入/成本错误',
+                type: 'error'
+              });
+              break;
+            case 1:
+              this.homeData = myData.data;
+              // console.log(this.homeData)
+              Event.$emit('homejson', this.homeData);
+              break;
+            default:
+              Message({
+                showClose: true,
+                message: '主营业务收入/成本异常status',
+                type: 'error'
+              });
+              break;
+          }
+        } else {
+          Message({
+            showClose: true,
+            message: '主营业务收入/成本暂无数据',
+            type: 'warning'
+          });
+          return;
+        }
+      }).catch(error => {
         Message({
           showClose: true,
           duration: 1800,
           message: '主营业数据获取异常错误',
           type: 'error'
         });
-        console.log(error)
+        console.log(error) 
       })
     },
-    change(val){
+    change(val) {
       this.timeval = val;
       this.$store.dispatch('timechange', val);
     }
   },
-  mounted(){
-    this.getfindAllData()
+  mounted() {
+    this.getfindAllData();
   }
 }
 </script>
@@ -154,19 +183,19 @@ export default {
       width: 100%;
       >.pie {
         padding-top: 40px;
-        margin-right:46px;
+        margin-right: 46px;
       }
-      >.pieCosts{
+      >.pieCosts {
         padding-top: 110px;
       }
     }
-    >.inprojectMan{
+    >.inprojectMan {
       width: 100%;
       padding: 60px 8px 0 0;
       .boxSizing();
     }
   }
-  >.opeIncome:last-child{
+  >.opeIncome:last-child {
     border-bottom: 0;
   }
 }

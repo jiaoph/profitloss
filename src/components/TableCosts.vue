@@ -8,7 +8,7 @@
               <p>项目运营成本</p>
               <span>8%</span>
             </td>
-            <td class="clearfix">
+            <td class="clearfix pointer">
               <div class="circle fl">
                 <div class="incircle">
                   <div class="circleSolid"></div>
@@ -25,7 +25,7 @@
               <p>项目运营成本</p>
               <span>8%</span>
             </td>
-            <td class="clearfix">
+            <td class="clearfix pointer">
               <div class="circle circle2 fl">
                 <div class="incircle">
                   <div class="circleSolid"></div>
@@ -54,7 +54,7 @@
               <p>渠道成本</p>
               <span>2%</span>
             </td>
-            <td class="clearfix">
+            <td class="clearfix pointer">
               <div class="circle circle3 fl">
                 <div class="incircle">
                   <div class="circleSolid"></div>
@@ -83,7 +83,7 @@
               <p>区域成本</p>
               <span>8%</span>
             </td>
-            <td class="clearfix">
+            <td class="clearfix pointer">
               <div class="circle circle4 fl">
                 <div class="incircle">
                   <div class="circleSolid"></div>
@@ -100,7 +100,7 @@
               <p>区域成本</p>
               <span>8%</span>
             </td>
-            <td class="clearfix">
+            <td class="clearfix pointer">
               <div class="circle circle5 fl">
                 <div class="incircle">
                   <div class="circleSolid"></div>
@@ -158,7 +158,7 @@
               <p>财务费用</p>
               <span>8%</span>
             </td>
-            <td class="clearfix">
+            <td class="clearfix pointer">
               <div class="circle circle7 fl">
                 <div class="incircle">
                   <div class="circleSolid"></div>
@@ -199,6 +199,8 @@
 </template>
 
 <script>
+import { Event } from '../assets/eventBus'
+
 export default {
   name:'tableICosts',
   methods:{
@@ -222,6 +224,22 @@ export default {
         }
       }
     }("datatableCosts", "0")
+
+    Event.$on('homejson', data => {
+      this.incomeData = data;
+    })
+
+    const sync = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(this.incomeData);
+      }, 1500);
+    })
+
+    sync.then(val => {
+      console.log(val)
+    }).catch(err => {
+      console.log(err);
+    })
   }
 }
 </script>

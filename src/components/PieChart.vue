@@ -5,66 +5,98 @@
 </template>
 
 <script>
+import { Event } from '../assets/eventBus'
 var echarts = require('echarts/lib/echarts');
 // 引入饼图
 require('echarts/lib/chart/pie');
 
 export default {
-  mounted() {
-    var myChart_pie = echarts.init(document.getElementById('pieWrap'));
-    myChart_pie.setOption({
-      tooltip: {
-        trigger: 'item',
-        formatter: "{a} <br/>{b}: {c} ({d}%)"
-      },
-      color: ['#97C681', '#CAD879', '#FBB661', '#DEE598', '#4A9973'],
-      legend: {
-        orient: 'vertical',
-        x: 'left',
-        data: ['溢价', '佣金收入', '已收团购', '应收团购', '甲方奖励',]
-      },
-      series: [
-        {
-          name: '主营业务收入',
-          type: 'pie',
-          selectedMode: 'single',
-          radius: ['40%', '90%'],
-          // center: ['50%', '50%'],
-          avoidLabelOverlap: false,
-          label: {
-            normal: {
-              show: true,
-              position: 'inner',
-              formatter: '{d}%',
-              textStyle: {
-                color: '#fff',
-                fontWeight: 'bold',
-                fontSize: 12
+  data() {
+    return {
+      sucessdata: [0, 0, 0, 0, 0], // 初始数据
+      pieChartData: ''
+    }
+  },
+  methods: {
+    initPieChart(arr) {
+      var myChart_pie = echarts.init(document.getElementById('pieWrap'));
+
+      myChart_pie.setOption({
+        tooltip: {
+          trigger: 'item',
+          formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        color: ['#97C681', '#CAD879', '#FBB661', '#DEE598', '#4A9973'],
+        legend: {
+          orient: 'vertical',
+          x: 'left',
+          data: ['溢价', '佣金收入', '已收团购', '应收团购', '甲方奖励',]
+        },
+        series: [
+          {
+            name: '主营业务收入',
+            type: 'pie',
+            selectedMode: 'single',
+            radius: ['40%', '90%'],
+            // center: ['50%', '50%'],
+            avoidLabelOverlap: false,
+            label: {
+              normal: {
+                show: true,
+                position: 'inner',
+                formatter: '{d}%',
+                textStyle: {
+                  color: '#fff',
+                  fontWeight: 'bold',
+                  fontSize: 12
+                }
+              },
+              emphasis: {
+                show: true,
+                textStyle: {
+                  fontSize: '18',
+                  fontWeight: 'normal'
+                }
               }
             },
-            emphasis: {
-              show: true,
-              textStyle: {
-                fontSize: '18',
-                fontWeight: 'normal'
+            labelLine: {
+              normal: {
+                show: false
               }
-            }
-          },
-          labelLine: {
-            normal: {
-              show: false
-            }
-          },
-          data: [
-            { value: 310, name: '溢价' },
-            { value: 335, name: '佣金收入' },
-            { value: 190, name: '已收团购' },
-            { value: 248, name: '应收团购' },
-            { value: 234, name: '甲方奖励' }
-          ]
-        }
-      ]
+            },
+            data: arr
+          }
+        ]
+      })
+    }
+  },
+  mounted() {
+    Event.$on('homejson', data => {
+      this.pieChartData = data;
     })
+
+    const sync = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(this.pieChartData);
+      }, 1500);
+    })
+
+    sync.then(arr => {
+      this.sucessdata = [
+        { value: arr[2].money, name: '溢价' },
+        { value: arr[1].money, name: '佣金收入' },
+        { value: arr[4].money, name: '已收团购' },
+        { value: arr[5].money, name: '应收团购' },
+        { value: arr[3].money, name: '甲方奖励' }
+      ]
+      return this.sucessdata;
+    }).then(val => {
+      this.initPieChart(Array.prototype.slice.call(val));
+    }).catch(err => {
+      console.log(err);
+    })
+
+
   }
 }
 </script>

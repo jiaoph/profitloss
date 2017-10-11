@@ -17,7 +17,7 @@
               <span class="fl">案场费用</span>
             </td>
             <td>
-              <span>1234545</span>
+              <span>{{ acCount }}</span>
             </td>
           </tr>
           <tr>
@@ -34,7 +34,7 @@
               <span class="fl">联动费用</span>
             </td>
             <td>
-              <span>1234545</span>
+              <span>{{ ldCount }}</span>
             </td>
           </tr>
           <tr>
@@ -46,7 +46,7 @@
               <span>总计</span>
             </td>
             <td class="textWaring">
-              <p>1234545</p>
+              <p>{{ acCount + ldCount }}</p>
             </td>
           </tr>
           <tr>
@@ -63,7 +63,7 @@
               <span class="fl">渠道佣金</span>
             </td>
             <td>
-              <span>2324</span>
+              <span>{{ placeCount }}</span>
             </td>
           </tr>
           <tr>
@@ -75,7 +75,7 @@
               <span>总计</span>
             </td>
             <td class="textWaring">
-              <p>1234545</p>
+              <p>{{ placeCount }}</p>
             </td>
           </tr>
           <tr>
@@ -92,7 +92,7 @@
               <span class="fl">开发费用</span>
             </td>
             <td>
-              <span>1234545</span>
+              <span>{{ devCount }}</span>
             </td>
           </tr>
           <tr>
@@ -109,7 +109,7 @@
               <span class="fl">管理费用</span>
             </td>
             <td>
-              <span>1234545</span>
+              <span>{{ areaManageCount }}</span>
             </td>
           </tr>
           <tr>
@@ -121,7 +121,7 @@
               <span>总计</span>
             </td>
             <td class="textWaring">
-              <p>1234545</p>
+              <p>{{ devCount + areaManageCount }}</p>
             </td>
           </tr>
           <tr>
@@ -138,7 +138,7 @@
               <span class="fl">管理费用</span>
             </td>
             <td>
-              <span>1234545</span>
+              <span>{{ hqMannageCount }}</span>
             </td>
           </tr>
           <tr>
@@ -150,7 +150,7 @@
               <span>总计</span>
             </td>
             <td class="textWaring">
-              <p>1234545</p>
+              <p>{{ hqMannageCount }}</p>
             </td>
           </tr>
           <tr>
@@ -167,7 +167,7 @@
               <span class="fl">财务费用</span>
             </td>
             <td>
-              <span>1234545</span>
+              <span>{{ financeCount }}</span>
             </td>
           </tr>
           <tr>
@@ -179,7 +179,7 @@
               <span>总计</span>
             </td>
             <td class="textWaring">
-              <p>1234545</p>
+              <p>{{ financeCount }}</p>
             </td>
           </tr>
         </tbody>
@@ -189,7 +189,7 @@
               <span>总计</span>
             </td>
             <td colspan="2" align="center">
-              <span>1234</span>
+              <span>{{ acCount+ldCount+placeCount+devCount+areaManageCount+hqMannageCount+financeCount }}</span>
             </td>
           </tr>
         </tfoot>
@@ -202,10 +202,29 @@
 import { Event } from '../assets/eventBus'
 
 export default {
-  name:'tableICosts',
-  methods:{
-    handle_mangeCost(){
-      this.$router.push({path:'/supportDepartCosts'});
+  name: 'tableICosts',
+  data() {
+    return {
+      costData:'',
+      acCount: 0, // 案场费用
+      acCountID: '',
+      ldCount: 0, // 联动费用
+      ldCountID: '',
+      placeCount: 0, // 渠道佣金
+      placeCountID: '',
+      devCount: 0, // 开发费用
+      devCountID: '',
+      areaManageCount: 0, // 管理费用(区域成本)
+      areaManageCountID: '',
+      hqMannageCount: 0, // 管理费用(总部分摊)
+      hqMannageCountID: '',
+      financeCount: 0, // 财务费用
+      financeCountID: ''
+    }
+  },
+  methods: {
+    handle_mangeCost() {
+      this.$router.push({ path: '/supportDepartCosts' });
     }
   },
   mounted() {
@@ -226,17 +245,24 @@ export default {
     }("datatableCosts", "0")
 
     Event.$on('homejson', data => {
-      this.incomeData = data;
+      this.costData = data;
     })
 
     const sync = new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve(this.incomeData);
-      }, 1500);
+        resolve(this.costData);
+      }, 2000);
     })
 
-    sync.then(val => {
-      console.log(val)
+    sync.then(arr => {
+      console.log(arr)
+      this.acCount = arr[6].money;
+      this.ldCount = arr[7].money;
+      this.placeCount = arr[8].money;
+      this.devCount = arr[9].money;
+      this.areaManageCount = arr[10].money;
+      this.hqMannageCount = arr[0].money;
+      this.financeCount = arr[11].money;
     }).catch(err => {
       console.log(err);
     })
@@ -265,22 +291,25 @@ export default {
         }
         >td:nth-child(1) {
           font-size: 16px;
-          max-width: 28px;
-          >p{
+          width: 138px;
+          >p {
             line-height: 18px;
           }
         }
-        >td:nth-child(2){
-          max-width: 50px;
-          >span{
+        >td:nth-child(2) {
+          width: 186px;
+          >span {
             margin-left: 10px;
           }
         }
+        >td:nth-child(3) {
+          width: 300px;
+        }
       }
     }
-    >tfoot{
-      >tr{
-        >td{
+    >tfoot {
+      >tr {
+        >td {
           font-size: 18px;
           font-weight: 700;
           color: #32A5A2;
@@ -288,7 +317,7 @@ export default {
           line-height: 50px;
           border: 1px solid #e6e6e6;
         }
-        >td{
+        >td {
           font-weight: normal;
         }
       }
@@ -296,30 +325,35 @@ export default {
   }
 }
 
-.pointer{
+.pointer {
   cursor: pointer;
 }
 
-.circle{
+.circle {
   .public_circle(#9ECCE8);
 }
-.circle2{
+
+.circle2 {
   .public_circle(#489ED3);
 }
-.circle3{
+
+.circle3 {
   .public_circle(#6AB7CC);
 }
-.circle4{
+
+.circle4 {
   .public_circle(#32A5A2);
 }
-.circle5{
+
+.circle5 {
   .public_circle(#AAE5D9);
 }
-.circle6{
+
+.circle6 {
   .public_circle(#9DACD4);
 }
-.circle7{
+
+.circle7 {
   .public_circle(#5665C1);
 }
-
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div id="tableIncome" class="tableIncome">
     <div class="tableWrap">
-      <table id="datatable">
+      <table id="datatableIncome">
         <tbody>
           <tr>
             <td align="center">
@@ -17,7 +17,7 @@
               <span class="fl">佣金收入</span>
             </td>
             <td>
-              <span>1234545</span>
+              <span>{{ commissionCount }}</span>
             </td>
           </tr>
           <tr>
@@ -34,7 +34,7 @@
               <span class="fl">溢价</span>
             </td>
             <td>
-              <span>1234545</span>
+              <span>{{ premiumCount }}</span>
             </td>
           </tr>
           <tr>
@@ -51,7 +51,7 @@
               <span class="fl">甲方奖励</span>
             </td>
             <td>
-              <span>1234545</span>
+              <span>{{ awardCount }}</span>
             </td>
           </tr>
           <tr>
@@ -63,7 +63,7 @@
               <span>甲方扣款</span>
             </td>
             <td>
-              <span>-1234545</span>
+              <span>{{ chargeCount }}</span>
             </td>
           </tr>
           <tr>
@@ -75,7 +75,7 @@
               <p>总计</p>
             </td>
             <td class="textWaring">
-              <span>1234545</span>
+              <span>{{ commissionCount+premiumCount+awardCount-chargeCount }}</span>
             </td>
           </tr>
           <tr>
@@ -92,7 +92,7 @@
               <span class="fl">已收团购</span>
             </td>
             <td>
-              <span>1234545</span>
+              <span>{{ receiveBulk }}</span>
             </td>
           </tr>
           <tr>
@@ -109,7 +109,7 @@
               <span class="fl">应收团购</span>
             </td>
             <td>
-              <span>1234545</span>
+              <span>{{ accountsRece }}</span>
             </td>
           </tr>
           <tr>
@@ -121,7 +121,7 @@
               <p>总计</p>
             </td>
             <td class="textWaring">
-              <span>1234545</span>
+              <span>{{ receiveBulk+accountsRece }}</span>
             </td>
           </tr>
         </tbody>
@@ -131,7 +131,7 @@
               <span>总计</span>
             </td>
             <td colspan="2" align="center">
-              <span>1234</span>
+              <span>{{ commissionCount+premiumCount+awardCount-chargeCount+receiveBulk+accountsRece }}</span>
             </td>
           </tr>
         </tfoot>
@@ -146,25 +146,31 @@ import { Event } from '../assets/eventBus'
 export default {
   data() {
     return {
-      incomeData: ''
+      incomeData: '',
+      commissionCount: 0, // 佣金收入
+      premiumCount: 0, // 溢价
+      awardCount: 0, // 甲方奖励
+      chargeCount: 0, // 甲方扣款
+      receiveBulk: 0, // 已收团购
+      accountsRece: 0 // 应收团购
     }
   },
   mounted() {
-    ! function merge(tableId, col) { //自动合并相同单元格
+    ! function merge(tableId, col) { // 自动合并相同单元格
       var tr = document.getElementById(tableId);
-      for (var i = 1; i < tr.rows.length; i++) { //表示数据内容的第二行
+      for (var i = 1; i < tr.rows.length; i++) { // 表示数据内容的第二行
         if (tr.rows[i].cells[col].innerHTML == tr.rows[i - 1].cells[col].innerHTML) { //col代表列
           var t = i - 1;
           while (tr.rows[i].cells[col].innerHTML == tr.rows[t].cells[col].innerHTML) {
             tr.rows[i].cells[col].style.display = "none";
             if (tr.rows[t].cells[col].rowSpan <= (i - t)) {
-              tr.rows[t].cells[col].rowSpan += 1; //设置前一行的rowspan+1
+              tr.rows[t].cells[col].rowSpan += 1; // 设置前一行的rowspan+1
             }
             i++;
           }
         }
       }
-    }("datatable", "0")
+    }("datatableIncome", "0")
 
     Event.$on('homejson', data => {
       this.incomeData = data;
@@ -176,8 +182,13 @@ export default {
       }, 1500);
     })
 
-    sync.then(val => {
-      // console.log(val)
+    sync.then(arr => {
+      this.commissionCount = arr[1].money;
+      this.premiumCount = arr[2].money;
+      this.awardCount = arr[3].money;
+      this.chargeCount = arr[12].money;
+      this.receiveBulk = arr[4].money;
+      this.accountsRece = arr[5].money;
     }).catch(err => {
       console.log(err);
     })
@@ -206,16 +217,19 @@ export default {
         }
         >td:nth-child(1) {
           font-size: 18px;
-          max-width: 28px;
+          width: 138px;
           >p {
             line-height: 18px;
           }
         }
         >td:nth-child(2) {
-          max-width: 50px;
+          width: 186px;
           >span {
             margin-left: 10px;
           }
+        }
+        >td:nth-child(3){
+          width: 300px;
         }
       }
     }

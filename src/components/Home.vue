@@ -143,6 +143,7 @@ export default {
     change(val) {
       this.timeval = val;
       this.$store.dispatch('timechange', val);
+      this.getfindAllData();
     }
   },
   mounted() {

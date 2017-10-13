@@ -243,13 +243,13 @@ export default {
       }
     }("datatableCosts", "0")
 
-    const sync = new Promise((resolve, reject) => { // 子组件异步获取主页数据
+    const async = new Promise((resolve, reject) => { // 子组件异步获取主页数据
       Event.$on('homejson', data => {
         resolve(data);
       })
     })
 
-    sync.then(arr => {
+    async.then(arr => {
       this.acCount = arr[6].money;
       this.ldCount = arr[7].money;
       this.placeCount = arr[8].money;

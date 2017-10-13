@@ -21,6 +21,7 @@ export default {
     initPieChartCosts() {
       const self = this;
       var myChart_pie = echarts.init(document.getElementById('pieConstsWrap'));
+
       myChart_pie.setOption({
         tooltip: {
           trigger: 'item',
@@ -71,13 +72,13 @@ export default {
     }
   },
   mounted() {
-    const sync = new Promise((resolve, reject) => { // 子组件异步获取主页数据
+    const async = new Promise((resolve, reject) => { // 子组件异步获取主页数据
       Event.$on('homejson', data => {
         resolve(data)
       })
     })
 
-    sync.then(arr => {
+    async.then(arr => {
       this.pieChartCostsData = [
         { value: arr[6].money, name: '案场费用' },
         { value: arr[7].money, name: '联动费用' },

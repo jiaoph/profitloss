@@ -171,13 +171,13 @@ export default {
       }
     }("datatableIncome", "0")
 
-    const sync = new Promise((resolve, reject) => { // 子组件异步获取主页数据
+    const async = new Promise((resolve, reject) => { // 子组件异步获取主页数据
       Event.$on('homejson', data => {
         resolve(data);
       })
     })
 
-    sync.then(arr => {
+    async.then(arr => {
       this.commissionCount = arr[1].money;
       this.premiumCount = arr[2].money;
       this.awardCount = arr[3].money;

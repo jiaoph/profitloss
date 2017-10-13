@@ -71,13 +71,13 @@ export default {
     }
   },
   mounted() {
-    const sync = new Promise((resolve, reject) => { // 子组件异步获取主页数据
+    const async = new Promise((resolve, reject) => { // 子组件异步获取主页数据
       Event.$on('homejson', data => {
         resolve(data)
       })
     })
 
-    sync.then(arr => {
+    async.then(arr => {
       this.pieChartData = [
         { value: arr[2].money, name: '溢价' },
         { value: arr[1].money, name: '佣金收入' },

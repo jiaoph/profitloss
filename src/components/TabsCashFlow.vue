@@ -1,5 +1,5 @@
 <template>
-  <div id="cashFlow">
+  <div id="cashFlow" class="cashFlow">
     <table>
       <thead>
         <tr>
@@ -94,6 +94,9 @@ export default {
 <style scoped lang="less">
 @import url('../assets/less/public.less');
 
+.cashFlow{
+  height: 100%;
+}
 table {
   .th {
     padding-left: 22px;

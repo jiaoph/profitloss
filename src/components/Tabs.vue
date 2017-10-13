@@ -14,7 +14,9 @@
       </ul>
       <div class="tab_body">
         <transition name="fade">
-          <router-view></router-view>
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
         </transition>
       </div>
     </div>
@@ -59,21 +61,23 @@ export default {
   }
   >.tab_body {
     margin-top: 10px;
+    height: 370px;
+    overflow: hidden;
   }
 }
 
-.fade-enter {
-  opacity:1;
+.fade-enter-active, .fade-leave-active{
+  transition: all 1s ease;
 }
-.fade-leave{
-  opacity:0;
-}
+
 .fade-enter-active{
   opacity:1;
-  transition:opacity .5s;
 }
 .fade-leave-active{
+  opacity:1;
+}
+
+.fade-enter,.fade-leave{
   opacity:0;
-  transition:opacity .5s;
 }
 </style>

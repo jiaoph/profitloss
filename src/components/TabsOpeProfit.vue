@@ -1,5 +1,5 @@
 <template>
-  <div id="opeProfit">
+  <div id="opeProfit" class="opeProfit">
     <table>
       <thead>
         <tr>
@@ -111,6 +111,9 @@ export default {
 <style scoped lang="less">
 @import url('../assets/less/public.less');
 
+.opeProfit{
+  height: 100%;
+}
 table {
   .th {
     padding-left: 22px;

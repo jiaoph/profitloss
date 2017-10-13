@@ -66,6 +66,7 @@ export default {
   }
 }
 
+// 路由动画
 .fade-enter-active, .fade-leave-active{
   transition: all 1s ease;
 }

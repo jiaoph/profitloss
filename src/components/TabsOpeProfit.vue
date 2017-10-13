@@ -7,7 +7,7 @@
             <span class="th">主营业收入</span>
           </th>
           <th align="left">
-            <span>182943.43</span>
+            <span>{{ mainOpeRev }}</span>
           </th>
           <th align="left">
             <span>8%</span>
@@ -24,7 +24,7 @@
             </div>
             <span class="fl lighten">渠道佣金</span>
           </td>
-          <td>600021</td>
+          <td>{{ placeCommission }}</td>
           <td>3%</td>
         </tr>
         <tr>
@@ -50,7 +50,7 @@
             </div>
             <span class="fl lighten">运营成本</span>
           </td>
-          <td>39.23%</td>
+          <td>{{ operateCosts }}</td>
           <td>2%</td>
         </tr>
         <tr>
@@ -76,7 +76,7 @@
             </div>
             <span class="fl lighten">分摊</span>
           </td>
-          <td>849295</td>
+          <td>{{ hqMannageCount }}</td>
           <td>1%</td>
         </tr>
       </tbody>
@@ -103,8 +103,36 @@
 </template>
 
 <script>
+import { Event } from '../assets/eventBus'
+
 export default {
-  name: 'opeProfit'
+  name: 'opeProfit',
+  data() {
+    return {
+      mainOpeRev: 0, // 主营业收入
+      placeCommission: 0, // 渠道佣金
+      operateCosts: 0, // 运营成本
+      hqMannageCount: 0 // 分摊
+    } 
+  },
+  mounted() {
+    const async = () => {
+      return new Promise((resolve,reject) => {
+        Event.$on('homejson', data => {
+          resolve(data);
+        })
+      })
+    }
+
+    async().then(arr => {
+      this.mainOpeRev = arr[4].money + arr[5].money + arr[1].money + arr[2].money + arr[3].money - arr[12].money;
+      this.placeCommission = arr[8].money;
+      this.operateCosts = arr[6].money + arr[7].money;
+      this.hqMannageCount = arr[0].money;
+    }).catch(err => {
+      console.log(err)
+    })
+  }
 }
 </script>
 

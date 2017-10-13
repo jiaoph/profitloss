@@ -5,7 +5,7 @@
         <router-link to="/home/tabsOpeProfit" tag="li">
           <span>营业利润表</span>
         </router-link>
-        <router-link to="/home/l" tag="li">
+        <router-link to="/home/tabsCashFlow" tag="li">
           <span>现金流量表</span>
         </router-link>
         <router-link to="/home/jj" tag="li">
@@ -31,10 +31,10 @@ export default {
 <style scoped lang="less">
 @import url('../assets/less/public.less');
 
-.router-link-active{
-  background-color: #FCF1E5;
-  border: 1px solid #F5C38B;
-}
+// .router-link-active{
+//   background-color: #FCF1E5;
+//   border: 1px solid #F5C38B;
+// }
 
 .intab {
   width: 100%;

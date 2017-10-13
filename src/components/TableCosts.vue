@@ -205,7 +205,6 @@ export default {
   name: 'tableICosts',
   data() {
     return {
-      costData:'',
       acCount: 0, // 案场费用
       acCountID: '',
       ldCount: 0, // 联动费用
@@ -244,14 +243,10 @@ export default {
       }
     }("datatableCosts", "0")
 
-    Event.$on('homejson', data => {
-      this.costData = data;
-    })
-
-    const sync = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(this.costData);
-      }, 2000);
+    const sync = new Promise((resolve, reject) => { // 子组件异步获取主页数据
+      Event.$on('homejson', data => {
+        resolve(data);
+      })
     })
 
     sync.then(arr => {

@@ -146,7 +146,6 @@ import { Event } from '../assets/eventBus'
 export default {
   data() {
     return {
-      incomeData: '',
       commissionCount: 0, // 佣金收入
       premiumCount: 0, // 溢价
       awardCount: 0, // 甲方奖励
@@ -172,14 +171,10 @@ export default {
       }
     }("datatableIncome", "0")
 
-    Event.$on('homejson', data => {
-      this.incomeData = data;
-    })
-
-    const sync = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(this.incomeData);
-      }, 1500);
+    const sync = new Promise((resolve, reject) => { // 子组件异步获取主页数据
+      Event.$on('homejson', data => {
+        resolve(data);
+      })
     })
 
     sync.then(arr => {

@@ -13,13 +13,13 @@ require('echarts/lib/chart/pie');
 export default {
   data() {
     return {
-      sucessdata: [0, 0, 0, 0, 0, 0, 0],
-      pieChartCostsData: ''
+      pieChartCostsData: [0, 0, 0, 0, 0, 0, 0]
     }
   },
   name: 'pieConstsWrap',
   methods: {
-    initPieChartCosts(arr) {
+    initPieChartCosts() {
+      const self = this;
       var myChart_pie = echarts.init(document.getElementById('pieConstsWrap'));
       myChart_pie.setOption({
         tooltip: {
@@ -64,25 +64,21 @@ export default {
                 show: false
               }
             },
-            data: arr
+            data: self.pieChartCostsData
           }
         ]
       })
     }
   },
   mounted() {
-    Event.$on('homejson', data => {
-      this.pieChartData = data;
-    })
-
-    const sync = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(this.pieChartData);
-      }, 1500);
+    const sync = new Promise((resolve, reject) => { // 子组件异步获取主页数据
+      Event.$on('homejson', data => {
+        resolve(data)
+      })
     })
 
     sync.then(arr => {
-      this.sucessdata = [
+      this.pieChartCostsData = [
         { value: arr[6].money, name: '案场费用' },
         { value: arr[7].money, name: '联动费用' },
         { value: arr[8].money, name: '渠道佣金' },
@@ -91,9 +87,10 @@ export default {
         { value: arr[0].money, name: '管理费用(总部分摊)' },
         { value: arr[11].money, name: '财务费用' }
       ]
-      return this.sucessdata;
+      return this.pieChartCostsData;
     }).then(val => {
-      this.initPieChartCosts(Array.prototype.slice.call(val));
+      // Array.prototype.slice.call(val)
+      this.initPieChartCosts();
     }).catch(err => {
       console.log(err);
     })

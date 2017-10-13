@@ -13,12 +13,12 @@ require('echarts/lib/chart/pie');
 export default {
   data() {
     return {
-      sucessdata: [0, 0, 0, 0, 0], // 初始数据
-      pieChartData: ''
+      pieChartData: [0, 0, 0, 0, 0] // 初始数据
     }
   },
   methods: {
     initPieChart(arr) {
+      const self = this;
       var myChart_pie = echarts.init(document.getElementById('pieWrap'));
 
       myChart_pie.setOption({
@@ -64,34 +64,31 @@ export default {
                 show: false
               }
             },
-            data: arr
+            data: self.pieChartData
           }
         ]
       })
     }
   },
   mounted() {
-    Event.$on('homejson', data => {
-      this.pieChartData = data;
-    })
-
-    const sync = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(this.pieChartData);
-      }, 1500);
+    const sync = new Promise((resolve, reject) => { // 子组件异步获取主页数据
+      Event.$on('homejson', data => {
+        resolve(data)
+      })
     })
 
     sync.then(arr => {
-      this.sucessdata = [
+      this.pieChartData = [
         { value: arr[2].money, name: '溢价' },
         { value: arr[1].money, name: '佣金收入' },
         { value: arr[4].money, name: '已收团购' },
         { value: arr[5].money, name: '应收团购' },
         { value: arr[3].money, name: '甲方奖励' }
       ]
-      return this.sucessdata;
+      return this.pieChartData;
     }).then(val => {
-      this.initPieChart(Array.prototype.slice.call(val));
+      // Array.prototype.slice.call(val)
+      this.initPieChart();
     }).catch(err => {
       console.log(err);
     })

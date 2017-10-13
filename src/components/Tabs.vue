@@ -13,7 +13,9 @@
         </router-link>
       </ul>
       <div class="tab_body">
-        <router-view></router-view>
+        <transition name="fade">
+          <router-view></router-view>
+        </transition>
       </div>
     </div>
   </div>
@@ -30,11 +32,6 @@ export default {
 
 <style scoped lang="less">
 @import url('../assets/less/public.less');
-
-// .router-link-active{
-//   background-color: #FCF1E5;
-//   border: 1px solid #F5C38B;
-// }
 
 .intab {
   width: 100%;
@@ -63,5 +60,20 @@ export default {
   >.tab_body {
     margin-top: 10px;
   }
+}
+
+.fade-enter {
+  opacity:1;
+}
+.fade-leave{
+  opacity:0;
+}
+.fade-enter-active{
+  opacity:1;
+  transition:opacity .5s;
+}
+.fade-leave-active{
+  opacity:0;
+  transition:opacity .5s;
 }
 </style>

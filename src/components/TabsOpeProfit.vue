@@ -1,5 +1,5 @@
 <template>
-  <div id="OpeProfit">
+  <div id="opeProfit">
     <table>
       <thead>
         <tr>
@@ -104,7 +104,7 @@
 
 <script>
 export default {
-
+  name: 'opeProfit'
 }
 </script>
 

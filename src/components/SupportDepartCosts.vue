@@ -28,7 +28,7 @@
           <span>{{val.gaugeOutfit}}</span>
           <span v-show="val.type === 1" 
             @click.stop.prevent="handleExpand($event)" 
-            :data-status="0" 
+            :data-status="0"
             :data-order="index" 
             :data-index='Number.parseInt(val.index)+1' 
             :data-fzixnumber = "val.fzixnumber"
@@ -126,6 +126,8 @@ import Crumbs from './Crumbs'
 import { mapGetters } from 'vuex'
 import { Message } from "element-ui";
 
+var timer;
+
 export default {
   name: 'anchang',
   computed: mapGetters([
@@ -162,7 +164,7 @@ export default {
       this.regularjson = [];
       this.initjson = [];
       this.flag = true;
-      this.timeval = val;
+      // this.timeval = val;
       this.getData('0', '0', val, this.fzixnumber_id, '0');
     },
     getData(){
@@ -247,15 +249,28 @@ export default {
       return new Promise((resolve,reject) => {
         // setTimeout(() => {
         //   resolve(this.regularjson);
-        // },1500)
-        resolve(this.regularjson);
+        // },2000)
+
+        let istrue = true;
+        clearInterval(timer);
+
+        if(istrue) {
+          istrue = false;
+          timer = setInterval(() => {
+            if(this.regularjson.length){
+              clearInterval(timer);
+              resolve(this.regularjson);
+              istrue = true;
+            }
+          },1000)
+        }
       })
     },
     removeClass(el, className) {
       el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
     },
     handleExpand(e) {
-      let status = e.currentTarget.getAttribute('data-status'), // 关闭展开状态
+      let status = e.currentTarget.getAttribute('data-status'), // 关闭、展开状态，0关闭状态，1展开状态
         order = Number.parseInt(e.currentTarget.getAttribute('data-order')) + 1, // 点击时获取到的数组的order,插入到initjson用
         out_index = ''; // 点击时获取到的层级
 
@@ -266,6 +281,7 @@ export default {
 
           // 发送请求加载数据
           let fzixnumber = e.currentTarget.getAttribute('data-fzixnumber'); //点击时的费用id
+          this.regularjson = []; // 置空上一次加载的数据
           this.getData('0', '0', this.value, fzixnumber, out_index);
           
           this.asyncFunction().then((regularjson) => {
@@ -293,29 +309,17 @@ export default {
             }
           })
 
-          // let inner_index = Number.parseInt(e.currentTarget.getAttribute('data-index'));
-          // // console.log('inner_index-->'+inner_index)
-          // if (inner_index === out_index || inner_index > out_index) { // 关闭时的层级和外层的层级对比
+          let newArr = Array.prototype.slice.call(this.deleteIndexArr),
+            // maxNum = Math.max.apply(null,newArr),
+            minNum = Math.min.apply(null, newArr); // 数组最小值
+          
+          this.initjson.splice(minNum+1, newArr.length-1); // 初始数组删除元素
+          this.deleteIndexArr = []; // 置空deleteIndexArr
 
-          //   this.initjson.forEach((val, i, arr) => {
-          //     let new_index = Number.parseInt(val.index);
-              
-          //     if (inner_index === new_index || inner_index < new_index) { // 关闭的层级和initjson数组元素的层级对比
-          //       this.deleteIndexArr.push(i);
-          //     }
-          //   })
-
-            let newArr = Array.prototype.slice.call(this.deleteIndexArr),
-              // maxNum = Math.max.apply(null,newArr),
-              minNum = Math.min.apply(null, newArr); // 数组最小值
-            
-            this.initjson.splice(minNum+1, newArr.length-1); // 初始数组删除元素
-            this.deleteIndexArr = []; // 置空deleteIndexArr
-            e.currentTarget.setAttribute('data-status', '0');
-            this.removeClass(e.currentTarget, 'throw-left');
-            e.currentTarget.className += ' ' + 'throw-right';
-            this.removeClass(e.currentTarget.parentNode.parentNode, 'specialborder'); // removeclass
-          // }
+          e.currentTarget.setAttribute('data-status', '0');
+          this.removeClass(e.currentTarget, 'throw-left');
+          e.currentTarget.className += ' ' + 'throw-right';
+          this.removeClass(e.currentTarget.parentNode.parentNode, 'specialborder'); // removeclass
           break;
         default:
           break;
@@ -324,7 +328,7 @@ export default {
   },
   mounted(){
     this.value = this.time_val;
-    console.log(this.fzixnumber_id)
+
     this.getData('0', '0', this.value, this.fzixnumber_id, '0');
   }
 }

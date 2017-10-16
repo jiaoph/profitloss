@@ -129,7 +129,7 @@
               <p>总部分摊</p>
               <span>8%</span>
             </td>
-            <td class="clearfix pointer" @click.stop.prevent="handle_mangeCost">
+            <td class="clearfix pointer" :data-fzixnumber="hqMannageCountID" @click.stop.prevent="handle_mangeCost($event)">
               <div class="circle circle6 fl">
                 <div class="incircle">
                   <div class="circleSolid"></div>
@@ -137,7 +137,7 @@
               </div>
               <span class="fl">管理费用</span>
             </td>
-            <td>
+            <td :data-fzixnumber="hqMannageCountID" @click.stop.prevent="handle_detailPage($event)">
               <span>{{ hqMannageCount }}</span>
             </td>
           </tr>
@@ -222,8 +222,13 @@ export default {
     }
   },
   methods: {
-    handle_mangeCost() {
+    handle_mangeCost(e) {
+      let fzixnumber = e.currentTarget.getAttribute('data-fzixnumber');
+      this.$store.dispatch('fzixnumber', fzixnumber); // id存入vuex
       this.$router.push({ path: '/supportDepartCosts' });
+    },
+    handle_detailPage(e) {
+      console.log(e);
     }
   },
   mounted() {
@@ -256,6 +261,7 @@ export default {
       this.devCount = arr[9].money;
       this.areaManageCount = arr[10].money;
       this.hqMannageCount = arr[0].money;
+      this.hqMannageCountID = arr[0].fzixnumber;
       this.financeCount = arr[11].money;
     }).catch(err => {
       console.log(err);

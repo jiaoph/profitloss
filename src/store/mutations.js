@@ -2,12 +2,18 @@ import * as types from './types'
 import getters from './getters'
 
 const state = {
-  timeval: '0'
+  timeval: '0',
+  fzixnumber: ''
 }
 
 const mutations = {
   [types.TIMECHANGE](state, arg) {
     state.timeval = arg;
+    sessionStorage.setItem('timeval',arg);
+  },
+  [types.FZIXNUMBER](state,arg) {
+    state.fzixnumber = arg;
+    sessionStorage.setItem('fzixnumber',arg);
   }
 }
 

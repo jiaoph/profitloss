@@ -1,1 +1,2 @@
 export const TIMECHANGE = 'TIMECHANGE'
+export const FZIXNUMBER ='FZIXNUMBER'

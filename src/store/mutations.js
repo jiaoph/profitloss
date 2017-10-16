@@ -9,7 +9,6 @@ const state = {
 const mutations = {
   [types.TIMECHANGE](state, arg) {
     state.timeval = arg;
-    sessionStorage.setItem('timeval',arg);
   },
   [types.FZIXNUMBER](state,arg) {
     state.fzixnumber = arg;

@@ -129,7 +129,8 @@ import { Message } from "element-ui";
 export default {
   name: 'anchang',
   computed: mapGetters([
-      'time_val'
+      'time_val',
+      'fzixnumber_id'
   ]),
   components: {
     Crumbs
@@ -149,11 +150,11 @@ export default {
         value: '3',
         label: '本年'
       }],
-      value: '0', //默认时间维度
+      value: '0', // 默认时间维度
       flag: true, // 首次加载flag
       deleteIndexArr: [],
       initjson: [], // 表格首次获取数据
-      regularjson: []
+      regularjson: [] // 点击加载的数据
     }
   },
   methods: {
@@ -162,7 +163,7 @@ export default {
       this.initjson = [];
       this.flag = true;
       this.timeval = val;
-      this.getData('0', '0', val, '5001', '0');
+      this.getData('0', '0', val, this.fzixnumber_id, '0');
     },
     getData(){
       if(arguments.length !== 5) {
@@ -244,9 +245,10 @@ export default {
     },
     asyncFunction(){ // 异步获取this.regularjson
       return new Promise((resolve,reject) => {
-        setTimeout(() => {
-          resolve(this.regularjson);
-        },1500)
+        // setTimeout(() => {
+        //   resolve(this.regularjson);
+        // },1500)
+        resolve(this.regularjson);
       })
     },
     removeClass(el, className) {
@@ -322,8 +324,8 @@ export default {
   },
   mounted(){
     this.value = this.time_val;
-
-    this.getData('0', '0', this.value, '5001', '0');
+    console.log(this.fzixnumber_id)
+    this.getData('0', '0', this.value, this.fzixnumber_id, '0');
   }
 }
 </script>

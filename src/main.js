@@ -7,7 +7,8 @@ import {
   Tooltip,
   Select,
   Option,
-  Message  } from 'element-ui'
+  Message,
+  Pagination  } from 'element-ui'
 
 import axiosPlugin from './axios_config/index'
 import App from './App.vue'
@@ -27,6 +28,7 @@ Vue.component(TableColumn.name, TableColumn)
 Vue.component(Tooltip.name, Tooltip)
 Vue.component(Select.name, Select)
 Vue.component(Option.name, Option)
+Vue.component(Pagination.name, Pagination)
 Vue.component(Message.name, Message)
 Object.defineProperty(Vue.prototype, "$message", { value: Message })
 

@@ -24,6 +24,16 @@
       <el-table-column prop="address" label="地址">
       </el-table-column>
     </el-table>
+
+    <div class="pagination">
+      <el-pagination 
+        @current-change="handleCurrentChange" 
+        :current-page="currentPage" 
+        :page-size="20" 
+        layout="total, prev, pager, next, jumper" 
+        :total="400">
+      </el-pagination>
+    </div>
   </div>
 </template>
 
@@ -34,14 +44,15 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'detailTable',
   computed: mapGetters([
-      'time_val',
-      'fzixnumber_id'
+    'time_val',
+    'fzixnumber_id'
   ]),
   components: {
     Crumbs
   },
   data() {
     return {
+      currentPage: 1,
       options: [{
         value: '0',
         label: '全部'
@@ -90,15 +101,48 @@ export default {
   methods: {
     change(val) {
       console.log(val)
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+    },
+    getData() {
+      if (arguments.length !== 5) {
+        Message({
+          showClose: true,
+          message: '支持部门成本参数异常错误',
+          type: 'error'
+        });
+        return;
+      }
+
+      this.$http.post('/efangfin/outgoing/twoLevelCostView.do', {
+        xtype: arguments[0],
+        xname: arguments[1],
+        xtime: arguments[2],
+        xnumber: arguments[3],
+        pageNum: arguments[4],
+        pageSize: 20
+      }).then(data => {
+        console.log(data)
+      }).catch(err => {
+        console.log(err)
+      })
     }
   },
   mounted() {
     this.value = this.time_val;
+    // this.getData('0','',this.value,this.fzixnumber_id,'0');
+    this.getData('0','',this.value,'5002','0'); // 测试用
   }
 }
 </script>
 
-<style scoped lang="less">
+<style scoped>
+.pagination{
+  padding-top: 28px;
+  text-align: center;
+}
+
 .title {
   line-height: 70px;
   position: relative;

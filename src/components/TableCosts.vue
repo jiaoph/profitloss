@@ -241,8 +241,16 @@ export default {
       let fzixnumber = e.currentTarget.getAttribute('data-fzixnumber');
 
       if (!fzixnumber) {
+        this.$message({
+          // showClose: true,
+          message: '详情id丢失，无法查看',
+          type: 'error'
+        });
         return false;
       }
+
+      this.$store.dispatch('fzixnumber', fzixnumber); // id存入vuex
+      this.$router.push({ path: '/detailTable' });
     }
   },
   mounted() {

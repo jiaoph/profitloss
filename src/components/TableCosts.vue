@@ -137,7 +137,7 @@
               </div>
               <span class="fl">管理费用</span>
             </td>
-            <td :data-fzixnumber="hqMannageCountID" @click.stop.prevent="handle_detailPage($event)">
+            <td class="pointer" :data-fzixnumber="hqMannageCountID" @click.stop.prevent="handle_detailPage($event)">
               <span>{{ hqMannageCount }}</span>
             </td>
           </tr>
@@ -224,11 +224,25 @@ export default {
   methods: {
     handle_mangeCost(e) {
       let fzixnumber = e.currentTarget.getAttribute('data-fzixnumber');
+
+      if (!fzixnumber) {
+        this.$message({
+          // showClose: true,
+          message: '详情id丢失，无法查看',
+          type: 'error'
+        });
+        return false;
+      }
+
       this.$store.dispatch('fzixnumber', fzixnumber); // id存入vuex
       this.$router.push({ path: '/supportDepartCosts' });
     },
     handle_detailPage(e) {
-      console.log(e);
+      let fzixnumber = e.currentTarget.getAttribute('data-fzixnumber');
+
+      if (!fzixnumber) {
+        return false;
+      }
     }
   },
   mounted() {

@@ -56,7 +56,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { Message } from "element-ui";
 
 export default {
   name: 'project',
@@ -124,14 +123,14 @@ export default {
               }
               break;
             case 0:
-              Message({
+              this.$message({
                 showClose: true,
                 message: '获取项目经营情况错误',
                 type: 'error'
               });
               break;
             default:
-              Message({
+              this.$message({
                 showClose: true,
                 message: '项目经营情况异常status',
                 type: 'error'
@@ -139,7 +138,7 @@ export default {
               break;
           }
         } else {
-          Message({
+          this.$message({
             showClose: true,
             message: '项目经营情况暂无数据',
             type: 'warning'
@@ -147,7 +146,7 @@ export default {
           return;
         }
       }).catch(error => {
-        Message({
+        this.$message({
           showClose: true,
           duration: 1800,
           message: '项目经营情况异常错误',

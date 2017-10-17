@@ -124,7 +124,6 @@
 <script>
 import Crumbs from './Crumbs'
 import { mapGetters } from 'vuex'
-import { Message } from "element-ui";
 
 var timer;
 
@@ -196,7 +195,7 @@ export default {
                   this.initjson = inData;
                 } else {
                   this.initjson = [];
-                  Message({
+                  this.$message({
                     showClose: true,
                     message: '支持部门成本数据获取为空',
                     type: 'warning'
@@ -213,14 +212,14 @@ export default {
               
               break;
             case 0:
-              Message({
+              this.$message({
                 showClose: true,
                 message: '支持部门成本数据获取错误',
                 type: 'error'
               });
               break;
             default:
-              Message({
+              this.$message({
                 showClose: true,
                 message: '支持部门成本异常status',
                 type: 'error'
@@ -228,7 +227,7 @@ export default {
               break;
           }
         } else {
-          Message({
+          this.$message({
             showClose: true,
             message: '支持部门成本暂无数据',
             type: 'warning'
@@ -236,7 +235,7 @@ export default {
           return;
         }
       }).catch(error => {
-        Message({
+        this.$message({
           showClose: true,
           duration: 2000,
           message: '支持部门成本数据获取异常',
@@ -275,7 +274,7 @@ export default {
         out_index = ''; // 点击时获取到的层级
 
       switch (status) {
-        case '0': // 该展开添加数据
+        case '0': // 展开添加数据
           out_index = Number.parseInt(e.currentTarget.getAttribute('data-index'));
           // console.log('out_index-->'+out_index)
 
@@ -299,7 +298,7 @@ export default {
             console.log(error);
           })
           break;
-        case '1': // 合并表格操作
+        case '1': // 关闭表格操作
           let fzixnumberid = e.currentTarget.getAttribute('data-fzixnumber'); // 点击时的费用id
           this.initjson.forEach((val, i) => {
             let new_fzixnumber = val.fzixnumber; // this.initjson数组内的费用id

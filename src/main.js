@@ -6,7 +6,8 @@ import {
   TableColumn, 
   Tooltip,
   Select,
-  Option } from 'element-ui'
+  Option,
+  Message  } from 'element-ui'
 
 import axiosPlugin from './axios_config/index'
 import App from './App.vue'
@@ -26,6 +27,8 @@ Vue.component(TableColumn.name, TableColumn)
 Vue.component(Tooltip.name, Tooltip)
 Vue.component(Select.name, Select)
 Vue.component(Option.name, Option)
+Vue.component(Message.name, Message)
+Object.defineProperty(Vue.prototype, "$message", { value: Message })
 
 const router = new VueRouter({
   mode: 'history', //切换路径模式，变成history模式

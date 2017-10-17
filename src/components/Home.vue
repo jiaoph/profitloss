@@ -55,7 +55,6 @@ import TableIncome from './TableIncome.vue'
 import PieChartCosts from './PieChartCosts.vue'
 import TableCosts from './TableCosts.vue'
 import ProjectMan from './ProjectMan.vue'
-import { Message } from "element-ui"
 import { Event } from '../assets/eventBus'
 
 export default {
@@ -103,7 +102,7 @@ export default {
           let status = myData.status;
           switch (status) {
             case 0:
-              Message({
+              this.$message({
                 showClose: true,
                 message: '主营业务收入/成本错误',
                 type: 'error'
@@ -115,7 +114,7 @@ export default {
               Event.$emit('homejson', this.homeData);
               break;
             default:
-              Message({
+              this.$message({
                 showClose: true,
                 message: '主营业务收入/成本异常status',
                 type: 'error'
@@ -123,7 +122,7 @@ export default {
               break;
           }
         } else {
-          Message({
+          this.$message({
             showClose: true,
             message: '主营业务收入/成本暂无数据',
             type: 'warning'
@@ -131,7 +130,7 @@ export default {
           return;
         }
       }).catch(error => {
-        Message({
+        this.$message({
           showClose: true,
           duration: 1800,
           message: '主营业数据获取异常错误',

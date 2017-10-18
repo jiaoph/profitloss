@@ -16,12 +16,46 @@
       </div>
     </div>
 
-    <el-table :data="tableData3" height="250" border style="width: 100%">
-      <el-table-column prop="date" label="日期" width="180">
+    <el-table :data="tableData3" max-height="400" border style="width: 100%">
+      <el-table-column 
+        prop="ffeiyong" label="报销类型" 
+        align="center" 
+        :show-overflow-tooltip="true">
       </el-table-column>
-      <el-table-column prop="name" label="姓名" width="180">
+      <el-table-column 
+        prop="famountfor" 
+        label="报销金额" 
+        align="center" 
+        :show-overflow-tooltip="true"
+        :formatter="countFormatter">
       </el-table-column>
-      <el-table-column prop="address" label="地址">
+      <el-table-column 
+        prop="femp" 
+        label="报销人" 
+        align="center"
+        width="120"
+        :show-overflow-tooltip="true">
+      </el-table-column>
+      <el-table-column 
+        prop="departName" 
+        label="报销部门" 
+        align="center"
+        width="250"
+        :show-overflow-tooltip="true">
+      </el-table-column>
+      <el-table-column 
+        prop="fdate" 
+        label="报销时间" 
+        align="center"
+        :show-overflow-tooltip="true" 
+        :formatter="timeFormatter">
+      </el-table-column>
+      <el-table-column 
+        prop="remark" 
+        label="备注" 
+        align="center"
+        :show-overflow-tooltip="true"
+        :formatter="remarkFormatter">
       </el-table-column>
     </el-table>
 
@@ -31,7 +65,7 @@
         :current-page="currentPage" 
         :page-size="20" 
         layout="total, prev, pager, next, jumper" 
-        :total="400">
+        :total="pageCount">
       </el-pagination>
     </div>
   </div>
@@ -67,47 +101,22 @@ export default {
         label: '本年'
       }],
       value: '0', // 默认时间维度
-      tableData3: [{
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-08',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-06',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-07',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }]
+      pageCount: 0, // 总页数
+      tableData3: [] // 表格数据
     }
   },
   methods: {
     change(val) {
-      console.log(val)
+      // this.getData('0','',val,this.fzixnumber_id,'0');
+      this.getData('0', '', val, '5001', '0'); // 测试用
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      // this.getData('0','',this.value,this.fzixnumber_id,(val-1).toString());
+      this.getData('0', '', this.value, '5001', (val-1).toString()); // 测试用
     },
     getData() {
       if (arguments.length !== 5) {
-        Message({
+        this.$message({
           showClose: true,
           message: '支持部门成本参数异常错误',
           type: 'error'
@@ -124,21 +133,69 @@ export default {
         pageSize: 20
       }).then(data => {
         console.log(data)
+        let myData = data.data;
+        if (JSON.stringify(myData)) {
+          let status = myData.status;
+          switch (status) {
+            case 1:
+              this.pageCount = myData.data.pageCount;
+              let inData = myData.data.page;
+              if (inData.length) {
+                this.tableData3 = inData;
+              } else {
+                this.tableData3 = [];
+                return;
+              }
+              break;
+            case 0:
+              this.$message({
+                showClose: true,
+                message: '支持部门成本数据获取错误',
+                type: 'error'
+              });
+              break;
+            default:
+              break;
+          }
+        } else {
+          this.$message({
+            showClose: true,
+            message: '支持部门成本暂无数据',
+            type: 'warning'
+          });
+          return;
+        }
       }).catch(err => {
+        this.$message({
+          showClose: true,
+          duration: 2000,
+          message: '支持部门成本数据获取异常',
+          type: 'error'
+        });
         console.log(err)
       })
+    },
+    countFormatter(row, column, cellValue) { // 格式化金额
+      return Number.parseFloat(cellValue).toLocaleString('en-US');
+    },
+    timeFormatter(row, column, cellValue) { // 格式化时间
+      let oDate = new Date(cellValue);
+      return oDate.getFullYear()+"-"+(oDate.getMonth()+1)+"-"+oDate.getDate();
+    },
+    remarkFormatter(row, column, cellValue) { // 格式化备注
+      return cellValue == '' ? '无' : cellValue;
     }
   },
   mounted() {
     this.value = this.time_val;
     // this.getData('0','',this.value,this.fzixnumber_id,'0');
-    this.getData('0','',this.value,'5002','0'); // 测试用
+    this.getData('0', '', this.value, '5001', '0'); // 测试用
   }
 }
 </script>
 
 <style scoped>
-.pagination{
+.pagination {
   padding-top: 28px;
   text-align: center;
 }

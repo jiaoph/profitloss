@@ -270,29 +270,26 @@ export default {
       const _this = this;
       var that =  e.currentTarget;
       
-      let status = that.getAttribute('data-statusnum'), // 关闭、展开状态，true关闭状态可展开，false展开状态可关闭
-        order = Number.parseInt(e.currentTarget.getAttribute('data-order')) + 1, // 点击时获取到的数组的order,插入到initjson用
-        order_flag = Number.parseInt(e.currentTarget.getAttribute('data-order')), // 获取点击顺序
+      let status = that.getAttribute('data-statusnum'), // 关闭、展开状态，0关闭状态可展开，1展开状态可关闭
+        order = Number.parseInt(that.getAttribute('data-order')) + 1, // 点击时获取到的数组的order,插入到initjson用
+        order_flag = Number.parseInt(that.getAttribute('data-order')), // 获取点击顺序
         out_index = ''; // 点击时获取到的层级
 
       switch (status) {
         case '0': // 展开添加数据
-          out_index = Number.parseInt(e.currentTarget.getAttribute('data-index'));
-          // console.log('out_index-->'+out_index)
-
-          // 发送请求加载数据
-          let fzixnumber = e.currentTarget.getAttribute('data-fzixnumber'); //点击时的费用id
+          let fzixnumber = that.getAttribute('data-fzixnumber'); // 点击时的费用id
+          out_index = Number.parseInt(that.getAttribute('data-index'));
           _this.regularjson.length = 0; // 置空上一次加载的数据
-          _this.getData('0', '0', _this.value, fzixnumber, out_index);
           
-          _this.asyncFunction().then((regularjson) => {
-            regularjson.shift(); //删除数组的首个元素，原因：首次表格已加载
+          _this.getData('0', '0', _this.value, fzixnumber, out_index); // 发送请求加载数据
 
+          _this.asyncFunction().then((regularjson) => { // 异步加载数据
+            regularjson.shift(); //删除数组的首个元素，原因：首次表格已加载
             for (let i = 0, len = regularjson.length; i < len; i++) {
-              _this.initjson.splice(order++, 0, regularjson[i]);
+              _this.initjson.splice(order++, 0, regularjson[i]); // 往初始数组中添加新加载进来的数据
             }
           }).then(() => {
-            _this.initjson[order_flag].fcq = '1';
+            _this.initjson[order_flag].fcq = '1'; // 将status设置为1
           }).catch(error => {
             console.log(error);
           })
@@ -301,8 +298,7 @@ export default {
           let fzixnumberid = that.getAttribute('data-fzixnumber'); // 点击时的费用id
           _this.initjson.forEach((val, i) => {
             let new_fzixnumber = val.fzixnumber; // this.initjson数组内的费用id
-
-            if(new_fzixnumber.includes(fzixnumberid)){ // ★★★费用id字符串对比
+            if(new_fzixnumber.includes(fzixnumberid)){ // ★★★费用id字符串对比，是否包含点击时的费用id
               _this.deleteIndexArr.push(i);
             }
           })
@@ -313,7 +309,7 @@ export default {
           
           _this.initjson.splice(minNum+1, newArr.length-1); // 初始数组删除元素
           _this.deleteIndexArr.length = 0; // 置空deleteIndexArr
-          _this.initjson[order_flag].fcq = '0';
+          _this.initjson[order_flag].fcq = '0'; // 将status设置为0
           break;
         default:
           break;
@@ -323,8 +319,7 @@ export default {
   mounted(){
     this.value = this.time_val;
 
-    // this.getData('0', '0', this.value, this.fzixnumber_id, '0');
-    this.getData('0', '0', this.value, '5001', '0');
+    this.getData('0', '0', this.value, this.fzixnumber_id, '0');
   }
 }
 </script>

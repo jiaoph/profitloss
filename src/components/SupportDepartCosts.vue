@@ -23,17 +23,17 @@
         v-for="(val,index) in initjson" 
         :data-index="val.index" 
         :key="index" 
-        :class="{expandWrap:val.index !== '0',expandWrap1:val.index === '2',expandWrap2:val.index === '3',expandWrap3:val.index === '4',expandWrap4:val.index === '5'}">
+        :class="{specialborder:val.fcq === '1',expandWrap:val.index !== '0',expandWrap1:val.index === '2',expandWrap2:val.index === '3',expandWrap3:val.index === '4',expandWrap4:val.index === '5'}">
         <li class="thead" :title="val.gaugeOutfit">
           <span>{{val.gaugeOutfit}}</span>
           <span v-show="val.type === 1" 
             @click.stop.prevent="handleExpand($event)" 
-            :data-status="0"
+            :data-statusnum="val.fcq" 
             :data-order="index" 
             :data-index='Number.parseInt(val.index)+1' 
-            :data-fzixnumber = "val.fzixnumber"
+            :data-fzixnumber = "val.fzixnumber" 
             title="点击展开/收缩" 
-            class="throw-right">
+            :class="{throwRight:val.fcq === '0',throwLeft:val.fcq === '1'}">
           </span>
         </li>
         <li :title="val.depart0">
@@ -193,6 +193,7 @@ export default {
               if(this.flag){ // 首次加载
                 if (inData.length) {
                   this.initjson = inData;
+                  // this.flagArr = Array(inData.length).fill('true');
                 } else {
                   this.initjson = [];
                   this.$message({
@@ -248,7 +249,7 @@ export default {
       return new Promise((resolve,reject) => {
         // setTimeout(() => {
         //   resolve(this.regularjson);
-        // },2000)
+        // },3000)
 
         let istrue = true;
         clearInterval(timer);
@@ -265,12 +266,13 @@ export default {
         }
       })
     },
-    removeClass(el, className) {
-      el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
-    },
-    handleExpand(e) {
-      let status = e.currentTarget.getAttribute('data-status'), // 关闭、展开状态，0关闭状态，1展开状态
+    handleExpand(e) { // 展开、关闭操作
+      const _this = this;
+      var that =  e.currentTarget;
+      
+      let status = that.getAttribute('data-statusnum'), // 关闭、展开状态，true关闭状态可展开，false展开状态可关闭
         order = Number.parseInt(e.currentTarget.getAttribute('data-order')) + 1, // 点击时获取到的数组的order,插入到initjson用
+        order_flag = Number.parseInt(e.currentTarget.getAttribute('data-order')), // 获取点击顺序
         out_index = ''; // 点击时获取到的层级
 
       switch (status) {
@@ -280,55 +282,49 @@ export default {
 
           // 发送请求加载数据
           let fzixnumber = e.currentTarget.getAttribute('data-fzixnumber'); //点击时的费用id
-          this.regularjson = []; // 置空上一次加载的数据
-          this.getData('0', '0', this.value, fzixnumber, out_index);
+          _this.regularjson.length = 0; // 置空上一次加载的数据
+          _this.getData('0', '0', _this.value, fzixnumber, out_index);
           
-          this.asyncFunction().then((regularjson) => {
+          _this.asyncFunction().then((regularjson) => {
             regularjson.shift(); //删除数组的首个元素，原因：首次表格已加载
 
             for (let i = 0, len = regularjson.length; i < len; i++) {
-              this.initjson.splice(order++, 0, regularjson[i]);
+              _this.initjson.splice(order++, 0, regularjson[i]);
             }
           }).then(() => {
-            e.target.setAttribute('data-status', '1');
-            this.removeClass(e.target, 'throw-right');
-            e.target.className += ' ' + 'throw-left';
-            e.target.parentNode.parentNode.className += ' ' + 'specialborder'; // 添加class
+            _this.initjson[order_flag].fcq = '1';
           }).catch(error => {
             console.log(error);
           })
           break;
         case '1': // 关闭表格操作
-          let fzixnumberid = e.currentTarget.getAttribute('data-fzixnumber'); // 点击时的费用id
-          this.initjson.forEach((val, i) => {
+          let fzixnumberid = that.getAttribute('data-fzixnumber'); // 点击时的费用id
+          _this.initjson.forEach((val, i) => {
             let new_fzixnumber = val.fzixnumber; // this.initjson数组内的费用id
 
             if(new_fzixnumber.includes(fzixnumberid)){ // ★★★费用id字符串对比
-              this.deleteIndexArr.push(i);
+              _this.deleteIndexArr.push(i);
             }
           })
 
-          let newArr = Array.prototype.slice.call(this.deleteIndexArr),
+          let newArr = Array.prototype.slice.call(_this.deleteIndexArr),
             // maxNum = Math.max.apply(null,newArr),
             minNum = Math.min.apply(null, newArr); // 数组最小值
           
-          this.initjson.splice(minNum+1, newArr.length-1); // 初始数组删除元素
-          this.deleteIndexArr = []; // 置空deleteIndexArr
-
-          e.currentTarget.setAttribute('data-status', '0');
-          this.removeClass(e.currentTarget, 'throw-left');
-          e.currentTarget.className += ' ' + 'throw-right';
-          this.removeClass(e.currentTarget.parentNode.parentNode, 'specialborder'); // removeclass
+          _this.initjson.splice(minNum+1, newArr.length-1); // 初始数组删除元素
+          _this.deleteIndexArr.length = 0; // 置空deleteIndexArr
+          _this.initjson[order_flag].fcq = '0';
           break;
         default:
           break;
-      }
+      } 
     }
   },
   mounted(){
     this.value = this.time_val;
 
-    this.getData('0', '0', this.value, this.fzixnumber_id, '0');
+    // this.getData('0', '0', this.value, this.fzixnumber_id, '0');
+    this.getData('0', '0', this.value, '5001', '0');
   }
 }
 </script>
@@ -463,7 +459,7 @@ export default {
   border-top: 1px solid #F5C38B;
 }
 
-.throw-right {
+.throwRight {
   cursor: pointer;
   border-top: 6px solid transparent;
   border-left: 8px solid #ED9128;
@@ -474,7 +470,7 @@ export default {
   margin-top: -6px;
 }
 
-.throw-left {
+.throwLeft {
   cursor: pointer;
   border-top: 6px solid transparent;
   border-right: 8px solid #ED9128;

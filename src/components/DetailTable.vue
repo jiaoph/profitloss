@@ -18,7 +18,8 @@
 
     <el-table :data="tableData3" max-height="400" border style="width: 100%">
       <el-table-column 
-        prop="ffeiyong" label="报销类型" 
+        prop="ffeiyong" 
+        label="报销类型" 
         align="center" 
         :show-overflow-tooltip="true">
       </el-table-column>

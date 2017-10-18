@@ -62,7 +62,7 @@
     <div class="pagination">
       <el-pagination 
         @current-change="handleCurrentChange" 
-        :current-page="currentPage" 
+        :current-page.sync="currentPage" 
         :page-size="20" 
         layout="total, prev, pager, next, jumper" 
         :total="pageCount">
@@ -107,10 +107,16 @@ export default {
   },
   methods: {
     change(val) {
-      // this.getData('0','',val,this.fzixnumber_id,'0');
-      this.getData('0', '', val, '5001', '0'); // 测试用
+      if(this.currentPage !== 1) {
+        this.currentPage = 1;
+        this.value = val;
+      }else{
+        // this.getData('0','',val,this.fzixnumber_id,'0');
+        this.getData('0', '', val, '5001', '0'); // 测试用
+      }
     },
     handleCurrentChange(val) {
+      console.log(this.currentPage)
       // this.getData('0','',this.value,this.fzixnumber_id,(val-1).toString());
       this.getData('0', '', this.value, '5001', (val-1).toString()); // 测试用
     },

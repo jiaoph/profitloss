@@ -168,7 +168,7 @@ export default {
     },
     getData(){
       if(arguments.length !== 5) {
-        Message({
+        this.$message({
           showClose: true,
           message: '支持部门成本参数异常错误',
           type: 'error'

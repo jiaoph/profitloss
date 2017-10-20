@@ -91,12 +91,13 @@ export default {
   },
   methods: {
     getfindAllData() {
-      // this.$http.post('/efangfin/financial/findAll.do',{
-      this.$http.post('https://easy-mock.com/mock/59ce1fb7c5c4302238f5706f/www.caiwuyingkui.com/efangfin/financial/findAll.do', {
-        xtype: "0",
-        xname: '',
-        xtime: this.timeval
+      this.$http.post('/efangfin/financial/findAll.do',{
+      // this.$http.post('https://easy-mock.com/mock/59ce1fb7c5c4302238f5706f/www.caiwuyingkui.com/efangfin/financial/findAll.do', {
+        "xtype": "0",
+        "xname": '',
+        "xtime": this.timeval
       }).then(data => {
+        // console.log(data)
         let myData = data.data;
         if (JSON.stringify(myData)) {
           let status = myData.status;
@@ -136,7 +137,7 @@ export default {
           message: '主营业数据获取异常错误',
           type: 'error'
         });
-        console.log(error) 
+        console.log(error)
       })
     },
     change(val) {

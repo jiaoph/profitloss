@@ -2,7 +2,7 @@
   <div id="project" class="projectTable">
     <el-table :data="tableData2" max-height="600" border style="width: 100%" @expand="handle" @cell-click="cellClick" :row-key="getRowKeys" :expand-row-keys="expands">
       <el-table-column type="expand" width="30">
-        <template scope="scope">
+        <template slot-scope="scope">
           <el-table :data="in_tableData2" border :show-header="false" style="width: 100%" class="table-expand">
             <el-table-column prop="area" align="center" width="115" :show-overflow-tooltip="true"></el-table-column>
             <el-table-column prop="totalIncome" align="center" :formatter="formatter_totalIncome" :show-overflow-tooltip="true"></el-table-column>
@@ -82,11 +82,11 @@ export default {
   methods: {
     getData(xtype, xname, xtime) {
       this.$http.post('/efangfin/outgoing/table.do', {
-        xtype: xtype,
-        xname: xname,
-        xtime: xtime
+        "xtype": xtype,
+        "xname": xname,
+        "xtime": xtime
       }).then(data => {
-        // console.log(data)
+        console.log(data)
         let myData = data.data;
         if (JSON.stringify(myData)) {
           let status = myData.status;

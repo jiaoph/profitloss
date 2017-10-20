@@ -1,24 +1,27 @@
+// The Vue build version to load with the `import` command
+// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import { 
-  Breadcrumb, 
-  BreadcrumbItem, 
-  Table, 
-  TableColumn, 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Table,
+  TableColumn,
   Tooltip,
   Select,
   Option,
   Message,
   Pagination  } from 'element-ui'
 
+import "babel-polyfill"
 import axiosPlugin from './axios_config/index'
-import App from './App.vue'
+import App from './App'
 import filters from './filters/'
 import store from './store/'
-import VueRouter from 'vue-router'
-import routes from './router.config'
+import router from './router'
+
+Vue.config.productionTip = false
 
 Vue.use(axiosPlugin)
-Vue.use(VueRouter)
 Object.keys(filters).forEach(key => Vue.filter(key, filters[key]))
 
 Vue.component(Breadcrumb.name, Breadcrumb)
@@ -32,15 +35,11 @@ Vue.component(Pagination.name, Pagination)
 Vue.component(Message.name, Message)
 Object.defineProperty(Vue.prototype, "$message", { value: Message })
 
-const router = new VueRouter({
-  mode: 'history', //切换路径模式，变成history模式
-  scrollBehavior: () => ({ y: 0 }), // 滚动条滚动的行为，不加这个默认就会记忆原来滚动条的位置
-  routes
-})
-
+/* eslint-disable no-new */
 new Vue({
   el: '#app',
   store,
   router,
-  render: h => h(App)
+  template: '<App/>',
+  components: { App }
 })

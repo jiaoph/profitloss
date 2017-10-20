@@ -10,29 +10,29 @@
       </h3>
       <div class="timeselect fr">
         <el-select v-model="value" @change="change" placeholder="请选择" class="resetSelect">
-          <el-option v-for="item in options" 
-            :key="item.value" 
-            :label="item.label" 
+          <el-option v-for="item in options"
+            :key="item.value"
+            :label="item.label"
             :value="item.value">
           </el-option>
         </el-select>
       </div>
     </div>
     <div class="wrapper clearfix responsiveBox">
-      <ul class="lie" 
-        v-for="(val,index) in initjson" 
-        :data-index="val.index" 
-        :key="index" 
+      <ul class="lie"
+        v-for="(val,index) in initjson"
+        :data-index="val.index"
+        :key="index"
         :class="{specialborder:val.fcq === '1',expandWrap:val.index !== '0',expandWrap1:val.index === '2',expandWrap2:val.index === '3',expandWrap3:val.index === '4',expandWrap4:val.index === '5'}">
         <li class="thead" :title="val.gaugeOutfit">
           <span>{{val.gaugeOutfit}}</span>
-          <span v-show="val.type === 1" 
-            @click.stop.prevent="handleExpand($event)" 
-            :data-statusnum="val.fcq" 
-            :data-order="index" 
-            :data-index='Number.parseInt(val.index)+1' 
-            :data-fzixnumber = "val.fzixnumber" 
-            title="点击展开/收缩" 
+          <span v-show="val.type === 1"
+            @click.stop.prevent="handleExpand($event)"
+            :data-statusnum="val.fcq"
+            :data-order="index"
+            :data-index='Number.parseInt(val.index)+1'
+            :data-fzixnumber = "val.fzixnumber"
+            title="点击展开/收缩"
             :class="{throwRight:val.fcq === '0',throwLeft:val.fcq === '1'}">
           </span>
         </li>
@@ -210,7 +210,7 @@ export default {
                   this.regularjson = [];
                 }
               }
-              
+
               break;
             case 0:
               this.$message({
@@ -269,7 +269,7 @@ export default {
     handleExpand(e) { // 展开、关闭操作
       const _this = this;
       var that =  e.currentTarget;
-      
+
       let status = that.getAttribute('data-statusnum'), // 关闭、展开状态，0关闭状态可展开，1展开状态可关闭
         order = Number.parseInt(that.getAttribute('data-order')) + 1, // 点击时获取到的数组的order,插入到initjson用
         order_flag = Number.parseInt(that.getAttribute('data-order')), // 获取点击顺序
@@ -280,7 +280,7 @@ export default {
           let fzixnumber = that.getAttribute('data-fzixnumber'); // 点击时的费用id
           out_index = Number.parseInt(that.getAttribute('data-index'));
           _this.regularjson.length = 0; // 置空上一次加载的数据
-          
+
           _this.getData('0', '0', _this.value, fzixnumber, out_index); // 发送请求加载数据
 
           _this.asyncFunction().then((regularjson) => { // 异步加载数据
@@ -306,14 +306,14 @@ export default {
           let newArr = Array.prototype.slice.call(_this.deleteIndexArr),
             // maxNum = Math.max.apply(null,newArr),
             minNum = Math.min.apply(null, newArr); // 数组最小值
-          
+
           _this.initjson.splice(minNum+1, newArr.length-1); // 初始数组删除元素
           _this.deleteIndexArr.length = 0; // 置空deleteIndexArr
           _this.initjson[order_flag].fcq = '0'; // 将status设置为0
           break;
         default:
           break;
-      } 
+      }
     }
   },
   mounted(){

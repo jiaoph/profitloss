@@ -3,7 +3,7 @@ import qs from "qs";
 import { Message, Loading } from "element-ui";
 
 const Axios = axios.create({
-  baseURL: "http://192.168.1.68:8080",
+  baseURL: "http://192.168.1.52:8080",
   // baseURL: "http://192.168.1.76",
   // baseURL: "http://192.168.1.76",
   timeout: 5000,
@@ -52,14 +52,22 @@ Axios.interceptors.request.use( // POST传参序列化(添加请求拦截器)
 );
 
 Axios.interceptors.response.use( // 响应拦截器
-  res => {
+  response => {
     // console.log(res)
     loadingInstance.close()
     // if (res.status != 200) {
     //   alert(res.statusText);
     //   return Promise.reject(res);
     // }
-    return res;
+    if (response.data == null && response.config.responseType === 'json' && response.request.responseText != null) {
+      try {
+        // eslint-disable-next-line no-param-reassign
+        response.data = JSON.parse(response.request.responseText);
+      } catch (e) {
+        // ignored
+      }
+    }
+    return response;
   },
   error => {
     loadingInstance.close()

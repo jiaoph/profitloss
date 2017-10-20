@@ -11,16 +11,9 @@
 </template>
 
 <script>
-import HeaderVue from './components/HeaderVue.vue'
-// import Home from './components/Home.vue'
-
+import HeaderVue from '@/components/HeaderVue.vue'
 export default {
   name: 'app',
-  data() {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  },
   components: {
     HeaderVue,
     // Home
@@ -28,7 +21,7 @@ export default {
 }
 </script>
 
-<style rel="stylesheet/less" lang="less">
+<style lang="less">
 @import "./assets/less/reset.css";
 @import "./assets/less/reset_elementui.less";
 @import "./assets/less/public";

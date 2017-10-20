@@ -1,6 +1,6 @@
 <template>
   <div id="project" class="projectTable">
-    <el-table :data="tableData2" height="600" border style="width: 100%" @expand="handle" @cell-click="cellClick" :row-key="getRowKeys" :expand-row-keys="expands">
+    <el-table :data="tableData2" max-height="600" border style="width: 100%" @expand="handle" @cell-click="cellClick" :row-key="getRowKeys" :expand-row-keys="expands">
       <el-table-column type="expand" width="30">
         <template scope="scope">
           <el-table :data="in_tableData2" border :show-header="false" style="width: 100%" class="table-expand">

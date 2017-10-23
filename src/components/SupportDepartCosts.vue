@@ -166,109 +166,92 @@ export default {
       // this.timeval = val;
       this.getData('0', '0', val, this.fzixnumber_id, '0');
     },
-    getData(){
+    asyncGetData(){ // 异步获取this.regularjson
+      const _this = this;
       if(arguments.length !== 5) {
-        this.$message({
+        _this.$message({
           showClose: true,
-          message: '支持部门成本参数异常错误',
+          message: '支持部门成本参数错误',
           type: 'error'
         });
         return;
       }
-      this.$http.post('/efangfin/outgoing/twoLevelCost.do',{
-        xtype: arguments[0],
-        xname: arguments[1],
-        xtime: arguments[2],
-        xnumber: arguments[3],
-        index: arguments[4]
-      }).then(data => {
-        console.log(data);
-        let myData = data.data;
-        if (JSON.stringify(myData)) {
-          let status = myData.status;
-          switch (status) {
-            case 1:
-              let inData = myData.data;
 
-              if(this.flag){ // 首次加载
-                if (inData.length) {
-                  this.initjson = inData;
-                  // this.flagArr = Array(inData.length).fill('true');
-                } else {
-                  this.initjson = [];
-                  this.$message({
-                    showClose: true,
-                    message: '支持部门成本数据获取为空',
-                    type: 'warning'
-                  });
-                }
-                this.flag = false;
-              }else{ // 以后加载
-                if(inData.length){
-                  this.regularjson = inData;
-                } else{
-                  this.regularjson = [];
-                }
-              }
-
-              break;
-            case 0:
-              this.$message({
-                showClose: true,
-                message: '支持部门成本数据获取错误',
-                type: 'error'
-              });
-              break;
-            default:
-              this.$message({
-                showClose: true,
-                message: '支持部门成本异常status',
-                type: 'error'
-              });
-              break;
-          }
-        } else {
-          this.$message({
-            showClose: true,
-            message: '支持部门成本暂无数据',
-            type: 'warning'
-          });
-          return;
-        }
-      }).catch(error => {
-        this.$message({
-          showClose: true,
-          duration: 2000,
-          message: '支持部门成本数据获取异常',
-          type: 'error'
-        });
-        console.log(error);
-      })
-    },
-    asyncFunction(){ // 异步获取this.regularjson
       return new Promise((resolve,reject) => {
-        // setTimeout(() => {
-        //   resolve(this.regularjson);
-        // },3000)
+        _this.$http.post('/efangfin/outgoing/twoLevelCost.do',{
+          xtype: arguments[0],
+          xname: arguments[1],
+          xtime: arguments[2],
+          xnumber: arguments[3],
+          index: arguments[4]
+        }).then(data => {
+          console.log(data);
+          let myData = data.data;
+          if (JSON.stringify(myData)) {
+            let status = myData.status;
+            switch (status) {
+              case 1:
+                let inData = myData.data;
 
-        let istrue = true;
-        clearInterval(timer);
+                if(_this.flag){ // 首次加载
+                  if (inData.length) {
+                    _this.initjson = inData;
+                  } else {
+                    _this.initjson = [];
+                    _this.$message({
+                      showClose: true,
+                      message: '支持部门成本数据获取为空',
+                      type: 'warning'
+                    });
+                  }
+                  _this.flag = false;
+                }else{ // 以后加载
+                  if(inData.length){
+                    _this.regularjson = inData;
+                  } else{
+                    _this.regularjson = [];
+                  }
+                  resolve(_this.regularjson);
+                }
 
-        if(istrue) {
-          istrue = false;
-          timer = setInterval(() => {
-            if(this.regularjson.length){
-              clearInterval(timer);
-              resolve(this.regularjson);
-              istrue = true;
+                break;
+              case 0:
+                _this.$message({
+                  showClose: true,
+                  message: '支持部门成本数据获取错误',
+                  type: 'error'
+                });
+                break;
+              default:
+                _this.$message({
+                  showClose: true,
+                  message: '支持部门成本异常status',
+                  type: 'error'
+                });
+                break;
             }
-          },1000)
-        }
+          } else {
+            _this.$message({
+              showClose: true,
+              message: '支持部门成本暂无数据',
+              type: 'warning'
+            });
+            return;
+          }
+        }).catch(error => {
+          _this.$message({
+            showClose: true,
+            duration: 2000,
+            message: '支持部门成本数据获取异常',
+            type: 'error'
+          });
+          console.log(error);
+        })
       })
     },
     handleExpand(e) { // 展开、关闭操作
       const _this = this;
-      var that =  e.currentTarget;
+      let that =  e.currentTarget;
 
       let status = that.getAttribute('data-statusnum'), // 关闭、展开状态，0关闭状态可展开，1展开状态可关闭
         order = Number.parseInt(that.getAttribute('data-order')) + 1, // 点击时获取到的数组的order,插入到initjson用
@@ -281,17 +264,20 @@ export default {
           out_index = Number.parseInt(that.getAttribute('data-index'));
           _this.regularjson.length = 0; // 置空上一次加载的数据
 
-          _this.getData('0', '0', _this.value, fzixnumber, out_index); // 发送请求加载数据
+          async function sleep(){ // async-await异步获取数据
+            let result = await _this.asyncGetData('0', '0', _this.value, fzixnumber, out_index);
+            return result;
+          }
 
-          _this.asyncFunction().then((regularjson) => { // 异步加载数据
+          sleep().then(regularjson => {
             regularjson.shift(); //删除数组的首个元素，原因：首次表格已加载
             for (let i = 0, len = regularjson.length; i < len; i++) {
               _this.initjson.splice(order++, 0, regularjson[i]); // 往初始数组中添加新加载进来的数据
             }
           }).then(() => {
             _this.initjson[order_flag].fcq = '1'; // 将status设置为1
-          }).catch(error => {
-            console.log(error);
+          }).catch(err => {
+            console.log(err)
           })
           break;
         case '1': // 关闭表格操作
@@ -319,7 +305,7 @@ export default {
   mounted(){
     this.value = this.time_val;
 
-    this.getData('0', '0', this.value, this.fzixnumber_id, '0');
+    this.asyncGetData('0', '0', this.value, this.fzixnumber_id, '0');
   }
 }
 </script>

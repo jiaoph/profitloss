@@ -18,7 +18,9 @@
         </el-select>
       </div>
     </div>
-    <div class="wrapper clearfix responsiveBox">
+    <div id="tableHead"
+      onscroll="document.getElementById('tableBody').scrollLeft=this.scrollLeft"
+      class="wrapper clearfix responsiveBox fixHead">
       <ul class="lie"
         v-for="(val,index) in initjson"
         :data-index="val.index"
@@ -36,6 +38,29 @@
             :class="{throwRight:val.fcq === '0',throwLeft:val.fcq === '1'}">
           </span>
         </li>
+      </ul>
+    </div>
+    <div id="tableBody"
+      @scroll="handleScroll($event)"
+      onscroll="document.getElementById('tableHead').scrollLeft=this.scrollLeft"
+      class="wrapper clearfix responsiveBox">
+      <ul class="lie"
+        v-for="(val,index) in initjson"
+        :data-index="val.index"
+        :key="index"
+        :class="{specialborder:val.fcq === '1',expandWrap:val.index !== '0',expandWrap1:val.index === '2',expandWrap2:val.index === '3',expandWrap3:val.index === '4',expandWrap4:val.index === '5'}">
+        <!-- <li class="thead" :title="val.gaugeOutfit">
+          <span>{{val.gaugeOutfit}}</span>
+          <span v-show="val.type === 1"
+            @click.stop.prevent="handleExpand($event)"
+            :data-statusnum="val.fcq"
+            :data-order="index"
+            :data-index='Number.parseInt(val.index)+1'
+            :data-fzixnumber = "val.fzixnumber"
+            title="点击展开/收缩"
+            :class="{throwRight:val.fcq === '0',throwLeft:val.fcq === '1'}">
+          </span>
+        </li> -->
         <li :title="val.depart0">
           <span>{{val.depart0}}</span>
         </li>
@@ -155,7 +180,8 @@ export default {
       flag: true, // 首次加载flag
       deleteIndexArr: [],
       initjson: [], // 表格首次获取数据
-      regularjson: [] // 点击加载的数据
+      regularjson: [], // 点击加载的数据
+      scrollTop: ''
     }
   },
   methods: {
@@ -300,6 +326,9 @@ export default {
         default:
           break;
       }
+    },
+    handleScroll(e) {
+      this.scrollTop = e.target.scrollTop;
     }
   },
   mounted(){
@@ -348,6 +377,21 @@ export default {
   position: relative;
 }
 
+.fixHead {
+  min-height: 0;
+  overflow: hidden;
+  margin-bottom: -3px;
+  width: 98.5%;
+}
+
+.fixHead ul li {
+  border-bottom: 1px solid #ddd;
+}
+
+.fixHead .expandWrap li.thead {
+  border-bottom-color: #F5C38B;
+}
+
 .wrapper .tips{
   width: 150px;
   height: 50px;
@@ -382,7 +426,7 @@ export default {
   background-color: #fff;
 }
 
-.lie li {
+.lie li, {
   width: 84px;
   height: 54px;
   padding: 10px;
@@ -395,7 +439,7 @@ export default {
   white-space: nowrap;
 }
 
-.lie li.thead {
+.lie li.thead, {
   border-top: 1px solid #ddd;
   background-color: #f8f8f8;
   position: relative;

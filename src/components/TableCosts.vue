@@ -8,7 +8,7 @@
               <p>项目运营成本</p>
               <span>8%</span>
             </td>
-            <td class="clearfix pointer">
+            <td class="clearfix pointer" :data-fzixnumber="acCountID" @click.stop.prevent="handle_mangeCost($event)">
               <div class="circle fl">
                 <div class="incircle">
                   <div class="circleSolid"></div>
@@ -16,7 +16,7 @@
               </div>
               <span class="fl">案场费用</span>
             </td>
-            <td>
+            <td class="pointer" :data-fzixnumber="acCountID" @click.stop.prevent="handle_detailPage($event)">
               <span>{{ acCount }}</span>
             </td>
           </tr>
@@ -25,7 +25,7 @@
               <p>项目运营成本</p>
               <span>8%</span>
             </td>
-            <td class="clearfix pointer">
+            <td class="clearfix pointer" :data-fzixnumber="ldCountID" @click.stop.prevent="handle_mangeCost($event)">
               <div class="circle circle2 fl">
                 <div class="incircle">
                   <div class="circleSolid"></div>
@@ -33,7 +33,7 @@
               </div>
               <span class="fl">联动费用</span>
             </td>
-            <td>
+            <td class="pointer" :data-fzixnumber="ldCountID" @click.stop.prevent="handle_detailPage($event)">
               <span>{{ ldCount }}</span>
             </td>
           </tr>
@@ -54,7 +54,7 @@
               <p>渠道成本</p>
               <span>2%</span>
             </td>
-            <td class="clearfix pointer">
+            <td class="clearfix pointer" :data-fzixnumber="placeCountID" @click.stop.prevent="handle_mangeCost($event)">
               <div class="circle circle3 fl">
                 <div class="incircle">
                   <div class="circleSolid"></div>
@@ -62,7 +62,7 @@
               </div>
               <span class="fl">渠道佣金</span>
             </td>
-            <td>
+            <td class="pointer" :data-fzixnumber="placeCountID" @click.stop.prevent="handle_detailPage($event)">
               <span>{{ placeCount }}</span>
             </td>
           </tr>
@@ -83,7 +83,7 @@
               <p>区域成本</p>
               <span>8%</span>
             </td>
-            <td class="clearfix pointer">
+            <td class="clearfix pointer" :data-fzixnumber="devCountID" @click.stop.prevent="handle_mangeCost($event)">
               <div class="circle circle4 fl">
                 <div class="incircle">
                   <div class="circleSolid"></div>
@@ -91,7 +91,7 @@
               </div>
               <span class="fl">开发费用</span>
             </td>
-            <td>
+            <td class="pointer" :data-fzixnumber="devCountID"  @click.stop.prevent="handle_detailPage($event)">
               <span>{{ devCount }}</span>
             </td>
           </tr>
@@ -100,7 +100,7 @@
               <p>区域成本</p>
               <span>8%</span>
             </td>
-            <td class="clearfix pointer">
+            <td class="clearfix pointer" :data-fzixnumber="areaManageCountID" @click.stop.prevent="handle_mangeCost($event)">
               <div class="circle circle5 fl">
                 <div class="incircle">
                   <div class="circleSolid"></div>
@@ -108,7 +108,7 @@
               </div>
               <span class="fl">管理费用</span>
             </td>
-            <td>
+            <td class="pointer" :data-fzixnumber="areaManageCountID" @click.stop.prevent="handle_detailPage($event)">
               <span>{{ areaManageCount }}</span>
             </td>
           </tr>
@@ -158,7 +158,7 @@
               <p>财务费用</p>
               <span>8%</span>
             </td>
-            <td class="clearfix pointer">
+            <td class="clearfix pointer" :data-fzixnumber="financeCountID" @click.stop.prevent="handle_mangeCost($event)">
               <div class="circle circle7 fl">
                 <div class="incircle">
                   <div class="circleSolid"></div>
@@ -166,7 +166,7 @@
               </div>
               <span class="fl">财务费用</span>
             </td>
-            <td>
+            <td class="pointer" :data-fzixnumber="financeCountID" @click.stop.prevent="handle_detailPage($event)">
               <span>{{ financeCount }}</span>
             </td>
           </tr>
@@ -278,13 +278,19 @@ export default {
 
     async.then(arr => {
       this.acCount = arr[6].money;
+      this.acCountID = arr[6].fzixnumber;
       this.ldCount = arr[7].money;
+      this.ldCountID = arr[7].fzixnumber;
       this.placeCount = arr[8].money;
+      this.placeCountID = arr[8].fzixnumber;
       this.devCount = arr[9].money;
+      this.devCountID = arr[9].fzixnumber;
       this.areaManageCount = arr[10].money;
+      this.areaManageCountID = arr[10].fzixnumber;
       this.hqMannageCount = arr[0].money;
       this.hqMannageCountID = arr[0].fzixnumber;
       this.financeCount = arr[11].money;
+      this.financeCountID = arr[11].fzixnumber;
     }).catch(err => {
       console.log(err);
     })

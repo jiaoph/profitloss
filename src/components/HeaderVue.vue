@@ -74,6 +74,9 @@ export default {
         }
         >li.active{
           border-bottom: 2px solid @textyellow;
+          >a{
+            color: #fff;
+          }
         }
       }
       >.avatar{
@@ -87,7 +90,7 @@ export default {
           }
           >a{
             color: @textyellow;
-            padding-left: 10px; 
+            padding-left: 10px;
           }
         }
       }

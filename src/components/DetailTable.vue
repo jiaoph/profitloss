@@ -17,43 +17,43 @@
     </div>
 
     <el-table :data="tableData3" max-height="400" border style="width: 100%">
-      <el-table-column 
-        prop="ffeiyong" 
-        label="报销类型" 
-        align="center" 
+      <el-table-column
+        prop="ffeiyong"
+        label="报销类型"
+        align="center"
         :show-overflow-tooltip="true">
       </el-table-column>
-      <el-table-column 
-        prop="famountfor" 
-        label="报销金额" 
-        align="center" 
+      <el-table-column
+        prop="famountfor"
+        label="报销金额"
+        align="center"
         :show-overflow-tooltip="true"
         :formatter="countFormatter">
       </el-table-column>
-      <el-table-column 
-        prop="femp" 
-        label="报销人" 
+      <el-table-column
+        prop="femp"
+        label="报销人"
         align="center"
         width="120"
         :show-overflow-tooltip="true">
       </el-table-column>
-      <el-table-column 
-        prop="departName" 
-        label="报销部门" 
+      <el-table-column
+        prop="departName"
+        label="报销部门"
         align="center"
         width="250"
         :show-overflow-tooltip="true">
       </el-table-column>
-      <el-table-column 
-        prop="fdate" 
-        label="报销时间" 
+      <el-table-column
+        prop="fdate"
+        label="报销时间"
         align="center"
-        :show-overflow-tooltip="true" 
+        :show-overflow-tooltip="true"
         :formatter="timeFormatter">
       </el-table-column>
-      <el-table-column 
-        prop="remark" 
-        label="备注" 
+      <el-table-column
+        prop="remark"
+        label="备注"
         align="center"
         :show-overflow-tooltip="true"
         :formatter="remarkFormatter">
@@ -61,11 +61,11 @@
     </el-table>
 
     <div class="pagination">
-      <el-pagination 
-        @current-change="handleCurrentChange" 
-        :current-page.sync="currentPage" 
-        :page-size="20" 
-        layout="total, prev, pager, next, jumper" 
+      <el-pagination
+        @current-change="handleCurrentChange"
+        :current-page.sync="currentPage"
+        :page-size="20"
+        layout="total, prev, pager, next, jumper"
         :total="pageCount">
       </el-pagination>
     </div>
@@ -103,7 +103,8 @@ export default {
       }],
       value: '0', // 默认时间维度
       pageCount: 0, // 总页数
-      tableData3: [] // 表格数据
+      tableData3: [], // 表格数据
+      fzixnumber: '' // 费用id
     }
   },
   methods: {
@@ -112,14 +113,14 @@ export default {
         this.currentPage = 1;
         this.value = val;
       }else{
-        // this.getData('0','',val,this.fzixnumber_id,'0');
-        this.getData('0', '', val, '5001', '0'); // 测试用
+        this.getData('0','',val,this.fzixnumber,'0');
+        // this.getData('0', '', val, '5001', '0'); // 测试用
       }
     },
     handleCurrentChange(val) {
       console.log(this.currentPage)
-      // this.getData('0','',this.value,this.fzixnumber_id,(val-1).toString());
-      this.getData('0', '', this.value, '5001', (val-1).toString()); // 测试用
+      this.getData('0','',this.value,this.fzixnumber,(val-1).toString());
+      // this.getData('0', '', this.value, '5001', (val-1).toString()); // 测试用
     },
     getData() {
       if (arguments.length !== 5) {
@@ -195,8 +196,12 @@ export default {
   },
   mounted() {
     this.value = this.time_val;
-    // this.getData('0','',this.value,this.fzixnumber_id,'0');
-    this.getData('0', '', this.value, '5001', '0'); // 测试用
+    this.fzixnumber = this.fzixnumber_id;
+    this.getData('0','',this.value,this.fzixnumber,'0');
+    // this.getData('0', '', this.value, '5001', '0'); // 测试用
+  },
+  deactivated(){
+    this.$destroy(true)
   }
 }
 </script>

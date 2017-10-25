@@ -41,7 +41,6 @@
       </ul>
     </div>
     <div id="tableBody"
-      @scroll="handleScroll($event)"
       onscroll="document.getElementById('tableHead').scrollLeft=this.scrollLeft"
       class="wrapper clearfix responsiveBox">
       <ul class="lie"
@@ -150,8 +149,6 @@
 import Crumbs from './Crumbs'
 import { mapGetters } from 'vuex'
 
-var timer;
-
 export default {
   name: 'anchang',
   computed: mapGetters([
@@ -181,7 +178,7 @@ export default {
       deleteIndexArr: [],
       initjson: [], // 表格首次获取数据
       regularjson: [], // 点击加载的数据
-      scrollTop: ''
+      fzixnumber: '' // 费用id
     }
   },
   methods: {
@@ -190,7 +187,7 @@ export default {
       this.initjson = [];
       this.flag = true;
       // this.timeval = val;
-      this.getData('0', '0', val, this.fzixnumber_id, '0');
+      this.asyncGetData('0', '0', val, this.fzixnumber, '0');
     },
     asyncGetData(){ // 异步获取this.regularjson
       const _this = this;
@@ -326,15 +323,15 @@ export default {
         default:
           break;
       }
-    },
-    handleScroll(e) {
-      this.scrollTop = e.target.scrollTop;
     }
   },
   mounted(){
     this.value = this.time_val;
-
-    this.asyncGetData('0', '0', this.value, this.fzixnumber_id, '0');
+    this.fzixnumber = this.fzixnumber_id;
+    this.asyncGetData('0', '0', this.value, this.fzixnumber, '0');
+  },
+  deactivated(){
+    this.$destroy(true)
   }
 }
 </script>

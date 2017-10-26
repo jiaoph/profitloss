@@ -53,7 +53,6 @@ Axios.interceptors.request.use( // POST传参序列化(添加请求拦截器)
 
 Axios.interceptors.response.use( // 响应拦截器
   response => {
-    // console.log(res)
     loadingInstance.close()
     // if (res.status != 200) {
     //   alert(res.statusText);
@@ -71,8 +70,7 @@ Axios.interceptors.response.use( // 响应拦截器
   },
   error => {
     loadingInstance.close()
-
-    if (error && error.response) {
+    if (error.response) {
       // 请求已发出，但服务器响应的状态码不在 2xx 范围内
       console.log(error.response.data);
       console.log(error.response.status);
@@ -101,7 +99,9 @@ Axios.interceptors.response.use( // 响应拦截器
 
     Message.error({
       message: error.message,
-      type: "error"
+      duration: 0,
+      type: "error",
+      showClose: true
     })
 
     return Promise.reject(error);

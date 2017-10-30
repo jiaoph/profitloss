@@ -19,7 +19,6 @@ export default new Router({
       children: [
         {
           path: '/',
-          redirect: 'tabsOpeProfit',
           component: TabsOpeProfit
         },
         {
@@ -42,7 +41,7 @@ export default new Router({
     },
     {
       path: '/',
-      redirect: '/home'
+      redirect: '/home/tabsOpeProfit'
     },
     {
       path: '*',

@@ -27,7 +27,7 @@
 export default {
   name:'tabWrap',
   mounted() {
-    
+
   }
 }
 </script>

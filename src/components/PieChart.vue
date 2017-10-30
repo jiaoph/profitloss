@@ -6,9 +6,6 @@
 
 <script>
 import { Event } from '../assets/eventBus'
-var echarts = require('echarts/lib/echarts');
-// 引入饼图
-require('echarts/lib/chart/pie');
 
 export default {
   data() {
@@ -19,7 +16,7 @@ export default {
   methods: {
     initPieChart(arr) {
       const self = this;
-      var myChart_pie = echarts.init(document.getElementById('pieWrap'));
+      var myChart_pie = this.$echarts.init(document.getElementById('pieWrap'));
 
       myChart_pie.setOption({
         tooltip: {

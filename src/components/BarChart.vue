@@ -64,12 +64,6 @@
 
 <script>
 import { Event } from '../assets/eventBus'
-var echarts = require('echarts/lib/echarts');
-// 引入柱状图
-require('echarts/lib/chart/bar');
-// 引入提示框和标题组件
-require('echarts/lib/component/tooltip');
-// require('echarts/lib/component/legend'); 
 
 export default {
   data() {
@@ -85,7 +79,7 @@ export default {
   methods: {
     initBarChart() {
       const self = this;
-      var myChart = echarts.init(document.getElementById('inbar'));
+      var myChart = this.$echarts.init(document.getElementById('inbar'));
       // 绘制图表
       myChart.setOption({
         tooltip: {

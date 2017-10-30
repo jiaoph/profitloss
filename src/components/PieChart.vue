@@ -26,6 +26,7 @@ export default {
         },
         color: ['#97C681', '#CAD879', '#FBB661', '#DEE598', '#4A9973'],
         legend: {
+          show: false,
           orient: 'vertical',
           x: 'left',
           data: ['溢价', '佣金收入', '已收团购', '应收团购', '甲方奖励',]

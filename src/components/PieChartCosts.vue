@@ -27,6 +27,7 @@ export default {
         },
         color: ['#9ECCE8', '#489ED3', '#6AB7CC', '#32A5A2', '#AAE5D9', '#9DACD4', '#5665C1'],
         legend: {
+          show: false,
           orient: 'vertical',
           x: 'left',
           data: ['案场费用', '联动费用', '渠道佣金', '开发费用', '管理费用(区域成本)', '管理费用(总部分摊)', '财务费用']

@@ -21,11 +21,11 @@ import router from './router'
 
 Vue.config.productionTip = false // 生产环境提示
 
-const echarts = require('echarts/lib/echarts'); // 引入 ECharts 主模块
-require('echarts/lib/chart/pie'); // 引入饼图
-require('echarts/lib/chart/bar'); // 引入柱状图
-require('echarts/lib/component/tooltip'); // 引入提示框
-Object.defineProperty(Vue.prototype, "$echarts", { value: echarts })
+// const echarts = require('echarts/lib/echarts'); // 引入 ECharts 主模块
+// require('echarts/lib/chart/pie'); // 引入饼图
+// require('echarts/lib/chart/bar'); // 引入柱状图
+// require('echarts/lib/component/tooltip'); // 引入提示框
+// Object.defineProperty(Vue.prototype, "$echarts", { value: echarts })
 
 Vue.use(axiosPlugin)
 Object.keys(filters).forEach(key => Vue.filter(key, filters[key]))

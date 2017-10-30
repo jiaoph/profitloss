@@ -17,7 +17,8 @@ export default {
   methods: {
     initPieChartCosts() {
       const self = this;
-      var myChart_pie = this.$echarts.init(document.getElementById('pieConstsWrap'));
+      // var myChart_pie = this.$echarts.init(document.getElementById('pieConstsWrap'));
+      var myChart_pie = echarts.init(document.getElementById('pieConstsWrap'));
 
       myChart_pie.setOption({
         tooltip: {

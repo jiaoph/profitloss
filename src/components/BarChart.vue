@@ -79,7 +79,8 @@ export default {
   methods: {
     initBarChart() {
       const self = this;
-      var myChart = this.$echarts.init(document.getElementById('inbar'));
+      // var myChart = this.$echarts.init(document.getElementById('inbar'));
+      var myChart = echarts.init(document.getElementById('inbar'));
       // 绘制图表
       myChart.setOption({
         tooltip: {

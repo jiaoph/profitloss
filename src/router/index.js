@@ -1,11 +1,19 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home'
-import SupportDepartCosts from '@/components/SupportDepartCosts'
-import TabsOpeProfit from '@/components/TabsOpeProfit'
-import TabsCashFlow from '@/components/TabsCashFlow'
-import DetailTable from '@/components/DetailTable'
-import Error from '@/components/Error'
+
+// import Home from '@/components/Home'
+// import SupportDepartCosts from '@/components/SupportDepartCosts'
+// import TabsOpeProfit from '@/components/TabsOpeProfit'
+// import TabsCashFlow from '@/components/TabsCashFlow'
+// import DetailTable from '@/components/DetailTable'
+// import Error from '@/components/Error'
+
+const Home = () => import('@/components/Home')
+const SupportDepartCosts = () => import('@/components/SupportDepartCosts')
+const TabsOpeProfit = () => import('@/components/TabsOpeProfit')
+const TabsCashFlow = () => import('@/components/TabsCashFlow')
+const DetailTable = () => import('@/components/DetailTable')
+const Error = () => import('@/components/Error')
 
 Vue.use(Router)
 

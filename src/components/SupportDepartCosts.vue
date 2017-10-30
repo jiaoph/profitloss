@@ -368,6 +368,7 @@ export default {
 .wrapper {
   min-height: 200px;
   max-height: 600px;
+  width: 100%;
   overflow-y: scroll;
   font-size: 12px;
   // border-left: 1px solid #ddd;

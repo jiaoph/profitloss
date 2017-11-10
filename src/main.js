@@ -10,7 +10,8 @@ import {
   Select,
   Option,
   Message,
-  Pagination  } from 'element-ui'
+  Pagination,
+  Icon  } from 'element-ui'
 
 import "babel-polyfill"
 import axiosPlugin from './axios_config/index'
@@ -39,6 +40,7 @@ Vue.component(Select.name, Select)
 Vue.component(Option.name, Option)
 Vue.component(Pagination.name, Pagination)
 Vue.component(Message.name, Message)
+Vue.component(Icon.name, Icon)
 Object.defineProperty(Vue.prototype, "$message", { value: Message })
 
 /* eslint-disable no-new */

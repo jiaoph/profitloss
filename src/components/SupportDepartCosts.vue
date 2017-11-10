@@ -293,7 +293,7 @@ export default {
           }
 
           sleep().then(regularjson => {
-            regularjson.shift(); //删除数组的首个元素，原因：首次表格已加载
+            // regularjson.shift(); //删除数组的首个元素，原因：首次表格已加载
             for (let i = 0, len = regularjson.length; i < len; i++) {
               _this.initjson.splice(order++, 0, regularjson[i]); // 往初始数组中添加新加载进来的数据
             }

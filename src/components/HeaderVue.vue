@@ -11,84 +11,84 @@
             <a href="http://sso.ehaofang.com/ehaofang-ssoweb/login/loginout.do">退出</a>
         </div>
         <ul class="nav">
-            <li class="singleNav">首页</li>
-            <li class="singleNav">项目经营</li>
-            <li>
-                项目开发 <i class="el-icon-caret-bottom caret"></i>
-                <div class="project1">
-                    <dl>
-                        <p id="property">
-                            <a href="http://loupan.ehaofang.com/ehaofang-pmweb/pages/index.jsp">开发楼盘</a>
-                        </p>
-                        <p id="land1">
-                            <a href="http://loupan.ehaofang.com/ehaofang-pmweb/pages/land.jsp">土地拍卖</a>
-                        </p>
-                        <span></span>
-                    </dl>
-                </div>
-            </li>
-            <li>
-                渠道 <i class="el-icon-caret-bottom caret"></i>
-                <div>
-                    <dl>
-                        <p>
-                            <a href="javascript:;">渠道公司</a>
-                        </p>
-                        <p>
-                            <a href="javascript:;">门店</a>
-                        </p>
-                        <span></span>
-                    </dl>
-                </div>
+          <li class="singleNav">首页</li>
+          <li class="singleNav">项目经营</li>
+          <li>
+              项目开发 <i class="el-icon-caret-bottom caret"></i>
+              <div class="slideBox project1">
+                  <dl>
+                      <p id="property">
+                          <a href="http://loupan.ehaofang.com/ehaofang-pmweb/pages/index.jsp">开发楼盘</a>
+                      </p>
+                      <p id="land1">
+                          <a href="http://loupan.ehaofang.com/ehaofang-pmweb/pages/land.jsp">土地拍卖</a>
+                      </p>
+                      <span></span>
+                  </dl>
+              </div>
+          </li>
+          <li>
+              渠道 <i class="el-icon-caret-bottom caret"></i>
+              <div class="slideBox">
+                  <dl>
+                      <p>
+                          <a href="javascript:;">渠道公司</a>
+                      </p>
+                      <p>
+                          <a href="javascript:;">门店</a>
+                      </p>
+                      <span></span>
+                  </dl>
+              </div>
 
-            </li>
-            <li class="singleNav">客户</li>
-            <li>
-                交易中心
-                <i class="el-icon-caret-bottom caret"></i>
-                <div>
-                    <dl>
-                        <p>
-                            <a href="javascript:;">交易列表</a>
-                        </p>
-                        <p>
-                            <a href="javascript:;">申佣列表</a>
-                        </p>
-                        <span></span>
-                    </dl>
-                </div>
-            </li>
-            <li class="navActive">
-                财务中心
-                <i class="el-icon-caret-bottom caret"></i>
-                <div>
-                    <dl>
-                        <p id="financeCenter">
-                            <a href="http://reimbursement.ehaofang.com/ddExpenses/finance/html/financeCenter.jsp">报销</a>
-                        </p>
-                        <p>
-                            <a href="javascript:;">盈亏损益</a>
-                        </p>
-                        <span></span>
-                    </dl>
-                </div>
-            </li>
-            <li>
-                组织架构
-                <i class="el-icon-caret-bottom caret"></i>
-                <div>
-                    <dl>
-                        <p>
-                            <a href="javascript:;">员工中心</a>
-                        </p>
-                        <p>
-                            <a href="javascript:;">部门管理</a>
-                        </p>
-                        <span></span>
-                    </dl>
-                </div>
-            </li>
-            <li class="singleNav">数据中心</li>
+          </li>
+          <li class="singleNav">客户</li>
+          <li>
+              交易中心
+              <i class="el-icon-caret-bottom caret"></i>
+              <div class="slideBox">
+                  <dl>
+                      <p>
+                          <a href="javascript:;">交易列表</a>
+                      </p>
+                      <p>
+                          <a href="javascript:;">申佣列表</a>
+                      </p>
+                      <span></span>
+                  </dl>
+              </div>
+          </li>
+          <li class="navActive">
+              财务中心
+              <i class="el-icon-caret-bottom caret"></i>
+              <div class="slideBox">
+                  <dl>
+                      <p id="financeCenter">
+                          <a href="http://reimbursement.ehaofang.com/ddExpenses/finance/html/financeCenter.jsp">报销</a>
+                      </p>
+                      <p>
+                          <a href="javascript:;">盈亏损益</a>
+                      </p>
+                      <span></span>
+                  </dl>
+              </div>
+          </li>
+          <li>
+              组织架构
+              <i class="el-icon-caret-bottom caret"></i>
+              <div class="slideBox">
+                  <dl>
+                      <p>
+                          <a href="javascript:;">员工中心</a>
+                      </p>
+                      <p>
+                          <a href="javascript:;">部门管理</a>
+                      </p>
+                      <span></span>
+                  </dl>
+              </div>
+          </li>
+          <li class="singleNav">数据中心</li>
         </ul>
     </div>
 </div>
@@ -97,7 +97,29 @@
 <script>
 export default {
   name: "headWrap",
-  methods: {
+  mounted() {
+    // let nav = document.querySelector('.nav'),
+    //   liNodeList = nav.querySelectorAll('li');
+
+    // function remove(el,className){
+    //   el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+    // }
+
+    // Array.prototype.forEach.call(liNodeList, function(item){
+    //   item.addEventListener('mouseenter', function(){
+    //     let slideBox = this.querySelector('.slideBox');
+    //     if(slideBox) {
+    //       slideBox.className += ' ' + 'active';
+    //     }
+    //   }, false);
+
+    //   item.addEventListener('mouseleave', function(){
+    //     let slideBox = this.querySelector('.slideBox');
+    //     if(slideBox) {
+    //       remove(slideBox, 'active');
+    //     }
+    //   }, false);
+    // })
 
   }
 };
@@ -149,10 +171,15 @@ export default {
   float: left;
 }
 
-.nav .navActive {
+.nav li:hover,.nav .navActive {
   color: #fff;
   border-bottom: 2px solid #ed9127;
 }
+
+.nav li:hover .slideBox{
+  display: block;
+}
+
 .nav li div {
   display: none;
   position: absolute;
@@ -162,6 +189,7 @@ export default {
   padding-top: 8px;
   width: 152px;
 }
+
 .nav li div dl {
   width: 150px;
   line-height: 36px;
@@ -182,12 +210,20 @@ export default {
   color: #333;
 }
 
-.nav li div .navItemActive {
+.nav li div p:hover {
   background: #ed9127;
 }
-.nav li div .navItemActive a {
-  color: #fff;
+
+.nav li div p:hover a{
+   color: #fff;
 }
+
+.nav li div p a{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .prokf div span {
   border-style: dashed dashed solid dashed;
   border-color: transparent transparent #ffffff transparent;
@@ -237,5 +273,9 @@ export default {
 
 .caret{
   font-size: 12px;
+}
+
+a{
+  color: #666;
 }
 </style>

@@ -91,8 +91,8 @@ export default {
   },
   methods: {
     getfindAllData() {
-      // this.$http.post('/efangfin/financial/findAll.do',{
-      this.$http.post('https://easy-mock.com/mock/59ce1fb7c5c4302238f5706f/www.caiwuyingkui.com/efangfin/financial/findAll.do', {
+      this.$http.post('/efangfin/financial/findAll.do',{
+      // this.$http.post('https://easy-mock.com/mock/59ce1fb7c5c4302238f5706f/www.caiwuyingkui.com/efangfin/financial/findAll.do', {
         "xtype": "0",
         "xname": '',
         "xtime": this.timeval

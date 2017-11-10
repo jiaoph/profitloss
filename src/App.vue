@@ -28,7 +28,7 @@ export default {
 
 .content {
   width: 1200px;
-  margin: 0 auto;
+  margin: 64px auto 0;
   padding: 0 20px 40px 20px;
   background-color: #fff;
   .boxSizing();
